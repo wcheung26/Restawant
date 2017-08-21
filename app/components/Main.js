@@ -22,13 +22,17 @@ var Main = React.createClass({
 						</div>
 						<div id="navbar" className="navbar-collapse collapse">
 							<ul className="nav navbar-nav navbar-right">
-								<li><Link to="/"><i className="fa fa-cutlery" aria-hidden="true"></i> Restaurants</Link></li>
-								<li><Link to="/"><i className="fa fa-user" aria-hidden="true"></i> Influencers</Link></li>
+								<li><Link to="/restaurant"><i className="fa fa-cutlery" aria-hidden="true"></i> Restaurants</Link></li>
+								<li><Link to="/influencer"><i className="fa fa-user" aria-hidden="true"></i> Influencers</Link></li>
 							</ul>
 						</div>
 					</div>
 				</nav>
         <div className="container">
+					<Route exact path="/restaurant" render={(props) => (
+            <Restaurant {...props}
+            />
+          )} />
         </div>
       </div>
     );
