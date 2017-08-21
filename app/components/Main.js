@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { Route, Link } from "react-router-dom";
 
+import RestLogin from "./children/Restaurant/RestLogin";
+import RestSignup from "./children/Restaurant/RestSignup";
+
 class Main extends Component {
   // getInitialState() {
   // }
@@ -27,11 +30,17 @@ class Main extends Component {
 						</div>
 					</div>
 				</nav>
-        <div className="container">
-					<Route exact path="/restaurant" render={(props) => (
-            <Restaurant {...props}
-            />
-          )} />
+        <div className="container main">
+          <div className="row">
+  					<Route exact path="/restaurant" render={(props) => (
+              <RestLogin {...props}
+              />
+            )} />
+            <Route path="/restaurant/signup" render={(props) => (
+              <RestSignup {...props}
+              />
+            )} />
+          </div>
         </div>
       </div>
     );
