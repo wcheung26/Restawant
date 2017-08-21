@@ -1,12 +1,11 @@
-var React = require("react");
-var router = require("react-router-dom");
-var Link = router.Link;
-var Route = router.Route;
+import React, { Component } from "react";
+import { Route, Link } from "react-router-dom";
 
-var Main = React.createClass({
-  // getInitialState: function() {
-  // },
-  render: function() {
+class Main extends Component {
+  // getInitialState() {
+  // }
+
+  render() {
     return (
       <div>
         <nav className="navbar navbar-default navbar-fixed-top">
@@ -33,6 +32,6 @@ var Main = React.createClass({
       </div>
     );
   }
-});
+}
 
-module.exports = Main;
+export default Main;
