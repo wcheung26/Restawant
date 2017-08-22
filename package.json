@@ -25,10 +25,14 @@
     "webpack": "^3.5.4"
   },
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.17.2",
     "express": "^4.15.4",
+    "express-session": "^1.15.5",
     "morgan": "^1.8.2",
     "mysql2": "^1.4.1",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-router": "^4.1.2",

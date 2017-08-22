@@ -2,6 +2,8 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
 var path = require('path');
+var passport = require('passport');
+var session = require('express-session');
 
 var app = express();
 var PORT = process.env.PORT || 8080;
@@ -13,7 +15,17 @@ app.use(logger("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(session({
+  secret: 'keyboard cat',
+  resave: true,
+  saveUninitialized:true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(require('./controllers/routes'));
+require('./controllers/auth_controller')(app, passport);
+require('./config/passport/passport.js')(passport);
 
 // Sync models then start the server to begin listening
 db.sequelize.sync().then(function() {
