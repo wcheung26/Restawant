@@ -19,6 +19,7 @@ module.exports = function(sequelize, DataTypes) {
     Discount.associate = function(models) {
       Discount.belongsTo(models.promotion, {
         foreignKey: {
+          name: "promotionId",
           allowNull: false
         }
       }); 
@@ -27,6 +28,7 @@ module.exports = function(sequelize, DataTypes) {
     Discount.associate = function(models) {
       Discount.belongsTo(models.influencer, {
         foreignKey: {
+          name: "influencerId",
           allowNull: false
         }
       }); 
