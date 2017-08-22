@@ -32,15 +32,11 @@ module.exports = function(sequelize, DataTypes) {
     }
   });
   
-  Influencer.associate = function(models) {
-    Influencer.belongsToMany(models.restaurant, {through: "RestaurantInfluencer"});
-  };
-
-  Influencer.associate = function(models) {
-    Influencer.hasMany(models.discount, {
-      onDelete: "CASCADE"
-    });
-  };
+  Influencers.associate = function(models) {
+    Influencers.hasMany(models.Discounts, {
+      onDelete: "cascade"
+    })
+  }; 
 
   return Influencer;
 };
