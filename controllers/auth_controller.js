@@ -13,12 +13,12 @@ module.exports = function(app, passport) {
   }));
 
   app.post('/restaurant/login', passport.authenticate('restaurant-login', {
-    successRedirect : '/',
+    successRedirect : '/restaurant/dashboard',
     failureRedirect : '/restaurant'
   }));
 
   app.post('/restaurant/signup', passport.authenticate('restaurant-signup', {
-    successRedirect : '/',
+    successRedirect : '/restaurant/dashboard',
     failureRedirect : '/restaurant/signup'
   }));
 }

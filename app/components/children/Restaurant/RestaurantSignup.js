@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
-class RestSignup extends Component {
+class RestaurantSignup extends Component {
   constructor(props) {
     super(props);
   }
@@ -36,7 +36,7 @@ class RestSignup extends Component {
             <button type="submit" className="btn btn-default">Submit</button>
           </form>
           <div className="extra-action">
-            <p>ALREADY A MEMBER? <Link to="/restaurant">LOGIN</Link></p>
+            <p>ALREADY A MEMBER? <Link to="/restaurant/login">LOGIN</Link></p>
           </div> 
         </div>
         <div className="col-md-3"></div>
@@ -45,4 +45,4 @@ class RestSignup extends Component {
   }
 }
 
-export default RestSignup;
+export default RestaurantSignup;

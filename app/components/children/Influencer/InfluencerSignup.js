@@ -56,7 +56,7 @@ class InfSignup extends Component {
             <button type="submit" className="btn btn-default">Submit</button>
           </form>
           <div className="extra-action">
-            <p>ALREADY A MEMBER? <Link to="/influencer">LOGIN</Link></p>
+            <p>ALREADY A MEMBER? <Link to="/influencer/login">LOGIN</Link></p>
           </div> 
         </div>
         <div className="col-md-3"></div>

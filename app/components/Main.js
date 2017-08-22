@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { Route, Link } from "react-router-dom";
 
-import RestLogin from "./children/Restaurant/RestLogin";
-import RestSignup from "./children/Restaurant/RestSignup";
-import InfLogin from "./children/Influencer/InfLogin";
-import InfSignup from "./children/Influencer/InfSignup";
+import RestaurantLogin from "./children/Restaurant/RestaurantLogin";
+import RestaurantSignup from "./children/Restaurant/RestaurantSignup";
+import RestaurantDashboard from "./children/Restaurant/RestaurantDashboard";
+import InfluencerLogin from "./children/Influencer/InfluencerLogin";
+import InfluencerSignup from "./children/Influencer/InfluencerSignup";
 import AdminLogin from "./children/Admin/AdminLogin";
 
 class Main extends Component {
@@ -30,28 +31,32 @@ class Main extends Component {
 						</div>
 						<div id="navbar" className="navbar-collapse collapse">
 							<ul className="nav navbar-nav navbar-right">
-								<li><Link to="/restaurant"><i className="fa fa-cutlery" aria-hidden="true"></i> Restaurants</Link></li>
-								<li><Link to="/influencer"><i className="fa fa-user" aria-hidden="true"></i> Influencers</Link></li>
+								<li><Link to="/restaurant/login"><i className="fa fa-cutlery" aria-hidden="true"></i> Restaurants</Link></li>
+								<li><Link to="/influencer/login"><i className="fa fa-user" aria-hidden="true"></i> Influencers</Link></li>
 							</ul>
 						</div>
 					</div>
 				</nav>
         <div className="container main">
           <div className="row">
-  					<Route exact path="/restaurant" render={(props) => (
-              <RestLogin {...props}
+  					<Route exact path="/restaurant/login" render={(props) => (
+              <RestaurantLogin {...props}
               />
             )} />
             <Route path="/restaurant/signup" render={(props) => (
-              <RestSignup {...props}
+              <RestaurantSignup {...props}
               />
             )} />
-						<Route exact path="/influencer" render={(props) => (
-              <InfLogin {...props}
+            <Route path="/restaurant/dashboard" render={(props) => (
+              <RestaurantDashboard {...props}
+              />
+            )} />
+						<Route exact path="/influencer/login" render={(props) => (
+              <InfluencerLogin {...props}
               />
             )} />
 						<Route exact path="/influencer/signup" render={(props) => (
-              <InfSignup {...props}
+              <InfluencerSignup {...props}
               />
             )} />
 						<Route exact path="/admin" render={(props) => (
