@@ -4,8 +4,6 @@ import { Link } from "react-router-dom";
 class RestSignup extends Component {
   constructor(props) {
     super(props);
-    // this.state = {
-    // };
   }
   
   render() {
@@ -14,26 +12,26 @@ class RestSignup extends Component {
         <div className="col-md-3"></div>
         <div className="col-md-6">
           <h3>Restaurant Signup</h3>
-          <form>
+          <form method="POST" action="/restaurant/signup">
             <div className="form-group">
               <label htmlFor="name">Restaurant Name</label>
-              <input type="text" className="form-control" id="name" placeholder="Name" />
+              <input type="text" className="form-control" name="name" placeholder="Name" required />
             </div>
             <div className="form-group">
               <label htmlFor="yelpId">Yelp Business ID</label>
-              <input type="number" className="form-control" id="yelpId" placeholder="Yelp Business ID" />
+              <input type="number" className="form-control" name="yelpId" placeholder="Yelp Business ID" required />
             </div>
             <div className="form-group">
               <label htmlFor="url">Link to Image of Seller's Permit</label>
-              <input type="url" className="form-control" id="url" placeholder="Image URL" />
+              <input type="url" className="form-control" name="url" placeholder="Image URL" required />
             </div>
             <div className="form-group">
               <label htmlFor="email">Email Address</label>
-              <input type="email" className="form-control" id="email" placeholder="Email" />
+              <input type="email" className="form-control" name="email" placeholder="Email" required />
             </div>
             <div className="form-group">
               <label htmlFor="password">Password</label>
-              <input type="password" className="form-control" id="password" placeholder="Password" />
+              <input type="password" className="form-control" name="password" placeholder="Password" required />
             </div>
             <button type="submit" className="btn btn-default">Submit</button>
           </form>

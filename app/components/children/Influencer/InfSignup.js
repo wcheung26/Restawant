@@ -4,32 +4,54 @@ import { Link } from "react-router-dom";
 class InfSignup extends Component {
   constructor(props) {
     super(props);
-    // this.state = {
-    // };
   }
-  
+
   render() {
     return (
       <div>
         <div className="col-md-3"></div>
         <div className="col-md-6">
           <h3>Influencer Signup</h3>
-          <form>
-            <div className="form-group">
+          <form method="POST" action="/influencer/signup">
+            <div className="form-group" >
               <label htmlFor="firstName">First Name</label>
-              <input type="text" className="form-control" id="firstName" placeholder="First Name" />
+              <input className="form-control"
+                type="text"
+                name="firstName"
+                placeholder="First Name"
+                onChange={this.handleChange}
+                required
+              />
             </div>
             <div className="form-group">
               <label htmlFor="lastName">Last Name</label>
-              <input type="text" className="form-control" id="lastName" placeholder="Last Name" />
+              <input className="form-control"
+                type="text"
+                name="lastName"
+                placeholder="Last Name"
+                onChange={this.handleChange}
+                required
+              />
             </div>
             <div className="form-group">
               <label htmlFor="email">Email Address</label>
-              <input type="email" className="form-control" id="email" placeholder="Email" />
+              <input className="form-control"
+                type="email"
+                name="email"
+                placeholder="Email"
+                onChange={this.handleChange}
+                required
+              />
             </div>
             <div className="form-group">
               <label htmlFor="password">Password</label>
-              <input type="password" className="form-control" id="password" placeholder="Password" />
+              <input className="form-control"
+                type="password"
+                name="password"
+                placeholder="Password"
+                onChange={this.handleChange}
+                required
+              />
             </div>
             <button type="submit" className="btn btn-default">Submit</button>
           </form>

@@ -1,34 +1,46 @@
 module.exports = function(sequelize, DataTypes) {
-  var Influencers = sequelize.define("Influencers", {
-    name: {
+  
+  var Influencer = sequelize.define("influencer", {
+    firstName: {
       type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        len: [1]
-      }
+      allowNull: false
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      allowNull: false
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [1]
+        isEmail: true
       }
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        len: [6]
+      allowNull: false
+    },
+    isRestaurant: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    }
+  }, {
+    getterMethods: {
+      isRestaurant: function() {
+        return this.getDataValue('isRestaurant');
       }
     }
- 
   });
+  
+  Influencer.associate = function(models) {
+    Influencer.belongsToMany(models.restaurant, {through: "RestaurantInfluencer"});
+  };
 
-  Influencers.associate = function(models) {
-    Influencers.hasMany(models.Discounts, {
-      onDelete: "cascade"
-    })
-  }; 
+  Influencer.associate = function(models) {
+    Influencer.hasMany(models.discount, {
+      onDelete: "CASCADE"
+    });
+  };
 
-  return Influencers;
+  return Influencer;
 };
