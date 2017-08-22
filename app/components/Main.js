@@ -3,6 +3,9 @@ import { Route, Link } from "react-router-dom";
 
 import RestLogin from "./children/Restaurant/RestLogin";
 import RestSignup from "./children/Restaurant/RestSignup";
+import InfLogin from "./children/Influencer/InfLogin";
+import InfSignup from "./children/Influencer/InfSignup";
+import AdminLogin from "./children/Admin/AdminLogin";
 
 class Main extends Component {
   // getInitialState() {
@@ -38,6 +41,18 @@ class Main extends Component {
             )} />
             <Route path="/restaurant/signup" render={(props) => (
               <RestSignup {...props}
+              />
+            )} />
+						<Route exact path="/influencer" render={(props) => (
+              <InfLogin {...props}
+              />
+            )} />
+						<Route exact path="/influencer/signup" render={(props) => (
+              <InfSignup {...props}
+              />
+            )} />
+						<Route exact path="/admin" render={(props) => (
+              <AdminLogin {...props}
               />
             )} />
           </div>

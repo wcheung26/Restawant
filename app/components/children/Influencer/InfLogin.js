@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
-class RestLogin extends Component {
+class InfLogin extends Component {
   // getInitialState() {
 
   // }
@@ -10,7 +10,7 @@ class RestLogin extends Component {
       <div>
         <div className="col-md-3"></div>
         <div className="col-md-6">
-          <h3>Restaurant Login</h3>
+          <h3>Influencer Login</h3>
           <form>
             <div className="form-group">
               <label htmlFor="email">Email Address</label>
@@ -23,7 +23,7 @@ class RestLogin extends Component {
             <button type="submit" className="btn btn-default">Submit</button>
           </form>
           <div className="extra-action">
-            <p>NOT A MEMBER? <Link to="/restaurant/signup">SIGN UP</Link></p>
+            <p>NOT A MEMBER? <Link to="/influencer/signup">SIGN UP</Link></p>
           </div>
         </div>
         <div className="col-md-3"></div>
@@ -32,4 +32,4 @@ class RestLogin extends Component {
   }
 }
 
-export default RestLogin;
+export default InfLogin;
