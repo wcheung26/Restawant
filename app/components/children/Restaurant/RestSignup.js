@@ -17,8 +17,12 @@ class RestSignup extends Component {
               <input type="text" className="form-control" id="name" placeholder="Name" />
             </div>
             <div className="form-group">
-              <label htmlFor="url">Yelp URL</label>
-              <input type="url" className="form-control" id="url" placeholder="Yelp URL" />
+              <label htmlFor="yelpId">Yelp Business ID</label>
+              <input type="number" className="form-control" id="yelpId" placeholder="Yelp Business ID" />
+            </div>
+            <div className="form-group">
+              <label htmlFor="url">Link to Image of Seller's Permit</label>
+              <input type="url" className="form-control" id="url" placeholder="Image URL" />
             </div>
             <div className="form-group">
               <label htmlFor="email">Email Address</label>
@@ -30,10 +34,10 @@ class RestSignup extends Component {
             </div>
             <button type="submit" className="btn btn-default">Submit</button>
           </form>
+          <div className="extra-action">
+            <p>ALREADY A MEMBER? <Link to="/restaurant">LOGIN</Link></p>
+          </div> 
         </div>
-        <div>
-          <p>ALREADY A MEMBER? <Link to="/restaurant">LOGIN</Link></p>
-        </div> 
         <div className="col-md-3"></div>
       </div>
     );
