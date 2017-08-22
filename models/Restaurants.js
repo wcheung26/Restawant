@@ -39,17 +39,11 @@ module.exports = function(sequelize, DataTypes) {
     }
   });
 
-  Restaurant.associate = function(models) {
-    Restaurant.hasMany(models.influencer, {
-      onDelete: "CASCADE"
-    });
-  };
-
-  Restaurant.associate = function(models) {
-    Restaurant.hasMany(models.discount, {
-      onDelete: "CASCADE"
-    });
-  };
+  Restaurants.associate = function(models) {
+    Restaurants.hasMany(models.Discounts, {
+      onDelete: "cascade"
+    })
+  }; 
 
   return Restaurant;
 };

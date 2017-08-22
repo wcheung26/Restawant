@@ -1,41 +1,60 @@
 module.exports = function(sequelize, DataTypes) {
-
-  var Discount = sequelize.define("discount", {
-    offer: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    discountUrl: {
+  var Discounts = sequelize.define("Discounts", {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        isUrl: true
+        len: [1]
       }
     },
-    expiration: {
-      type: DataTypes.DATEONLY,
+
+    discount: {
+      type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        isDate: true
+        len: [1]
+      }
+    },
+
+    clicks: {
+      type: DataTypes.INTEGER, 
+      allowNull: false, 
+      defaultValue: 0
+    }, 
+    
+    expiration: { 
+      type: DataTypes.DATEONLY, 
+      allowNull: false, 
+      validate: { 
+        isDate: true     
+      }
+    },
+
+    url: { 
+      type: DataTypes.STRING, 
+      allowNull: false, 
+      validate: { 
+        isUrl: true     
       }
     }
+ 
   });
 
-  Discount.associate = function(models) {
-    Discount.belongsTo(models.restaurant, {
-      foreignKey: {
-        name: "restaurantId",
-        allowNull: false
-      }
-    });
-    
-    Discount.belongsTo(models.influencer, {
-      foreignKey: {
-        name: "influencerId",
-        allowNull: false
-      }
-    });
-  };
+    Discounts.associate = function(models) {
+      Discounts.belongsTo(models.Restaurants, {
+        foreignKey: {
+          allowNull: false
+        }
+      }); 
+    }
 
-  return Discount;
+    Discounts.associate = function(models) {
+      Discounts.belongsTo(models.Influencers, {
+        foreignKey: {
+          allowNull: false
+        }
+      }); 
+    }
+
+  return Discounts;
 };
