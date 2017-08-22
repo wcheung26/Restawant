@@ -1,11 +1,11 @@
 module.exports = function(sequelize, DataTypes) {
   
-  var Influencer = sequelize.define("influencer", {
-    firstName: {
+  var Restaurant = sequelize.define("restaurant", {
+    name: {
       type: DataTypes.STRING,
       allowNull: false
-    },
-    lastName: {
+    }, 
+    yelpId: {
       type: DataTypes.STRING,
       allowNull: false
     },
@@ -20,9 +20,16 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false
     },
+    verificationUrl: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        isUrl: true
+      }
+    },
     isRestaurant: {
       type: DataTypes.BOOLEAN,
-      defaultValue: false
+      defaultValue: true
     }
   }, {
     getterMethods: {
@@ -31,12 +38,12 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   });
-  
-  Influencers.associate = function(models) {
-    Influencers.hasMany(models.Discounts, {
-      onDelete: "cascade"
+
+  Restaurant.associate = function(models) {
+    Restaurant.hasMany(models.discount, {
+      onDelete: "CASCADE"
     })
   }; 
 
-  return Influencer;
+  return Restaurant;
 };
