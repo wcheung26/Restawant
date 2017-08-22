@@ -32,8 +32,8 @@ module.exports = function(sequelize, DataTypes) {
     }
   });
   
-  Influencers.associate = function(models) {
-    Influencers.hasMany(models.Discounts, {
+  Influencer.associate = function(models) {
+    Influencer.hasMany(models.discount, {
       onDelete: "cascade"
     })
   }; 

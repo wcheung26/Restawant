@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-  var Discounts = sequelize.define("Discounts", {
+  var Discount = sequelize.define("discount", {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -40,21 +40,21 @@ module.exports = function(sequelize, DataTypes) {
  
   });
 
-    Discounts.associate = function(models) {
-      Discounts.belongsTo(models.Restaurants, {
+    Discount.associate = function(models) {
+      Discount.belongsTo(models.restaurant, {
         foreignKey: {
           allowNull: false
         }
       }); 
     }
 
-    Discounts.associate = function(models) {
-      Discounts.belongsTo(models.Influencers, {
+    Discount.associate = function(models) {
+      Discount.belongsTo(models.influencer, {
         foreignKey: {
           allowNull: false
         }
       }); 
     }
 
-  return Discounts;
+  return Discount;
 };

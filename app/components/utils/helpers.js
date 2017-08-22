@@ -17,7 +17,7 @@ var helpers = {
 			    	image: results.data.snippet_image_url, 
 			    	name: results.data.name,
 			    	email: email,  
-			    	password: passowrd
+			    	password: password
 				}).done(function(data) {
 					console.log("restaurant posted")
 				})
