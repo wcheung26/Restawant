@@ -27,6 +27,10 @@ module.exports = function(sequelize, DataTypes) {
         isUrl: true
       }
     },
+    isVerified: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
     isRestaurant: {
       type: DataTypes.BOOLEAN,
       defaultValue: true
@@ -40,8 +44,8 @@ module.exports = function(sequelize, DataTypes) {
   });
 
   Restaurant.associate = function(models) {
-    Restaurant.hasMany(models.discount, {
-      onDelete: "CASCADE"
+    Restaurant.hasOne(models.promotion, {
+      onDelete: "cascade"
     })
   }; 
 

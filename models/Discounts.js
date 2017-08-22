@@ -1,32 +1,11 @@
 module.exports = function(sequelize, DataTypes) {
-
   var Discount = sequelize.define("discount", {
-    // name: {
-    //   type: DataTypes.STRING,
-    //   allowNull: false,
-    //   validate: {
-    //     len: [1]
-    //   }
-    // },
-    promo: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        len: [1]
-      }
-    },
     clicks: {
       type: DataTypes.INTEGER, 
       allowNull: false, 
       defaultValue: 0
     }, 
-    expiration: { 
-      type: DataTypes.DATEONLY, 
-      allowNull: false, 
-      validate: { 
-        isDate: true     
-      }
-    },
+
     url: { 
       type: DataTypes.STRING, 
       allowNull: false, 
@@ -38,9 +17,8 @@ module.exports = function(sequelize, DataTypes) {
   });
 
     Discount.associate = function(models) {
-      Discount.belongsTo(models.restaurant, {
+      Discount.belongsTo(models.promotion, {
         foreignKey: {
-          name: "restaurantId",
           allowNull: false
         }
       }); 
@@ -49,7 +27,6 @@ module.exports = function(sequelize, DataTypes) {
     Discount.associate = function(models) {
       Discount.belongsTo(models.influencer, {
         foreignKey: {
-          name: "influencerId",
           allowNull: false
         }
       }); 
