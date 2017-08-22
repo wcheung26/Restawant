@@ -7,8 +7,7 @@ module.exports = function(sequelize, DataTypes) {
         len: [1]
       }
     },
-
-    discount: {
+    offer: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
@@ -21,6 +20,13 @@ module.exports = function(sequelize, DataTypes) {
       validate: { 
         isDate: true     
       }
+    },
+    reward: {
+      type: DataTypes.FLOAT,
+      allowNull: false,
+      validate: {
+        isFloat: true
+      }
     }
  
   });
@@ -28,6 +34,7 @@ module.exports = function(sequelize, DataTypes) {
     Promotion.associate = function(models) {
       Promotion.belongsTo(models.restaurant, {
         foreignKey: {
+          name: "restaurantId",
           allowNull: false
         }
       }); 
@@ -35,7 +42,7 @@ module.exports = function(sequelize, DataTypes) {
 
     Promotion.associate = function(models) {
       Promotion.hasMany(models.discount, {
-        onDelete: "cascade"
+        onDelete: "CASCADE"
       })
     }; 
 
