@@ -8,9 +8,12 @@ import InfSignup from "./children/Influencer/InfSignup";
 import AdminLogin from "./children/Admin/AdminLogin";
 
 class Main extends Component {
-  // getInitialState() {
-  // }
-
+  constructor(props) {
+    super(props);
+    // this.state = {
+    // };
+  }
+  
   render() {
     return (
       <div>
