@@ -42,15 +42,25 @@ router.get("/api/restaurant/:rid/history", function(req, res) {
     }
   });
 
-// restaurants posting new discounts
+// restaurants posting new promo
+router.post("/api/promo/:rid", function(req, res) {
+	db.Promotion.create({
+	   name: req.body.name,
+	   discount: req.body.discount,
+	   expiration: req.body.expiration, 
+	   RestaurantId: req.params.rid
+	}).then(function(results) {
+		res.redirect('/restaurants')
+	})
+})
+
+
+
 router.post("/api/qr/:rid/:iid", function(req, res) {
 	db.Discounts.create({
-		name: req.body.name,
-	    discount: req.body.discount,
-	    expiration: req.body.expiration, 
 	    url: `http://qrickit.com/api/qr.php?d=http://localhost3000/api/click/${req.params.rid}/${req.params.iid}`,
-	    RestaurantsId: req.params.rid, 
-	    InfluencersId: req.params.iid
+	    RestaurantId: req.params.rid, 
+	    InfluencerId: req.params.iid
 	}).then(function(results) {
 		res.redirect('/restaurants')
 	})

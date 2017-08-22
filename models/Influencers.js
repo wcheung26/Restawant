@@ -34,7 +34,7 @@ module.exports = function(sequelize, DataTypes) {
   
   Influencer.associate = function(models) {
     Influencer.hasMany(models.discount, {
-      onDelete: "CASCADE"
+      onDelete: "cascade"
     })
   }; 
 
