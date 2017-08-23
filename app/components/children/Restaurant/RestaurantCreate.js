@@ -1,11 +1,14 @@
 import React from "react";
 
+import helpers from "../../utils/helpers";
+
 class RestaurantCreate extends React.Component {
 
 	constructor(props) {
 		super(props);
 
 		this.state = {
+			form_promo_name: "",
 			form_promo: "",
 			form_expiration: "",
 			form_reward: ""
@@ -24,9 +27,21 @@ class RestaurantCreate extends React.Component {
 	handleSubmit(event) {
 		event.preventDefault();
 		// Save to Database if Valid
+		console.log("Promo Name: ", this.state.form_promo_name);
 		console.log("Promo Code: ", this.state.form_promo);
 		console.log("Expiration: ", this.state.form_expiration);
 		console.log("Reward: ", this.state.form_reward);
+
+		let newPromo = {
+			name: this.state.form_promo_name,
+			offer: this.state.form_promo,
+			expiration: this.state.form_expiration,
+			reward: this.state.form_reward
+		}
+
+		helpers.createRestaurantPromo(newPromo).then(function() {
+			console.log("Promo code successfuly created!");
+		});
 	}
 
 	render () {
@@ -36,10 +51,22 @@ class RestaurantCreate extends React.Component {
 				<div className="panel-body">
 					<form>
 						<div className="input-group">
+							<span className="input-group-addon" id="certificate-icon"><i className="fa fa-certificate" aria-hidden="true"></i></span>
+							<input
+								type="text" 
+								value={this.state.form_promo_name}
+								className="form-control"
+								id="form_promo_name" 
+								placeholder="Promotion Name" 
+								onChange={this.handleChange}
+								required 
+							/>	
+						</div>
+						<div className="input-group">
 							<span className="input-group-addon" id="gift-icon"><i className="fa fa-gift" aria-hidden="true"></i></span>
 							<input
 								type="text" 
-								value={this.state.promo}
+								value={this.state.form_promo}
 								className="form-control"
 								id="form_promo" 
 								placeholder="Promotion" 
@@ -51,7 +78,7 @@ class RestaurantCreate extends React.Component {
 							<span className="input-group-addon" id="calendar-icon"><i className="fa fa-calendar" aria-hidden="true"></i></span>
 							<input
 								type="date" 
-								value={this.state.expiration}
+								value={this.state.form_expiration}
 								className="form-control" 
 								id="form_expiration"
 								placeholder="Expiration Date" 
@@ -60,10 +87,10 @@ class RestaurantCreate extends React.Component {
 							/>
 						</div>
 						<div className="input-group">
-							<span className="input-group-addon" id="money-icon"><i className="fa fa-money" aria-hidden="true"></i></span>
+							<span className="input-group-addon" id="usd-icon"><i className="fa fa-usd" aria-hidden="true"></i></span>
 							<input
 								type="text" 
-								value={this.state.reward}
+								value={this.state.form_reward}
 								className="form-control" 
 								id="form_reward"
 								placeholder="Reward Per Scan" 
