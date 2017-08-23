@@ -6,6 +6,7 @@ import RestaurantSignup from "./children/Restaurant/RestaurantSignup";
 import RestaurantDashboard from "./children/Restaurant/RestaurantDashboard";
 import InfluencerLogin from "./children/Influencer/InfluencerLogin";
 import InfluencerSignup from "./children/Influencer/InfluencerSignup";
+import InfluencerDashboard from "./children/Influencer/InfluencerDashboard";
 import AdminLogin from "./children/Admin/AdminLogin";
 
 class Main extends Component {
@@ -57,6 +58,10 @@ class Main extends Component {
             )} />
 						<Route exact path="/influencer/signup" render={(props) => (
               <InfluencerSignup {...props}
+              />
+            )} />
+            <Route path="/influencer/dashboard" render={(props) => (
+              <InfluencerDashboard {...props}
               />
             )} />
 						<Route exact path="/admin" render={(props) => (

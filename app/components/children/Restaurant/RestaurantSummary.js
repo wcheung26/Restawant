@@ -1,12 +1,12 @@
-var React = require("react");
-var helpers = require("../../utils/helpers");
+import React from "react";
+import helpers from "../../utils/helpers";
 
-var BizSummary = React.createClass({
+class BizSummary extends Component {
   // getInitialState: function() {
 
   // },
 
-  componentDidMount: function() {
+  componentDidMount() {
     // Get the latest figures.
     helpers.getBizHistory().then(function(response) {
       console.log(response);
@@ -15,9 +15,9 @@ var BizSummary = React.createClass({
         this.setState({ history: response.data });
       }
     }.bind(this));
-  },
+  };
 
-  render: function() {
+  render() {
     return (
     	<div>
     		<h3>Summary</h3>
@@ -31,7 +31,7 @@ var BizSummary = React.createClass({
 	    	</table>
 	    </div>
     );
-  }
-});
+  };
+};
 
-module.exports = BizSummary;
+export default BizSummary;
