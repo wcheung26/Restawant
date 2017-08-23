@@ -6,14 +6,38 @@ import RestaurantSignup from "./children/Restaurant/RestaurantSignup";
 import RestaurantDashboard from "./children/Restaurant/RestaurantDashboard";
 import InfluencerLogin from "./children/Influencer/InfluencerLogin";
 import InfluencerSignup from "./children/Influencer/InfluencerSignup";
+import InfluencerDashboard from "./children/Influencer/InfluencerDashboard";
 import AdminLogin from "./children/Admin/AdminLogin";
+
+import helpers from "./utils/helpers";
 
 class Main extends Component {
   constructor(props) {
     super(props);
-    // this.state = {
-    // };
+
+		this.state = {
+      restaurantAuth: null,
+      influencerAuth: null,
+      restaurantData: null,
+      influencerData: null
+		}
   }
+
+  componentDidMount() {
+		helpers.checkRestaurantAuth().then(response => {
+			if (response.data.id !== undefined) {
+        this.setState({ restaurantAuth: true });
+        this.setState({ restaurantData: response.data });
+			}
+    });
+
+    helpers.checkInfluencerAuth().then(response => {
+			if (response.data.id !== undefined) {
+        this.setState({ influencerAuth: true });
+        this.setState({ influencerData: response.data });
+			}
+		});
+	}
   
   render() {
     return (
@@ -47,10 +71,12 @@ class Main extends Component {
               <RestaurantSignup {...props}
               />
             )} />
-            <Route path="/restaurant/dashboard" render={(props) => (
+            { 
+              this.state.restaurantAuth ? <Route path="/restaurant/dashboard" render={(props) => (
               <RestaurantDashboard {...props}
-              />
-            )} />
+                restaurantData={this.state.restaurantData} 
+              /> )} /> : null
+            }
 						<Route exact path="/influencer/login" render={(props) => (
               <InfluencerLogin {...props}
               />
@@ -59,6 +85,12 @@ class Main extends Component {
               <InfluencerSignup {...props}
               />
             )} />
+            { 
+              this.state.influencerAuth ? <Route path="/influencer/dashboard" render={(props) => (
+              <InfluencerDashboard {...props}
+                influencerData={this.state.influencerData}
+              /> )} /> : null
+            }
 						<Route exact path="/admin" render={(props) => (
               <AdminLogin {...props}
               />

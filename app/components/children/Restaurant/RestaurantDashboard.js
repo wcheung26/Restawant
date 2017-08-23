@@ -10,8 +10,17 @@ import RestaurantExisting from "./RestaurantExisting";
 class Home extends React.Component {
 	constructor(props) {
 		super(props);
+
+		this.state = {
+      restaurantData: null
+		}
 	}
 
+	componentWillReceiveProps(nextProps) {
+		console.log(nextProps.restaurantData);
+		this.setState({ restaurantData: nextProps.restaurantData });
+	}
+	
 	render() {
 		return (
 			<div className="container">

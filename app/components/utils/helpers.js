@@ -6,7 +6,17 @@ var helpers = {
 
   createRestaurantPromo: function(promo) {
   	return axios.post("/api/restaurant/promo");
-  }
+  },
+  checkRestaurantAuth: function() {
+		return axios.get('/auth/restaurant');
+	},
+	checkInfluencerAuth: function() {
+		return axios.get('/auth/influencer');
+	},
+  // This function hits our own server to retrieve the record of query results
+  getInflHistory: function(iid) {
+    return axios.get(`/api/${iid}/history`);
+  },
 
  //  // This function hits our own server to retrieve the record of query results
  //  getInflHistory: function(iid) {
