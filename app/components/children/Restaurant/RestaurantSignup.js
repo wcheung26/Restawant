@@ -5,7 +5,20 @@ class RestaurantSignup extends Component {
   constructor(props) {
     super(props);
   }
-  
+
+  // yelpBusiness() {
+  //   // Get the business information from yelp.
+  //   helpers.yelpQuery().then(function(response) {
+  //     console.log("Yelp Query:", response);
+  //     if (response !== this.state.history) {
+  //       console.log("Yelp Data:", response.data);
+  //       this.setState({ yelpData: response.data });
+  //     }
+  //   }.bind(this));
+  // }
+
+
+
   render() {
     return (
       <div>

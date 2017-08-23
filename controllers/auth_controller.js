@@ -33,15 +33,17 @@ module.exports = function(app, passport) {
 
 // route middleware to make sure a user is logged in
 function restaurantLoggedIn(req, res, next) {
-  if (req.isAuthenticated() && req.user.isRestaurant === true)
+  if (req.isAuthenticated() && req.user.isRestaurant === true) {
     return next();
+  }
 
   res.redirect('/');
 }
 
 function influencerLoggedIn(req, res, next) {
-  if (req.isAuthenticated() && req.user.isRestaurant === false)
+  if (req.isAuthenticated() && req.user.isRestaurant === false) {
     return next();
+  }
 
   res.redirect('/');
 }

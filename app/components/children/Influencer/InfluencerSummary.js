@@ -2,9 +2,12 @@ import React from "react";
 import helpers from "../../utils/helpers";
 
 class InfluencerSummary extends React.Component {
-  // getInitialState: function() {
-
-  // },
+  constructor(props) {
+    super(props);
+    this.state = {
+      history: ""
+    }
+  }
 
   componentDidMount() {
     // Get the latest figures.

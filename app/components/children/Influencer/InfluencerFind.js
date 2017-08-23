@@ -38,7 +38,7 @@ class InfluencerFind extends React.Component {
 								value={this.state.searchCity}
 								className="form-control"
 								id="searchCity" 
-								placeholder="Promotion" 
+								placeholder="City" 
 								onChange={this.handleChange}
 								required 
 							/>
