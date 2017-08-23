@@ -1,21 +1,26 @@
 import React from "react";
+
 import helpers from "../../utils/helpers";
 
-class BizSummary extends Component {
-  // getInitialState: function() {
+class RestaurantSummary extends Component {
 
-  // },
+  constructor(props) {
+    super(props);
 
-  componentDidMount() {
+    this.state = {
+      history: 
+    }
+  }
+  // componentDidMount() {
     // Get the latest figures.
-    helpers.getBizHistory().then(function(response) {
-      console.log(response);
-      if (response !== this.state.history) {
-        console.log("History", response.data);
-        this.setState({ history: response.data });
-      }
-    }.bind(this));
-  };
+    // helpers.getRestaurantHistory().then(response => {
+    //   console.log(response);
+    //   if (response !== this.state.history) {
+    //     console.log("History", response.data);
+    //     this.setState({ history: response.data });
+    //   }
+    // }
+  // };
 
   render() {
     return (
@@ -34,4 +39,4 @@ class BizSummary extends Component {
   };
 };
 
-export default BizSummary;
+export default RestaurantSummary;

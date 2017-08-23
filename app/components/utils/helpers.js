@@ -4,19 +4,44 @@ var axios = require('axios');
 // Helper Functions
 var helpers = {
 
-  createRestaurantPromo: function(promo) {
-  	return axios.post("/api/restaurant/promo");
-  },
-  checkRestaurantAuth: function() {
+	checkRestaurantAuth: function() {
 		return axios.get('/auth/restaurant');
 	},
+
 	checkInfluencerAuth: function() {
 		return axios.get('/auth/influencer');
 	},
+
+	createRestaurantPromo: function(promo) {
+		console.log("Promo: ", promo);
+		// return axios.post("/api/restaurant/promotions", promo);
+		$.post("/api/restaurant/promotions", promo)
+		.done(function(data) {
+			console.log("Promo code successfuly created!");
+		});
+	},
+
+	getExistingInfluencers: function() {
+		return axios.get("/api/restaurant/influencers/existing");
+	},
+
+	findInfluencers: function() {
+		return axios.get("/api/restaurant/influencers/all")
+	},
+
+	getRestaurantHistory: function() {
+		return axios.get("/api/restaurant/history");
+	}
+
   // This function hits our own server to retrieve the record of query results
-  getInflHistory: function(iid) {
-    return axios.get(`/api/${iid}/history`);
-  },
+  // getInflHistory: function(iid) {
+  //   return axios.get(`/api/${iid}/history`);
+  // },
+
+ //  // This function hits our own server to retrieve the record of query results
+ //  getInflHistory: function(iid) {
+ //    return axios.get(`/api/${iid}/history`);
+ //  },
 
   getBizHistory: function(rid) {
     return axios.get(`/api/${rid}/history`);

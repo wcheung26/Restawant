@@ -37,11 +37,12 @@ class RestaurantCreate extends React.Component {
 			offer: this.state.form_promo,
 			expiration: this.state.form_expiration,
 			reward: this.state.form_reward
-		}
+		};
 
-		helpers.createRestaurantPromo(newPromo).then(function() {
-			console.log("Promo code successfuly created!");
-		});
+		helpers.createRestaurantPromo(newPromo);
+		// helpers.createRestaurantPromo(newPromo).then(function() {
+		// 	console.log("Promo code successfuly created!");
+		// });
 	}
 
 	render () {

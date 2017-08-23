@@ -14,7 +14,7 @@ class RestaurantPanel extends React.Component {
 				<div className="panel-body">
 					<p><Link to="/restaurant/dashboard/create">Create Promotion</Link></p>
 					<p><Link to="/restaurant/dashboard/existing">Existing Influencers</Link></p>
-					<p><Link to="/restaurant/dashboard/browse">Browse Influencers</Link></p>
+					<p><Link to="/restaurant/dashboard/find">Find Influencers</Link></p>
 					<p><Link to="/restaurant/dashboard/summary">Summary</Link></p>
 				</div>
 			</div>
