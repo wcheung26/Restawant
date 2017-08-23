@@ -7,10 +7,26 @@ router.get("*", function(req, res, next) {
   res.sendFile(path.resolve(__dirname, "../public/index.html"));
 });
 
+router.post("/api/restaurant/promo", function(req, res) {
+  console.log("Saving new restaurant promo...");
+  console.log("Requesting to save promo... ", req.body);
+  // console.log("Restaurant id...", req.user.id);
+  // db.promotion.create({
+  //   name: req.body.name,
+  //   offer: req.body.offer,
+  //   expiration: req.body.expiration,
+  //   reward: req.body.reward,
+  //   restaurantId: req.user.id
+  // }).then(function(promotion) {
+
+  // });
+
+});
+
 // router.get("/api/influencer/:iid/history", function(req, res) {
 //   Discounts.findAll({
 //   	where: {
-//   		id: iid
+//   		Influencers.id: iid
 //   	},
 //   	include: [{ 
 //   		model: Restaurants
