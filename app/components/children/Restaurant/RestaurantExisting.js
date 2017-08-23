@@ -1,19 +1,24 @@
 import React from "react";
 
-// import helpers from "../utils/helpers";
+import helpers from "../../utils/helpers";
 
 class RestaurantExisting extends React.Component {
 	constructor(props) {
 		super(props);
+
+		this.state = {
+			// activeInfluencers: [],
+			// pastInfluencers: []
+			influencers: []
+		}
 	}
 
-	// componentDidMount() {
-	// 	console.log("Restaurant Existing Component Mounted!");
-	// 	helpers.getExistingInfluencers().then(function(results) {
-	// 		console.log("Existing Influencers: ", results);
-	// 		if (results !== this.props.)
-	// 	});
-	// }
+	componentDidMount() {
+		helpers.getExistingInfluencers().then(function(results) {
+			console.log("Existing Influencers: ", results);
+			// if (results !== this.props.)
+		});
+	}
 
 	// render() {
 	// 	return (

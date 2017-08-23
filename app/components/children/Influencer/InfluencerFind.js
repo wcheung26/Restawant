@@ -22,7 +22,7 @@ class InfluencerFind extends React.Component {
 	handleSubmit(event) {
 		event.preventDefault();
 		// Save to Database if Valid
-		console.log("Promo Code: ", this.state.searchCity);
+		console.log("Search City: ", this.state.searchCity);
 	}
 
 	render () {

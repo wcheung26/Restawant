@@ -4,22 +4,22 @@ import { Route } from "react-router-dom";
 import RestaurantPanel from "./RestaurantPanel";
 import RestaurantCreate from "./RestaurantCreate";
 import RestaurantExisting from "./RestaurantExisting";
-// import RestaurantBrowse from "./RestaurantBrowse";
+import RestaurantFind from "./RestaurantFind";
 // import RestaurantSummary from "./RestaurantSummary";
 
-class Home extends React.Component {
+class RestaurantDashboard extends React.Component {
 	constructor(props) {
 		super(props);
 
-		this.state = {
-      restaurantData: null
-		}
+		// this.state = {
+		// 	restaurantData: null
+		// }
 	}
 
-	componentWillReceiveProps(nextProps) {
-		console.log(nextProps.restaurantData);
-		this.setState({ restaurantData: nextProps.restaurantData });
-	}
+	// componentWillReceiveProps(nextProps) {
+	// 	console.log(nextProps.restaurantData);
+	// 	this.setState({ restaurantData: nextProps.restaurantData });
+	// }
 	
 	render() {
 		return (
@@ -31,13 +31,20 @@ class Home extends React.Component {
 				<div className="col-md-9">
 					<Route path="/restaurant/dashboard/create" component={RestaurantCreate} />
 					<Route path="/restaurant/dashboard/existing" component={RestaurantExisting} />
+					<Route path="/restaurant/dashboard/find" component={RestaurantFind} />
 				</div>
 			</div>
 		);
 	}
 };
 
-					// <Route path="/home/restaurant/browse" component={RestaurantBrowse} />
+					// <Route path="/restaurant/dashboard/create" render={(props) => (
+					// 	<RestaurantCreate {...props} restaurantData={this.state.restaurantData} />
+					// )}/>
+					// <Route path="/restaurant/dashboard/existing" render={(props) => (
+					// 	<RestaurantExisting {...props} restaurantData={this.state.restaurantData} />
+					// )}/>
+
 					// <Route path="/home/restaurant/summary" component={RestaurantSummary} />
 
-export default Home;
+export default RestaurantDashboard;
