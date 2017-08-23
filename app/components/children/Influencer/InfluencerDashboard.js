@@ -9,6 +9,15 @@ import InfluencerSummary from "./InfluencerSummary";
 class Home extends React.Component {
 	constructor(props) {
 		super(props);
+
+		this.state = {
+      influencerData: null
+		}
+	}
+
+	componentWillReceiveProps(nextProps) {
+		console.log(nextProps.influencerData);
+		this.setState({ influencerData: nextProps.influencerData });
 	}
 
 	render() {

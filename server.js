@@ -23,9 +23,9 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(require('./controllers/routes'));
 require('./controllers/auth_controller')(app, passport);
 require('./config/passport/passport.js')(passport);
+app.use(require('./controllers/routes'));
 
 // Sync models then start the server to begin listening
 db.sequelize.sync().then(function() {

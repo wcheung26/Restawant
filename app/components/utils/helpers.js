@@ -4,7 +4,12 @@ var axios = require('axios');
 // Helper Functions
 var helpers = {
 
-  
+  checkRestaurantAuth: function() {
+		return axios.get('/auth/restaurant');
+	},
+	checkInfluencerAuth: function() {
+		return axios.get('/auth/influencer');
+	},
   // This function hits our own server to retrieve the record of query results
   getInflHistory: function(iid) {
     return axios.get(`/api/${iid}/history`);
