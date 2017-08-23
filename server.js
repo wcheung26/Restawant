@@ -11,12 +11,15 @@ var PORT = process.env.PORT || 8080;
 // Models to sync
 var db = require("./models");
 
+var secretLocal = require("./secret.js");
+var secret = process.env.SECRET || secretLocal.secret;
+
 app.use(logger("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session({
-  secret: 'keyboard cat',
+  secret: secret,
   resave: true,
   saveUninitialized:true
 }));
