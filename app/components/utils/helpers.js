@@ -31,7 +31,7 @@ var helpers = {
 
 	getRestaurantHistory: function() {
 		return axios.get("/api/restaurant/history");
-	}
+	},
 
   // This function hits our own server to retrieve the record of query results
   // getInflHistory: function(iid) {
