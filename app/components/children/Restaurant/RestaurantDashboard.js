@@ -8,26 +8,26 @@ import RestaurantInfluencers from "./RestaurantInfluencers";
 import RestaurantSummary from "./RestaurantSummary";
 
 class RestaurantDashboard extends React.Component {
-	constructor(props) {
-		super(props);
-	}
-	
-	render() {
-		return (
-			<div className="container">
-				<div className="col-md-3">
-					<RestaurantPanel /> 
-				</div>
-
-				<div className="col-md-9">
-					<Route path="/restaurant/dashboard/create" component={RestaurantCreate} />
-					<Route path="/restaurant/dashboard/promotions" component={RestaurantPromotions} />
-					<Route path="/restaurant/dashboard/influencers" component={RestaurantInfluencers} />
-					<Route path="/restaurant/dashboard/summary" component={RestaurantSummary} />
-				</div>
-			</div>
-		);
-	}
+  constructor(props) {
+    super(props);
+  }
+  
+  render() {
+    return (
+      <div className="container">
+        <div className="col-md-3">
+          <RestaurantPanel /> 
+        </div>
+          
+        <div className="col-md-9">
+          <Route path="/restaurant/dashboard/create" component={RestaurantCreate} />
+          <Route path="/restaurant/dashboard/promotions" component={RestaurantPromotions} />
+          <Route path="/restaurant/dashboard/influencers" component={RestaurantInfluencers} />
+          <Route path="/restaurant/dashboard/summary" component={RestaurantSummary} />
+        </div>
+      </div>
+    );
+  }
 };
 
 export default RestaurantDashboard;

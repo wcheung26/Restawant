@@ -4,43 +4,43 @@ var axios = require('axios');
 // Helper Functions
 var helpers = {
 
-	checkRestaurantAuth: function() {
-		return axios.get('/auth/restaurant');
-	},
+  checkRestaurantAuth: function() {
+    return axios.get('/auth/restaurant');
+  },
 
-	checkInfluencerAuth: function() {
-		return axios.get('/auth/influencer');
-	},
+  checkInfluencerAuth: function() {
+    return axios.get('/auth/influencer');
+  },
 
-	createRestaurantPromo: function(promo) {
-		console.log("Promo: ", promo);
-		// return axios.post("/api/restaurant/promotions", promo);
-		$.post("/api/restaurant/promotions", promo)
-		.done(function(data) {
-			console.log("Promo code successfuly created!");
-		});
-	},
+  createRestaurantPromo: function(promo) {
+    console.log("Promo: ", promo);
+    // return axios.post("/api/restaurant/promotions", promo);
+    $.post("/api/restaurant/promotions", promo)
+    .done(function(data) {
+      console.log("Promo code successfuly created!");
+    });
+  },
 
-	getRestaurantPromotions: function() {
-		return axios.get("/api/restaurant/promotions");
-	},
+  getRestaurantPromotions: function() {
+    return axios.get("/api/restaurant/promotions");
+  },
 
-	getInfluencers: function() {
-		return axios.get("/api/restaurant/influencers")
-	},
+  getInfluencers: function() {
+    return axios.get("/api/restaurant/influencers")
+  },
 
-	getRestaurantSummary: function() {
-		return axios.get("/api/restaurant/summary");
-	},
+  getRestaurantSummary: function() {
+    return axios.get("/api/restaurant/summary");
+  },
 
-	// ==================================
-	// Influencer panel helpers
-	getInfluencerPromotions: function() {
-		console.log("===================");
-		console.log("getInfluencerPromotions");
-		console.log("===================");
-		return $.get("/api/influencer/promotions")
-	}
+  // ==================================
+  // Influencer panel helpers
+  getInfluencerPromotions: function() {
+    console.log("===================");
+    console.log("getInfluencerPromotions");
+    console.log("===================");
+    return $.get("/api/influencer/promotions")
+  }
 
   // This function hits our own server to retrieve the record of query results
   // getInflHistory: function(iid) {
@@ -56,25 +56,25 @@ var helpers = {
   //   return axios.get(`/api/${rid}/history`);
   // },
     
-	// yelpQuery: function(id, email, password) {
-	// 	console.log("Yelp Query Run");
-	// 	return axios.get(`https://api.yelp.com/v2/business/${id}`);
-	// 	// .then(function(results) {
-	// 	// 		console.log("this is yelpQuery results")
-	// 	// 		console.log(results)
-	// 	// 		var addressFormatted = results.data.location.display_address.join()
-	// 	// 		$.post("/api/yelp/" + results.data.id, {
-	// 	// 	    	phone: results.data.display_phone, 
-	// 	// 	    	address: addressFormatted, 
-	// 	// 	    	image: results.data.snippet_image_url, 
-	// 	// 	    	name: results.data.name,
-	// 	// 	    	email: email,  
-	// 	// 	    	password: passowrd
-	// 	// 		}).done(function(data) {
-	// 	// 			console.log("restaurant posted")
-	// 	// 		})
-	// 	// })
-	// } 
+  // yelpQuery: function(id, email, password) {
+  //  console.log("Yelp Query Run");
+  //  return axios.get(`https://api.yelp.com/v2/business/${id}`);
+  //  // .then(function(results) {
+  //  //    console.log("this is yelpQuery results")
+  //  //    console.log(results)
+  //  //    var addressFormatted = results.data.location.display_address.join()
+  //  //    $.post("/api/yelp/" + results.data.id, {
+  //  //        phone: results.data.display_phone, 
+  //  //        address: addressFormatted, 
+  //  //        image: results.data.snippet_image_url, 
+  //  //        name: results.data.name,
+  //  //        email: email,  
+  //  //        password: passowrd
+  //  //    }).done(function(data) {
+  //  //      console.log("restaurant posted")
+  //  //    })
+  //  // })
+  // } 
 }
 
 // We export the helpers function
