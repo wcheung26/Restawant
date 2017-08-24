@@ -37,7 +37,7 @@ router.get("/api/restaurant/promotions", function(req, res) {
     }]
   }).then(function(discounts) {
     console.log("Found all discounts for this restaurant...");
-    console.log(discounts);
+    // console.log(discounts);
     discounts.forEach(function(discount) {
       var newDiscount = {
         "promotionId": discount.promotion.id,
@@ -125,27 +125,36 @@ router.get("/api/restaurant/promotions", function(req, res) {
     });
     // console.log("Group By Past Promotions... ", summaryPast);
 
-    for (var item in summaryActive) {
-      summaryActive[item]["influencers"].sort(function(a, b) {
-        return b.discountScans - a.discountScans
-      });
-    }
-    // Return the top 5 influencers
-    // summaryActive[item]["influencers"] = summaryActive[item]["influencers"].slice(0, 5);
-    console.log("Sorted Group By Active Promotions... ", summaryActive);
+    summaryActive = Object.values(summaryActive);
+    summaryPast = Object.values(summaryPast);
+    // console.log("Group By Active Promotions... ", summaryActive);
+    // console.log("Group By Past Promotions... ", summaryPast);
 
-    for (var item in summaryPast) {
-      summaryPast[item]["influencers"].sort(function(a, b) {
+    summaryActive.forEach(function(promotion) {
+      promotion["influencers"].sort(function(a, b) {
         return b.discountScans - a.discountScans
       });
-    }
+    });
     // Return the top 5 influencers
-    // summaryPast[item]["influencers"] = summaryPast[item]["influencers"].slice(0, 5);
-    // console.log("Sorted Group By Past Promotions... ", summaryPast);
+    summaryActive.forEach(function(promotion) {
+      promotion["influencers"] = promotion["influencers"].slice(0, 5);
+    });
+    console.log("Sorted Trimmed Group By Active Promotions... ", summaryActive);
+
+    summaryPast.forEach(function(promotion) {
+      promotion["influencers"].sort(function(a, b) {
+        return b.discountScans - a.discountScans
+      });
+    });
+    // Return the top 5 influencers
+    summaryPast.forEach(function(promotion) {
+      promotion["influencers"] = promotion["influencers"].slice(0, 5);
+    });
+    console.log("Sorted Trimmed Group By Past Promotions... ", summaryPast);
 
     var summary = {
-      "active": Object.values(summaryActive),
-      "past": Object.values(summaryPast)
+      "active": summaryActive,
+      "past": summaryPast
     };
     // console.log("What actually gets sent over... ", summary);
 
