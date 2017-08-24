@@ -12,6 +12,14 @@ var helpers = {
 		return axios.get('/auth/influencer');
 	},
 
+	checkUserAuth: function() {
+		return axios.get('/auth/user');
+	},
+
+	logOut: function() {
+		return axios.get('/auth/logout');
+	},
+
 	createRestaurantPromo: function(promo) {
 		console.log("Promo: ", promo);
 		// return axios.post("/api/restaurant/promotions", promo);
