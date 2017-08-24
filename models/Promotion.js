@@ -32,19 +32,19 @@ module.exports = function(sequelize, DataTypes) {
   });
 
     Promotion.associate = function(models) {
+
       Promotion.belongsTo(models.restaurant, {
         foreignKey: {
           name: "restaurantId",
           allowNull: false
         }
       }); 
-    };
 
-    Promotion.associate = function(models) {
       Promotion.hasMany(models.discount, {
         onDelete: "CASCADE"
-      })
-    }; 
+      });
+      
+    };
 
   return Promotion;
 };
