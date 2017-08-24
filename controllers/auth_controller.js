@@ -17,10 +17,11 @@ module.exports = function(app, passport) {
     failureRedirect : '/restaurant/login'
   }));
 
-  app.post('/restaurant/signup', passport.authenticate('restaurant-signup', {
-    successRedirect : '/restaurant/dashboard',
-    failureRedirect : '/restaurant/signup'
-  }));
+  app.post('/restaurant/signup', passport.authenticate('restaurant-signup'), function(req, res) {
+    if (req.user) {
+      res.json({ success: true });
+    }
+  });
 
   app.get('/auth/restaurant', restaurantLoggedIn, function(req, res) {
     res.json(req.user);
