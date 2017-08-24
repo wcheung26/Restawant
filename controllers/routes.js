@@ -50,6 +50,25 @@ router.get("/api/restaurant/influencers/all", function(req, res) {
   });
 });
 
+router.get("/api/influencer/promotions", function(req, res) {
+  console.log("===================") 
+  console.log("Retrieving discounts under influencer...");  
+  console.log("===================")
+	db.discount.findAll({
+  	where: {
+  		influencerId: req.user.id
+  	},
+  	include: [{ 
+  		model: db.promotion,
+      order: ['expiration', 'DESC']
+  	}],
+  }).then(function(doc) {
+    console.log("===================")
+    console.log("Sending doc...")
+    res.send(doc);
+  });
+});
+
 // router.get("/api/restaurant/history", function(req, res) {
 //   console.log("Retrieving summary...");
 //   db.discount.findAll({
