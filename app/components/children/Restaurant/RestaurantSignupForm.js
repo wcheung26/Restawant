@@ -40,7 +40,7 @@ class RestaurantSignupForm extends Component {
         var res = results[0].address_components;
         this.setState({
           address: `${res[0].short_name} ${res[1].short_name}`,
-          city: res[3].short_name,
+          city: res[3].long_name,
           state: res[5].short_name
         });
 
