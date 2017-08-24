@@ -12,14 +12,22 @@ var helpers = {
     return axios.get('/auth/influencer');
   },
 
-  createRestaurantPromo: function(promo) {
-    console.log("Promo: ", promo);
-    // return axios.post("/api/restaurant/promotions", promo);
-    $.post("/api/restaurant/promotions", promo)
-    .done(function(data) {
-      console.log("Promo code successfuly created!");
-    });
-  },
+	checkUserAuth: function() {
+		return axios.get('/auth/user');
+	},
+
+	logOut: function() {
+		return axios.get('/auth/logout');
+	},
+
+	createRestaurantPromo: function(promo) {
+		console.log("Promo: ", promo);
+		// return axios.post("/api/restaurant/promotions", promo);
+		$.post("/api/restaurant/promotions", promo)
+		.done(function(data) {
+			console.log("Promo code successfuly created!");
+		});
+	},
 
   getRestaurantPromotions: function() {
     return axios.get("/api/restaurant/promotions");
