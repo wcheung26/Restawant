@@ -29,8 +29,8 @@ var helpers = {
 		return axios.get("/api/restaurant/influencers")
 	},
 
-	getRestaurantHistory: function() {
-		return axios.get("/api/restaurant/history");
+	getRestaurantSummary: function() {
+		return axios.get("/api/restaurant/summary");
 	},
 
 	// ==================================

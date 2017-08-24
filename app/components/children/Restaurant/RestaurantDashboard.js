@@ -5,21 +5,12 @@ import RestaurantPanel from "./RestaurantPanel";
 import RestaurantCreate from "./RestaurantCreate";
 import RestaurantPromotions from "./RestaurantPromotions";
 import RestaurantInfluencers from "./RestaurantInfluencers";
-// import RestaurantSummary from "./RestaurantSummary";
+import RestaurantSummary from "./RestaurantSummary";
 
 class RestaurantDashboard extends React.Component {
 	constructor(props) {
 		super(props);
-
-		// this.state = {
-		// 	restaurantData: null
-		// }
 	}
-
-	// componentWillReceiveProps(nextProps) {
-	// 	console.log(nextProps.restaurantData);
-	// 	this.setState({ restaurantData: nextProps.restaurantData });
-	// }
 	
 	render() {
 		return (
@@ -32,19 +23,11 @@ class RestaurantDashboard extends React.Component {
 					<Route path="/restaurant/dashboard/create" component={RestaurantCreate} />
 					<Route path="/restaurant/dashboard/promotions" component={RestaurantPromotions} />
 					<Route path="/restaurant/dashboard/influencers" component={RestaurantInfluencers} />
+					<Route path="/restaurant/dashboard/summary" component={RestaurantSummary} />
 				</div>
 			</div>
 		);
 	}
 };
-
-					// <Route path="/restaurant/dashboard/create" render={(props) => (
-					// 	<RestaurantCreate {...props} restaurantData={this.state.restaurantData} />
-					// )}/>
-					// <Route path="/restaurant/dashboard/existing" render={(props) => (
-					// 	<RestaurantExisting {...props} restaurantData={this.state.restaurantData} />
-					// )}/>
-
-					// <Route path="/home/restaurant/summary" component={RestaurantSummary} />
 
 export default RestaurantDashboard;
