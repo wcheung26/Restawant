@@ -12,6 +12,10 @@ var helpers = {
     return axios.get('/auth/influencer');
   },
 
+  checkAdminAuth: function() {
+    return axios.get('/auth/admin');
+  },
+
 	checkUserAuth: function() {
 		return axios.get('/auth/user');
 	},
@@ -48,8 +52,19 @@ var helpers = {
     console.log("getInfluencerPromotions");
     console.log("===================");
     return $.get("/api/influencer/promotions")
-  }
+  },
 
+  getAdminApprove: function() {
+    return $.get("/api/admin");
+  },
+
+  approveRestaurant: function(id) {
+    return $.post("/api/admin/approve", id);
+  },
+
+  denyRestaurant: function(id) {
+    return $.post("/api/admin/deny", id);
+  }
   // This function hits our own server to retrieve the record of query results
   // getInflHistory: function(iid) {
   //   return axios.get(`/api/${iid}/history`);

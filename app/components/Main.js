@@ -8,6 +8,8 @@ import InfluencerLogin from "./children/Influencer/InfluencerLogin";
 import InfluencerSignup from "./children/Influencer/InfluencerSignup";
 import InfluencerDashboard from "./children/Influencer/InfluencerDashboard";
 import AdminLogin from "./children/Admin/AdminLogin";
+import AdminSignup from "./children/Admin/AdminSignup";
+import AdminDashboard from "./children/Admin/AdminDashboard";
 import Home from "./children/Home";
 import Logout from "./children/Logout";
 
@@ -20,6 +22,7 @@ class Main extends Component {
 		this.state = {
       restaurantAuth: false,
       influencerAuth: false,
+      adminAuth: false,
       userAuth: false,
       restaurantData: null,
       influencerData: null
@@ -49,6 +52,15 @@ class Main extends Component {
       }
     });
     
+    helpers.checkAdminAuth().then(response => {
+      if (response.data.id !== undefined) {
+        this.setState({ adminAuth: true });
+      }
+      else {
+        this.setState({ adminAuth: false });
+      }
+    });
+
     helpers.checkUserAuth().then(response => {
 			if (response.data.id !== undefined) {
         this.setState({ userAuth: true });
@@ -123,8 +135,17 @@ class Main extends Component {
                   influencerData={this.state.influencerData}
                 /> )} /> : null
               }
-              <Route exact path="/admin" render={(props) => (
+              { 
+                this.state.adminAuth ? <Route path="/admin/dashboard" render={(props) => (
+                <AdminDashboard {...props}
+                /> )} /> : null
+              }
+              <Route exact path="/admin/login" render={(props) => (
                 <AdminLogin {...props}
+                />
+              )} />
+              <Route path="/admin/signup" render={(props) => (
+                <AdminSignup {...props}
                 />
               )} />
               { 

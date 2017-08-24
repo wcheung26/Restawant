@@ -2,6 +2,16 @@ const db = require("../models");
 
 module.exports = function(app, passport) {
 
+  app.post('/admin/login', passport.authenticate('admin-login', {
+    successRedirect : '/admin/dashboard',
+    failureRedirect : '/admin/login'
+  }));
+
+  app.post('/admin/signup', passport.authenticate('admin-signup', {
+    successRedirect : '/admin/dashboard',
+    failureRedirect : '/admin/signup'
+  }));
+
   app.post('/influencer/login', passport.authenticate('influencer-login', {
     successRedirect : '/influencer/dashboard',
     failureRedirect : '/influencer/login'
@@ -30,21 +40,24 @@ module.exports = function(app, passport) {
   app.get('/auth/influencer', influencerLoggedIn, function(req, res) {
     res.json(req.user);
   });
+
+  app.get('/auth/admin', adminLoggedIn, function(req, res) {
+    res.json(req.user);
+  });
   
   app.get('/auth/user', isLoggedIn, function(req, res) {
     res.json(req.user);
   });
 
   app.get('/auth/logout', isLoggedIn, function(req, res) {
-    req.session.destroy(function(err) {
-      res.redirect('/');
-    });
+    res.clearCookie('connect.sid');
+    res.redirect('/');
   });
 }
 
 // route middleware to make sure a user is logged in
 function restaurantLoggedIn(req, res, next) {
-  if (req.isAuthenticated() && req.user.isRestaurant === true) {
+  if (req.isAuthenticated() && req.user.isRestaurant === true && req.user.isAdmin === false) {
     return next();
   }
 
@@ -52,7 +65,15 @@ function restaurantLoggedIn(req, res, next) {
 }
 
 function influencerLoggedIn(req, res, next) {
-  if (req.isAuthenticated() && req.user.isRestaurant === false) {
+  if (req.isAuthenticated() && req.user.isRestaurant === false && req.user.isAdmin === false) {
+    return next();
+  }
+
+  res.redirect('/');
+}
+
+function adminLoggedIn(req, res, next) {
+  if (req.isAuthenticated() && req.user.isAdmin === true) {
     return next();
   }
 

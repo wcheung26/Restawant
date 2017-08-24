@@ -20,12 +20,19 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false
     },
+    isAdmin: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
     isRestaurant: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
     }
   }, {
     getterMethods: {
+      isAdmin: function() {
+        return this.getDataValue('isAdmin');
+      },
       isRestaurant: function() {
         return this.getDataValue('isRestaurant');
       }
@@ -35,7 +42,7 @@ module.exports = function(sequelize, DataTypes) {
   Influencer.associate = function(models) {
     Influencer.hasMany(models.discount, {
       onDelete: "cascade"
-    })
+    });
   }; 
 
   return Influencer;
