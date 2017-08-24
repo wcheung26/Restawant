@@ -129,19 +129,19 @@ router.get("/api/restaurant/promotions", function(req, res) {
       summaryActive[item]["influencers"].sort(function(a, b) {
         return b.discountScans - a.discountScans
       });
-      // Return the top 5 influencers
-      summaryActive[item]["influencers"] = summaryActive[item]["influencers"].slice(0, 5);
     }
+    // Return the top 5 influencers
+    // summaryActive[item]["influencers"] = summaryActive[item]["influencers"].slice(0, 5);
     console.log("Sorted Group By Active Promotions... ", summaryActive);
 
     for (var item in summaryPast) {
       summaryPast[item]["influencers"].sort(function(a, b) {
         return b.discountScans - a.discountScans
       });
-      // Return the top 5 influencers
-      summaryPast[item]["influencers"] = summaryPast[item]["influencers"].slice(0, 5);
     }
-    console.log("Sorted Group By Past Promotions... ", summaryPast);
+    // Return the top 5 influencers
+    // summaryPast[item]["influencers"] = summaryPast[item]["influencers"].slice(0, 5);
+    // console.log("Sorted Group By Past Promotions... ", summaryPast);
 
     var summary = {
       "active": Object.values(summaryActive),
@@ -186,9 +186,36 @@ router.get("/api/restaurant/promotions", function(req, res) {
 router.get("/api/restaurant/influencers", function(req, res) {
   console.log("Retrieving all influencers...");
   // Find all the influencers in the database
-  db.influencer.findAll().then(function(influencers) {
-    console.log("All influencers... ", influencers);
-    res.json(influencers);
+  var influencers = {};
+  db.discount.findAll({
+    include: [ db.influencer ]
+  }).then(function(discounts) {
+    // console.log("All discounts...", discounts);
+    discounts.forEach(function(discount) {
+      if (influencers[discount.influencer.id]) {
+        influencers[discount.influencer.id]["totalScans"] += discount.clicks;
+      } else {
+        influencers[discount.influencer.id] = {};
+        influencers[discount.influencer.id]["id"] = discount.influencer.id;
+        influencers[discount.influencer.id]["name"] = discount.influencer.firstName + " " + discount.influencer.lastName;
+        influencers[discount.influencer.id]["email"] = discount.influencer.email;
+        influencers[discount.influencer.id]["totalScans"] = discount.clicks;
+      }
+    });
+
+    influencers = Object.values(influencers);
+    // console.log("Group By All Influencers... ", influencers);
+
+    influencers.sort(function(a, b) {
+      return b.totalScans - a.totalScans
+    })
+
+    // Return the top 20 influencers
+    influencers = influencers.slice(0, 20);
+    console.log("Sorted Group By All Influencers... ", influencers);
+
+    res.send(influencers);
+
   });
 });
 

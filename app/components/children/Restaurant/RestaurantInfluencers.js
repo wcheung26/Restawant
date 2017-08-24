@@ -26,7 +26,7 @@ class RestaurantInfluencers extends React.Component {
 					<ul className="list-group">
 						{this.state.influencers.map((influencer, i) => {
 							return (
-								<li className="list-group-item" key={influencer.id}>Name: {influencer.firstName} {influencer.lastName}, Email: {influencer.email}</li>
+								<li className="list-group-item" key={influencer.id}>Name: {influencer.name}, Email: {influencer.email}, Total Scans: {influencer.totalScans}</li>
 							);
 						})}
 					</ul>
