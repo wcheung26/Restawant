@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, Link } from "react-router-dom";
+import { Route, Link, Redirect, Switch } from "react-router-dom";
 
 import RestaurantLogin from "./children/Restaurant/RestaurantLogin";
 import RestaurantSignup from "./children/Restaurant/RestaurantSignup";
@@ -8,6 +8,7 @@ import InfluencerLogin from "./children/Influencer/InfluencerLogin";
 import InfluencerSignup from "./children/Influencer/InfluencerSignup";
 import InfluencerDashboard from "./children/Influencer/InfluencerDashboard";
 import AdminLogin from "./children/Admin/AdminLogin";
+import Home from "./children/Home";
 
 import helpers from "./utils/helpers";
 
@@ -63,38 +64,41 @@ class Main extends Component {
 				</nav>
         <div className="container main">
           <div className="row">
-  					<Route exact path="/restaurant/login" render={(props) => (
-              <RestaurantLogin {...props}
-              />
-            )} />
-            <Route path="/restaurant/signup" render={(props) => (
-              <RestaurantSignup {...props}
-              />
-            )} />
-            { 
-              this.state.restaurantAuth ? <Route path="/restaurant/dashboard" render={(props) => (
-              <RestaurantDashboard {...props}
-                restaurantData={this.state.restaurantData} 
-              /> )} /> : null
-            }
-						<Route exact path="/influencer/login" render={(props) => (
-              <InfluencerLogin {...props}
-              />
-            )} />
-						<Route exact path="/influencer/signup" render={(props) => (
-              <InfluencerSignup {...props}
-              />
-            )} />
-            { 
-              this.state.influencerAuth ? <Route path="/influencer/dashboard" render={(props) => (
-              <InfluencerDashboard {...props}
-                influencerData={this.state.influencerData}
-              /> )} /> : null
-            }
-						<Route exact path="/admin" render={(props) => (
-              <AdminLogin {...props}
-              />
-            )} />
+            <Switch>
+              <Route exact path="/restaurant/login" render={(props) => (
+                <RestaurantLogin {...props}
+                />
+              )} />
+              <Route exact path="/restaurant/signup" render={(props) => (
+                <RestaurantSignup {...props}
+                />
+              )} />
+              { 
+                this.state.restaurantAuth ? <Route path="/restaurant/dashboard" render={(props) => (
+                <RestaurantDashboard {...props}
+                  restaurantData={this.state.restaurantData} 
+                /> )} /> : null
+              }
+              <Route exact path="/influencer/login" render={(props) => (
+                <InfluencerLogin {...props}
+                />
+              )} />
+              <Route exact path="/influencer/signup" render={(props) => (
+                <InfluencerSignup {...props}
+                />
+              )} />
+              { 
+                this.state.influencerAuth ? <Route path="/influencer/dashboard" render={(props) => (
+                <InfluencerDashboard {...props}
+                  influencerData={this.state.influencerData}
+                /> )} /> : null
+              }
+              <Route exact path="/admin" render={(props) => (
+                <AdminLogin {...props}
+                />
+              )} />
+              <Route path="/" component={Home} />
+            </Switch>
           </div>
         </div>
       </div>

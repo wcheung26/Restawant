@@ -131,6 +131,10 @@ module.exports = function(passport) {
           password: newPassword,
           name: req.body.name,
           yelpId: req.body.yelpId,
+          address: req.body.address,
+          city: req.body.city,
+          state: req.body.state,
+          phone: req.body.phone,
           verificationUrl: req.body.url
         };
         Restaurant.create(data).then(function(user, created) {

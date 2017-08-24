@@ -32,7 +32,7 @@ class InfluencerFind extends React.Component {
 				<div className="panel-body">
 					<form>
 						<div className="input-group">
-							<span className="input-group-addon" id="building-o-icon"><i className="fa fa-gift" aria-hidden="true"></i></span>
+							<span className="input-group-addon" id="building-icon"><i className="fa fa-building" aria-hidden="true"></i></span>
 							<input
 								type="text" 
 								value={this.state.searchCity}

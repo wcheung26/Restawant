@@ -1,57 +1,28 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
+import RestaurantSignupForm from "./RestaurantSignupForm";
+import RestaurantSignupSuccess from "./RestaurantSignupSuccess";
+
 class RestaurantSignup extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      displayForm: true
+    }
+
+    this.setDisplay = this.setDisplay.bind(this);
   }
 
-  // yelpBusiness() {
-  //   // Get the business information from yelp.
-  //   helpers.yelpQuery().then(function(response) {
-  //     console.log("Yelp Query:", response);
-  //     if (response !== this.state.history) {
-  //       console.log("Yelp Data:", response.data);
-  //       this.setState({ yelpData: response.data });
-  //     }
-  //   }.bind(this));
-  // }
-
-
+  setDisplay(displayForm) {
+    this.setState({ displayForm: displayForm });
+  }
 
   render() {
     return (
       <div>
         <div className="col-md-3"></div>
-        <div className="col-md-6">
-          <h3>Restaurant Signup</h3>
-          <form method="POST" action="/restaurant/signup">
-            <div className="form-group">
-              <label htmlFor="name">Restaurant Name</label>
-              <input type="text" className="form-control" name="name" placeholder="Name" required />
-            </div>
-            <div className="form-group">
-              <label htmlFor="yelpId">Yelp Business ID</label>
-              <input type="number" className="form-control" name="yelpId" placeholder="Yelp Business ID" required />
-            </div>
-            <div className="form-group">
-              <label htmlFor="url">Link to Image of Seller's Permit</label>
-              <input type="url" className="form-control" name="url" placeholder="Image URL" required />
-            </div>
-            <div className="form-group">
-              <label htmlFor="email">Email Address</label>
-              <input type="email" className="form-control" name="email" placeholder="Email" required />
-            </div>
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input type="password" className="form-control" name="password" placeholder="Password" required />
-            </div>
-            <button type="submit" className="btn btn-default">Submit</button>
-          </form>
-          <div className="extra-action">
-            <p>ALREADY A MEMBER? <Link to="/restaurant/login">LOGIN</Link></p>
-          </div> 
-        </div>
+        { this.state.displayForm ? <RestaurantSignupForm setDisplay={this.setDisplay} /> : <RestaurantSignupSuccess /> }
         <div className="col-md-3"></div>
       </div>
     );
