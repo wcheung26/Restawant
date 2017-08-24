@@ -17,10 +17,11 @@ module.exports = function(app, passport) {
     failureRedirect : '/restaurant/login'
   }));
 
-  app.post('/restaurant/signup', passport.authenticate('restaurant-signup', {
-    successRedirect : '/restaurant/dashboard',
-    failureRedirect : '/restaurant/signup'
-  }));
+  app.post('/restaurant/signup', passport.authenticate('restaurant-signup'), function(req, res) {
+    if (req.user) {
+      res.json({ success: true });
+    }
+  });
 
   app.get('/auth/restaurant', restaurantLoggedIn, function(req, res) {
     res.json(req.user);
@@ -28,6 +29,16 @@ module.exports = function(app, passport) {
 
   app.get('/auth/influencer', influencerLoggedIn, function(req, res) {
     res.json(req.user);
+  });
+  
+  app.get('/auth/user', isLoggedIn, function(req, res) {
+    res.json(req.user);
+  });
+
+  app.get('/auth/logout', isLoggedIn, function(req, res) {
+    req.session.destroy(function(err) {
+      res.redirect('/');
+    });
   });
 }
 
@@ -42,6 +53,14 @@ function restaurantLoggedIn(req, res, next) {
 
 function influencerLoggedIn(req, res, next) {
   if (req.isAuthenticated() && req.user.isRestaurant === false) {
+    return next();
+  }
+
+  res.redirect('/');
+}
+
+function isLoggedIn(req, res, next) {
+  if (req.isAuthenticated()) {
     return next();
   }
 
