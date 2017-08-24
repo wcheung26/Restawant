@@ -70,7 +70,7 @@ class RestaurantCreate extends React.Component {
 								value={this.state.form_promo}
 								className="form-control"
 								id="form_promo" 
-								placeholder="Promotion" 
+								placeholder="Offer Details" 
 								onChange={this.handleChange}
 								required 
 							/>

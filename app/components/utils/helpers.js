@@ -21,12 +21,12 @@ var helpers = {
 		});
 	},
 
-	getExistingInfluencers: function() {
-		return axios.get("/api/restaurant/influencers/existing");
+	getRestaurantPromotions: function() {
+		return axios.get("/api/restaurant/promotions");
 	},
 
-	findInfluencers: function() {
-		return axios.get("/api/restaurant/influencers/all")
+	getInfluencers: function() {
+		return axios.get("/api/restaurant/influencers")
 	},
 
 	getRestaurantHistory: function() {
