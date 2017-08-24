@@ -61,11 +61,35 @@ router.get("/api/influencer/promotions", function(req, res) {
   	include: [{ 
   		model: db.promotion,
       order: ['expiration', 'DESC']
-  	}],
+  	}]
   }).then(function(doc) {
     console.log("===================")
     console.log("Sending doc...")
     res.send(doc);
+  });
+});
+
+router.get("/api/influencer/summary", function(req, res) {
+  console.log("===================") 
+  console.log("Retrieving discounts under influencer...");  
+  console.log("===================")
+  db.discount.findAll({
+    where: {
+      influencerId: req.user.id
+    },
+    include: [{ 
+      model: db.promotion,
+      include: [{
+        model: db.restaurant
+      }]
+    }]
+  }).then(function(doc) {
+    if (err) {
+      console.log(err);
+    }
+    else {
+      res.send(doc);
+    }
   });
 });
 
@@ -105,25 +129,7 @@ router.get("*", function(req, res, next) {
   res.sendFile(path.resolve(__dirname, "../public/index.html"));
 });
 
-// router.get("/api/influencer/:iid/history", function(req, res) {
-//   Discounts.findAll({
-//   	where: {
-//   		Influencers.id: iid
-//   	},
-//   	include: [{ 
-//   		model: Restaurants
-//   	}]
-//   }).sort([
-//     ["expiration", "descending"]
-//   ]).exec(function(err, doc) {
-//     if (err) {
-//       console.log(err);
-//     }
-//     else {
-//       res.send(doc);
-//     }
-//   });
-// });
+
 
 // // restaurants posting new promo
 // router.post("/api/promo/:rid", function(req, res) {
