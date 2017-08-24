@@ -38,21 +38,21 @@ var helpers = {
   },
 
   getInfluencers: function() {
-    return axios.get("/api/restaurant/influencers")
+    return axios.get("/api/restaurant/influencers");
   },
 
   getRestaurantSummary: function() {
     return axios.get("/api/restaurant/summary");
   },
 
-  // ==================================
-  // Influencer panel helpers
-  getInfluencerPromotions: function() {
-    console.log("===================");
-    console.log("getInfluencerPromotions");
-    console.log("===================");
-    return $.get("/api/influencer/promotions")
-  },
+	// ==================================
+	// Influencer panel helpers
+	getInfluencerPromotions: function() {
+		console.log("===================");
+		console.log("getInfluencerPromotions");
+		console.log("===================");
+		return $.get("/api/influencer/promotions");
+	},
 
   getAdminApprove: function() {
     return $.get("/api/admin");
@@ -64,16 +64,11 @@ var helpers = {
 
   denyRestaurant: function(id) {
     return $.post("/api/admin/deny", id);
-  }
+  },
   // This function hits our own server to retrieve the record of query results
-  // getInflHistory: function(iid) {
-  //   return axios.get(`/api/${iid}/history`);
-  // },
-
- //  // This function hits our own server to retrieve the record of query results
- //  getInflHistory: function(iid) {
- //    return axios.get(`/api/${iid}/history`);
- //  },
+	getInflHistory: function() {
+		return $.get("/api/influencer/summary");
+	}
 
   // getBizHistory: function(rid) {
   //   return axios.get(`/api/${rid}/history`);

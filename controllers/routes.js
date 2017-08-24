@@ -275,7 +275,7 @@ router.get("/api/influencer/promotions", function(req, res) {
   	include: [{ 
   		model: db.promotion,
       order: ['expiration', 'DESC']
-  	}],
+  	}]
   }).then(function(doc) {
     console.log("===================")
     console.log("Sending doc...")
@@ -316,45 +316,57 @@ router.post("/api/admin/deny", function(req, res) {
   });
 });
 
-// router.get("/api/restaurant/summary", function(req, res) {
-//   Discounts.findAll({
-//    where: "Restaurant.id = " + rid,
-//    include: [ Influencers ]
-//   }).sort([
-//     ["expiration", "descending"]
-//   ]).exec(function(err, doc) {
-//     if (err) {
-//       console.log(err);
-//     }
-//     else {
-//       res.send(doc);
-//     }
-//   });
+router.get("/api/influencer/summary", function(req, res) {
+  console.log("Retrieving summary...");
+  var restaurants = {};
+  // Find all of the user's existing discounts
+  db.discount.findAll({
+    where: {
+      influencerId: req.user.id
+    },
+    include: [{ 
+      model: db.promotion,
+      include: [{
+        model: db.restaurant
+      }]
+    }]
+  }).then(function(discounts) {
+      // console.log("All of user's existing discounts... ", discounts);
+      discounts.forEach(function(discount) {
+        if (restaurants[discount.promotion.restaurant.id]) {
+          if (restaurants[discount.promotion.restaurant.id]["promotionsId"].indexOf(discount.promotion.id) === -1) {
+            restaurants[discount.promotion.restaurant.id]["promotionsId"].push(discount.promotion.id);
+          };
+          restaurants[discount.promotion.restaurant.id]["totalScans"] += discount.clicks;
+          restaurants[discount.promotion.restaurant.id]["totalEarnings"] += discount.clicks * discount.promotion.reward;
+        } else {
+          restaurants[discount.promotion.restaurant.id] = {};
+          restaurants[discount.promotion.restaurant.id]["restaurantId"] = discount.promotion.restaurant.id;
+          restaurants[discount.promotion.restaurant.id]["restaurantName"] = discount.promotion.restaurant.name;
+          restaurants[discount.promotion.restaurant.id]["promotionsId"] = []; 
+          restaurants[discount.promotion.restaurant.id]["promotionsId"].push(discount.promotion.id);
+          restaurants[discount.promotion.restaurant.id]["totalScans"] = discount.clicks;
+          restaurants[discount.promotion.restaurant.id]["totalEarnings"] = discount.clicks * discount.promotion.reward;
+        }
+      });
+
+      restaurants = Object.values(restaurants);
+      // console.log("Group By Restaurants... ", restaurants);
+
+      restaurants.forEach(function(restaurant) {
+        restaurant["promotionsParticipated"] = restaurant["promotionsId"].length;
+      });
+      console.log("Group By Restaurants... ", restaurants);
+      res.send(restaurants);
+  });
+});
 
 // Display index on any route not specified
 router.get("*", function(req, res, next) {
   res.sendFile(path.resolve(__dirname, "../public/index.html"));
 });
 
-// router.get("/api/influencer/:iid/history", function(req, res) {
-//   Discounts.findAll({
-//   	where: {
-//   		Influencers.id: iid
-//   	},
-//   	include: [{ 
-//   		model: Restaurants
-//   	}]
-//   }).sort([
-//     ["expiration", "descending"]
-//   ]).exec(function(err, doc) {
-//     if (err) {
-//       console.log(err);
-//     }
-//     else {
-//       res.send(doc);
-//     }
-//   });
-// });
+
 
 // // restaurants posting new promo
 // router.post("/api/promo/:rid", function(req, res) {

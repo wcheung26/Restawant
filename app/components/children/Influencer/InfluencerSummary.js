@@ -5,33 +5,42 @@ class InfluencerSummary extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      history: ""
+      summary: []
     }
   }
 
   componentDidMount() {
     // Get the latest figures.
-    helpers.getInflHistory().then(function(response) {
-      console.log(response);
-      if (response !== this.state.history) {
-        console.log("History", response.data);
-        this.setState({ history: response.data });
-      }
-    }.bind(this));
+    helpers.getInflHistory().then(response => {
+      console.log("Influencer Summary: ", response);
+      this.setState({ summary: response });
+    });
   };
 
   render() {
     return (
       <div>
-        <h3>Summary</h3>
+        <h3>Performance Summary</h3>
         <table className="table">
-          <tbody>
+          <thead>
             <tr>
               <th>Restaurant Name</th>
               <th>Promotions Participated</th>
               <th>Total Scans</th>
               <th>Total Earnings</th>
             </tr>
+          </thead>
+          <tbody>
+            {this.state.summary.map((restaurant, i) => {
+              return (
+                <tr key={restaurant.restaurantId}>
+                  <td>{restaurant.restaurantName}</td>
+                  <td>{restaurant.promotionsParticipated}</td>
+                  <td>{restaurant.totalScans}</td>
+                  <td>${restaurant.totalEarnings}</td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
