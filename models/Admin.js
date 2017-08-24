@@ -19,8 +19,25 @@ module.exports = function(sequelize, DataTypes) {
     password: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    isAdmin: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
+    },
+    isRestaurant: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
     }
-  }) 
+  }, {
+    getterMethods: {
+      isAdmin: function() {
+        return this.getDataValue('isAdmin');
+      },
+      isRestaurant: function() {
+        return this.getDataValue('isRestaurant');
+      }
+    }
+  });
 
   return Admin;
 };

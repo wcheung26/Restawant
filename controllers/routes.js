@@ -283,6 +283,39 @@ router.get("/api/influencer/promotions", function(req, res) {
   });
 });
 
+router.get("/api/admin", function(req, res) {
+  db.restaurant.findAll({
+    where: {
+      isVerified: false
+    }
+  }).then(function(doc) {
+    res.send(doc);
+  });
+});
+
+router.post("/api/admin/approve", function(req, res) {
+  db.restaurant.update({
+      isVerified: true
+    },
+    {
+      where: {
+        id: req.body.id
+      }
+  }).then(function(doc) {
+    res.send(doc);
+  });
+});
+
+router.post("/api/admin/deny", function(req, res) {
+  db.restaurant.destroy({
+    where: {
+      id: req.body.id
+    }
+  }).then(function(doc) {
+    res.end();
+  });
+});
+
 router.get("/api/influencer/summary", function(req, res) {
   console.log("Retrieving summary...");
   var restaurants = {};

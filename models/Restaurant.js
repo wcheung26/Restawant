@@ -48,12 +48,19 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.BOOLEAN,
       defaultValue: false
     },
+    isAdmin: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
     isRestaurant: {
       type: DataTypes.BOOLEAN,
       defaultValue: true
     }
   }, {
     getterMethods: {
+      isAdmin: function() {
+        return this.getDataValue('isAdmin');
+      },
       isRestaurant: function() {
         return this.getDataValue('isRestaurant');
       }
@@ -63,7 +70,7 @@ module.exports = function(sequelize, DataTypes) {
   Restaurant.associate = function(models) {
     Restaurant.hasOne(models.promotion, {
       onDelete: "cascade"
-    })
+    });
   }; 
 
   return Restaurant;
