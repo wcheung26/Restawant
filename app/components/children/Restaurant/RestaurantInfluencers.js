@@ -2,7 +2,7 @@ import React from "react";
 
 import helpers from "../../utils/helpers";
 
-class RestaurantFind extends React.Component {
+class RestaurantInfluencers extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -12,7 +12,7 @@ class RestaurantFind extends React.Component {
 	}
 
 	componentDidMount() {
-		helpers.findInfluencers().then(results => {
+		helpers.getInfluencers().then(results => {
 			console.log("All influencers: ", results.data);
 			this.setState({ influencers: results.data });
 		});
@@ -26,7 +26,7 @@ class RestaurantFind extends React.Component {
 					<ul className="list-group">
 						{this.state.influencers.map((influencer, i) => {
 							return (
-								<li className="list-group-item" key={i}>Name: {influencer.firstName} {influencer.lastName}, Email: {influencer.email}</li>
+								<li className="list-group-item" key={influencer.id}>Name: {influencer.firstName} {influencer.lastName}, Email: {influencer.email}</li>
 							);
 						})}
 					</ul>
@@ -36,4 +36,4 @@ class RestaurantFind extends React.Component {
 	}
 };
 
-export default RestaurantFind;
+export default RestaurantInfluencers;
