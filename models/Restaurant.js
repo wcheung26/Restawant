@@ -7,6 +7,23 @@ module.exports = function(sequelize, DataTypes) {
     }, 
     yelpId: {
       type: DataTypes.STRING,
+      allowNull: false,
+      unique: true
+    },
+    address: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    city: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    state: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    phone: {
+      type: DataTypes.INTEGER,
       allowNull: false
     },
     email: {
