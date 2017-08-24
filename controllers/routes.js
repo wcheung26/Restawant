@@ -152,34 +152,6 @@ router.get("/api/restaurant/promotions", function(req, res) {
     res.send(summary);
 
   });
-
-  // // Store all the existing unique influencers
-  // var influencersScans = {};
-  // // Find all the discounts that has not expired
-  // db.discount.findAll({
-  //   include: [{
-  //     model: db.promotion,
-  //     where: {
-  //       restaurantId: req.user.id,
-  //       expiration: {
-  //         $gte: new Date()
-  //       }
-  //     }
-  //   }, {
-  //     model: db.influencer
-  //   }]
-  // }).then(function(discounts) {
-  //   console.log("Number of discounts that have not expired... ", discounts);
-  //   // Get the influencer id for each discount and calculate their total number of scans
-  //   discounts.forEach(function(discount) {
-  //     if (influencersScans[discount.influencer.id]) {
-  //      influencersScans[discount.influencer.id] += discount.clicks;
-  //     } else {
-  //       influencersScans[discount.influencer.id] = 0;
-  //     }
-  //   });
-  //   // Return the 
-  // });
 });
 
   
@@ -207,7 +179,7 @@ router.get("/api/restaurant/influencers", function(req, res) {
     // console.log("Group By All Influencers... ", influencers);
 
     influencers.sort(function(a, b) {
-      return b.totalScans - a.totalScans
+      return b.totalScans - a.totalScans;
     })
 
     // Return the top 20 influencers
@@ -217,6 +189,70 @@ router.get("/api/restaurant/influencers", function(req, res) {
     res.send(influencers);
 
   });
+});
+
+router.get("/api/restaurant/summary", function(req, res) {
+  console.log("Retrieving summary...");
+  // Find restaurant's top 5 influencers
+  var influencers = {};
+  var finance = {
+    "totalScans": 0,
+    "totalPayout": 0
+  };
+  db.discount.findAll({
+    include: [{
+      model: db.promotion,
+      where: {
+        restaurantId: req.user.id
+      }
+    }, {
+      model: db.influencer
+    }]
+  }).then(function(discounts) {
+    // console.log("All discounts...", discounts);
+    discounts.forEach(function(discount) {
+      // console.log("Current Scan...", discount.clicks);
+      // console.log("Current Reward...", discount.promotion.reward);
+      // console.log("Current Payout...", discount.clicks * discount.promotion.reward);
+      finance["totalScans"] += discount.clicks;
+      finance["totalPayout"] += discount.clicks * discount.promotion.reward;
+      if (influencers[discount.influencer.id]) {
+        influencers[discount.influencer.id]["totalScans"] += discount.clicks;
+        influencers[discount.influencer.id]["totalPayout"] += discount.clicks * discount.promotion.reward;
+      } else {
+        influencers[discount.influencer.id] = {};
+        influencers[discount.influencer.id]["id"] = discount.influencer.id;
+        influencers[discount.influencer.id]["name"] = discount.influencer.firstName + " " + discount.influencer.lastName;
+        influencers[discount.influencer.id]["email"] = discount.influencer.email;
+        influencers[discount.influencer.id]["totalScans"] = discount.clicks;
+        influencers[discount.influencer.id]["totalPayout"] = discount.clicks * discount.promotion.reward;
+      }
+    });
+
+    influencers = Object.values(influencers);
+    influencers.forEach(function(influencer) {
+      influencer["averagePayout"] = (influencer["totalPayout"] / influencer["totalScans"]).toFixed(2);
+    });
+    // console.log("Group By All Influencers... ", influencers);
+
+    finance["averagePayout"] = (finance["totalPayout"] / finance["totalScans"]).toFixed(2);
+    console.log("Finance Summary... ", finance);
+
+    influencers.sort(function(a, b) {
+      return b.totalScans - a.totalScans;
+    })
+
+    // Return the top 5 influencers
+    influencers = influencers.slice(0, 5);
+    console.log("Sorted Group By Top 5 Influencers... ", influencers);
+
+    var summary = {
+      "influencers": influencers,
+      "finance": finance
+    };
+    res.send(summary);
+  });
+
 });
 
 router.get("/api/influencer/promotions", function(req, res) {
@@ -238,23 +274,7 @@ router.get("/api/influencer/promotions", function(req, res) {
   });
 });
 
-// router.get("/api/restaurant/history", function(req, res) {
-//   console.log("Retrieving summary...");
-//   db.discount.findAll({
-//     include: [{
-//       model: db.promotion,
-//       where: {
-//         restaurantId: req.user.id
-//       }
-//     }, {
-//       model: db.influencer
-//     }]
-//   }).then(function(discounts) {
-
-//   });
-// });
-
-// router.get("/api/restaurant/history", function(req, res) {
+// router.get("/api/restaurant/summary", function(req, res) {
 //   Discounts.findAll({
 //    where: "Restaurant.id = " + rid,
 //    include: [ Influencers ]
