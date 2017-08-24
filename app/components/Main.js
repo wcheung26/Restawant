@@ -29,8 +29,8 @@ class Main extends Component {
   }
 
   componentDidMount() {
-		helpers.checkRestaurantAuth().then(response => {
-			if (response.data.id !== undefined) {
+    helpers.checkRestaurantAuth().then(response => {
+      if (response.data.id !== undefined) {
         this.setState({ restaurantAuth: true });
         this.setState({ restaurantData: response.data });
       }
@@ -40,7 +40,7 @@ class Main extends Component {
     });
 
     helpers.checkInfluencerAuth().then(response => {
-			if (response.data.id !== undefined) {
+      if (response.data.id !== undefined) {
         this.setState({ influencerAuth: true });
         this.setState({ influencerData: response.data });
       }

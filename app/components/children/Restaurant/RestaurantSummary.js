@@ -31,19 +31,19 @@ class RestaurantSummary extends React.Component {
 
   render() {
     return (
-    	<div>
-    		<h3>Summary</h3>
+      <div>
+        <h3>Summary</h3>
         <hr />
         <h4>Top 5 Influencers</h4>
-	    	<table className="table">
+        <table className="table">
           <thead>
-  	    		<tr>
-  	    			<th>Name</th>
-  	    			<th>Email</th>
-  	    			<th>Total Scans</th>
-  	    			<th>Total Payout</th>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Total Scans</th>
+              <th>Total Payout</th>
               <th>Average Payout</th>
-  	    		</tr>
+            </tr>
           </thead>
           <tbody>
             {this.state.influencers.map((influencer, i) => {
@@ -58,12 +58,12 @@ class RestaurantSummary extends React.Component {
               );
             })}
           </tbody>
-	    	</table>
+        </table>
         <h4>Finance</h4>
           <p><strong>Total Scans: </strong>{this.state.totalScans}</p>
           <p><strong>Total Payout: </strong>${this.state.totalPayout}</p>
           <p><strong>Average Payout: </strong>${this.state.averagePayout}</p>
-	    </div>
+      </div>
     );
   };
 };
