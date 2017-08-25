@@ -34,7 +34,7 @@ class RestaurantCreate extends React.Component {
         this.setState({
           showSuccessMessage: false
         })
-      }, 10000);
+      }, 15000);
     }
   }
 
