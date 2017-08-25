@@ -72,8 +72,12 @@ class Main extends Component {
 		});
   }
 
+  componentDidUpdate(nextProps, nextState) {
+    console.log(this.state.userAuth);
+  }
+
   setUserAuth(res) {
-    this.setState({ userAuth: false });
+    this.setState({ userAuth: res });
   }
   
   render() {
@@ -108,28 +112,28 @@ class Main extends Component {
         <div className="container main">
           <div className="row">
             <Switch>
-              { this.state.restaurantAuth ? (
+              { this.state.restaurantAuth && this.state.userAuth ? (
                   null
                 ) : (
                   <Route exact path="/restaurant/signup" component={RestaurantSignup} />
               )}
-              { this.state.restaurantAuth ? (
+              { this.state.restaurantAuth && this.state.userAuth ? (
                   <Route path="/restaurant" component={RestaurantDashboard} />
                 ) : (
                   <Route path="/restaurant" component={RestaurantLogin} />
               )}
-              { this.state.influencerAuth ? (
+              { this.state.influencerAuth && this.state.userAuth ? (
                   null
                 ) : (
                   <Route exact path="/influencer/signup" component={InfluencerSignup} />
               )}
-              { this.state.influencerAuth ? (
+              { this.state.influencerAuth && this.state.userAuth ? (
                   <Route path="/influencer" component={InfluencerDashboard} />
                 ) : (
                   <Route path="/influencer" component={InfluencerLogin} />
               )}
               <Route path="/admin/signup" component={AdminSignup} />
-              { this.state.adminAuth ? (
+              { this.state.adminAuth && this.state.userAuth ? (
                   <Route path="/admin" component={AdminDashboard} />
                 ) : (
                   <Route path="/admin" component={AdminLogin} />
