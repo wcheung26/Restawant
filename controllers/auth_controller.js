@@ -4,33 +4,58 @@ module.exports = function(app, passport) {
 
   app.post('/admin/login', passport.authenticate('admin-login', {
     successRedirect : '/admin/dashboard',
-    failureRedirect : '/admin/login'
+    failureRedirect : '/admin/login',
+    failureFlash : true
   }));
 
   app.post('/admin/signup', passport.authenticate('admin-signup', {
     successRedirect : '/admin/dashboard',
-    failureRedirect : '/admin/signup'
+    failureRedirect : '/admin/signup',
+    failureFlash : true
   }));
 
   app.post('/influencer/login', passport.authenticate('influencer-login', {
     successRedirect : '/influencer/dashboard',
-    failureRedirect : '/influencer/login'
+    failureRedirect : '/influencer/login',
+    failureFlash : true
   }));
 
   app.post('/influencer/signup', passport.authenticate('influencer-signup', {
     successRedirect : '/influencer/dashboard',
-    failureRedirect : '/influencer/signup'
+    failureRedirect : '/influencer/signup',
+    failureFlash : true
   }));
 
   app.post('/restaurant/login', passport.authenticate('restaurant-login', {
     successRedirect : '/restaurant/dashboard',
-    failureRedirect : '/restaurant/login'
+    failureRedirect : '/restaurant/login',
+    failureFlash : true
   }));
 
-  app.post('/restaurant/signup', passport.authenticate('restaurant-signup'), function(req, res) {
-    if (req.user) {
-      res.json({ success: true });
-    }
+  // app.post('/restaurant/signup', passport.authenticate('restaurant-signup'), function(req, res) {
+  //   if (req.user) {
+  //     res.json({ success: true });
+  //   }
+  //   else {
+  //     res.send({ success: false, message: 'fail' });
+  //   }
+  // });
+
+  app.post('/restaurant/signup', function(req, res, next) {
+    passport.authenticate('restaurant-signup', function(err, user, info) {
+      if (err) {
+        return next(err);
+      }
+      if (!user) {
+        res.send({ success: false, message: info.message });
+      }
+      req.logIn(user, loginErr => {
+        if (loginErr) {
+          return next(loginErr);
+        }
+        return res.send({ success: true, message: 'success' });
+      });
+    })(req, res, next);
   });
 
   app.get('/auth/restaurant', restaurantLoggedIn, function(req, res) {

@@ -154,6 +154,8 @@ module.exports = function(passport) {
           else if (user) {
             return done(null, user);
           }
+        }).catch(function(err) {
+          console.log(err);
         });
       }
     });
