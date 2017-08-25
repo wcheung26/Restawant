@@ -41,7 +41,7 @@ class AdminDashboard extends Component {
       <div>
         <div className="col-md-3"></div>
         <div className="col-md-6">
-          <h3>Restaurants Pending Approval</h3>
+          <h3 className="text-center">Restaurants Pending Approval</h3>
           <div className="panel-group" id="restaurantAccordion">
             {this.state.restaurants.map((val, i) => {
               return (

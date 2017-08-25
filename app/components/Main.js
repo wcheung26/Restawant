@@ -23,9 +23,7 @@ class Main extends Component {
       restaurantAuth: false,
       influencerAuth: false,
       adminAuth: false,
-      userAuth: false,
-      restaurantData: null,
-      influencerData: null
+      userAuth: false
     }
     
     this.setUserAuth = this.setUserAuth.bind(this);
@@ -35,7 +33,6 @@ class Main extends Component {
     helpers.checkRestaurantAuth().then(response => {
       if (response.data.id !== undefined) {
         this.setState({ restaurantAuth: true });
-        this.setState({ restaurantData: response.data });
       }
       else {
         this.setState({ restaurantAuth: false });
@@ -45,7 +42,6 @@ class Main extends Component {
     helpers.checkInfluencerAuth().then(response => {
       if (response.data.id !== undefined) {
         this.setState({ influencerAuth: true });
-        this.setState({ influencerData: response.data });
       }
       else {
         this.setState({ influencerAuth: false });
@@ -107,52 +103,24 @@ class Main extends Component {
         <div className="container main">
           <div className="row">
             <Switch>
-              <Route exact path="/restaurant/login" render={(props) => (
-                <RestaurantLogin {...props}
-                />
-              )} />
-              <Route exact path="/restaurant/signup" render={(props) => (
-                <RestaurantSignup {...props}
-                />
-              )} />
+              <Route exact path="/restaurant/login" component={RestaurantLogin} />
+              <Route exact path="/restaurant/signup" component={RestaurantSignup} />
               { 
-                this.state.restaurantAuth ? <Route path="/restaurant/dashboard" render={(props) => (
-                <RestaurantDashboard {...props}
-                  restaurantData={this.state.restaurantData} 
-                /> )} /> : null
+                this.state.restaurantAuth ? <Route path="/restaurant/dashboard" component={RestaurantDashboard} /> : null
               }
-              <Route exact path="/influencer/login" render={(props) => (
-                <InfluencerLogin {...props}
-                />
-              )} />
-              <Route exact path="/influencer/signup" render={(props) => (
-                <InfluencerSignup {...props}
-                />
-              )} />
+              <Route exact path="/influencer/login" component={InfluencerLogin} />
+              <Route exact path="/influencer/signup" component={InfluencerSignup} />
               { 
-                this.state.influencerAuth ? <Route path="/influencer/dashboard" render={(props) => (
-                <InfluencerDashboard {...props}
-                  influencerData={this.state.influencerData}
-                /> )} /> : null
+                this.state.influencerAuth ? <Route path="/influencer/dashboard" component={InfluencerDashboard} /> : null
               }
+              <Route path="/admin/signup" component={AdminSignup} />
               { 
-                this.state.adminAuth ? <Route path="/admin/dashboard" render={(props) => (
-                <AdminDashboard {...props}
-                /> )} /> : null
+                this.state.adminAuth ? <Route path="/admin" component={AdminDashboard} />
+                  : <Route path="/admin" component={AdminLogin} />
               }
-              <Route exact path="/admin/login" render={(props) => (
-                <AdminLogin {...props}
-                />
-              )} />
-              <Route path="/admin/signup" render={(props) => (
-                <AdminSignup {...props}
-                />
-              )} />
               { 
                 this.state.userAuth ? <Route exact path="/logout" render={(props) => (
-                <Logout {...props}
-                  setUserAuth={this.setUserAuth}
-                /> )} /> : null
+                <Logout {...props} setUserAuth={this.setUserAuth} /> )} /> : null
               }
               <Route path="/" component={Home} />
             </Switch>

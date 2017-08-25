@@ -9,7 +9,6 @@ module.exports = function(passport) {
   var Admin = db.admin;
 
   passport.serializeUser(function(user, done) {
-    console.log(user);
     return done(null, { id: user.id, isRestaurant: user.isRestaurant, isAdmin: user.isAdmin });
   });
 
