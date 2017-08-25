@@ -25,141 +25,97 @@ router.get("/api/restaurant/promotions", function(req, res) {
   console.log("Retrieving all promotions...");
   var activePromotions = [];
   var pastPromotions = [];
-  // Find all discounts issued by the restaurant
-  db.discount.findAll({
-    include: [{
-      model: db.promotion,
-      where: {
-        restaurantId: req.user.id
-      }
-    }, {
-      model: db.influencer
-    }]
-  }).then(function(discounts) {
-    console.log("Found all discounts for this restaurant...");
-    // console.log(discounts);
-    discounts.forEach(function(discount) {
-      var newDiscount = {
-        "promotionId": discount.promotion.id,
-        "promotionName": discount.promotion.name,
-        "promotionPeriod": moment(discount.promotion.createdAt).format("YYYY-MM-DD") + " to " + discount.promotion.expiration,
-        "promotionOffer": discount.promotion.offer,
-        "promotionReward": discount.promotion.reward,
-        "influencerId": discount.influencer.id,
-        "influencerName": discount.influencer.firstName + " " + discount.influencer.lastName,
-        "influencerEmail": discount.influencer.email,
-        "discountScans": discount.clicks
+  db.promotion.findAll({
+    where: {
+      restaurantId: req.user.id
+    }
+  }).then(function(promotions) {
+    // console.log("All Promotions... ", promotions);
+    var promotionCount = 0;
+    promotions.forEach(function(promotion) {
+      var information = {
+        "promotion": {
+          "id": promotion.id,
+          "name": promotion.name,
+          "offer": promotion.offer,
+          "period": moment(promotion.createdAt).format("MMMM D, YYYY") + " to " + moment(promotion.expiration).format("MMMM D, YYYY"),
+          "reward": promotion.reward
+        }
       };
-      // console.log("Discount Expiration: " + discount.promotion.expiration);
-      // console.log("Today: ", moment().format("YYYY-MM-DD"));
-      // console.log(discount.promotion.expiration > moment().format("YYYY-MM-DD"));
-      if (discount.promotion.expiration > moment().format("YYYY-MM-DD")) {
-        activePromotions.push(newDiscount);
-      } else {
-        pastPromotions.push(newDiscount);
-      }
-    });
-    // console.log("Active Promotions... ", activePromotions);
-    // console.log("Past Promotions... ", pastPromotions);
+      // console.log("Promotion...", promotion);
+      // Find all the influencers for this promotion
+      db.discount.findAll({
+        include: [{
+          model: db.promotion,
+          where: {
+            id: promotion.id,
+            restaurantId: req.user.id
+          }
+        }, {
+          model: db.influencer
+        }]
+      }).then(function(discounts) {
+        promotionCount++;
+        console.log("Promotion Count: ", promotionCount);
+        // console.log("Discounts... ", discounts);
+        // If there are no influencers for the given promotion
+        if (discounts.length === 0) {
+          information["influencers"] = [];
+          information["summary"] = {
+            totalInfluencers: 0,
+            totalScans: 0,
+            totalPayout: 0
+          };
+        } else {
+          // If there are influencers for the given promotion, push each of them into influencers array
+          var influencers = [];
+          var summary = {
+            "totalInfluencers": 0,
+            "totalScans": 0,
+            "totalPayout": 0
+          };
 
-    var summaryActive = {};
-    var summaryPast = {};
+          discounts.forEach(function(discount) {
+            var newDiscount = {
+              "id": discount.influencer.id,
+              "name": discount.influencer.firstName + " " + discount.influencer.lastName,
+              "email": discount.influencer.email,
+              "discountScans": discount.clicks              
+            }; 
+            influencers.push(newDiscount);
+            summary["totalInfluencers"] += 1;
+            summary["totalScans"] += discount.clicks;
+            summary["totalPayout"] += discount.clicks * discount.promotion.reward
+          });
+          // Sort influencers array
+          influencers.sort(function(a, b) {
+            return b.discountScans - a.discountScans;
+          });
+          // Return the top 5 influencers only
+          influencers.slice(0, 5);
+          // Put the influencers array into the information object
+          information["influencers"] = influencers;
+          // Put the summary array into the information object
+          information["summary"] = summary;
+        }
 
-    activePromotions.forEach(function(active) {
-      var influencer = {
-        "id": active.influencerId,
-        "name": active.influencerName,
-        "email": active.influencerEmail,
-        "discountScans": active.discountScans
-      };
-      if (summaryActive[active.promotionId]) {
-        summaryActive[active.promotionId]["summary"]["totalInfluencers"]++;
-        summaryActive[active.promotionId]["summary"]["totalScans"] += influencer.discountScans;
-        summaryActive[active.promotionId]["summary"]["totalPayout"] += influencer.discountScans * active.promotionReward;        
-        summaryActive[active.promotionId]["influencers"].push(influencer);
-      } else {
-        summaryActive[active.promotionId] = {};
-        summaryActive[active.promotionId]["summary"] = {};
-        summaryActive[active.promotionId]["summary"]["totalInfluencers"] = 1;
-        summaryActive[active.promotionId]["summary"]["totalScans"] = influencer.discountScans;
-        summaryActive[active.promotionId]["summary"]["totalPayout"] = influencer.discountScans * active.promotionReward;
-        summaryActive[active.promotionId]["promotion"] = {};
-        summaryActive[active.promotionId]["promotion"]["id"] = active.promotionId;
-        summaryActive[active.promotionId]["promotion"]["name"] = active.promotionName;
-        summaryActive[active.promotionId]["promotion"]["period"] = active.promotionPeriod;
-        summaryActive[active.promotionId]["promotion"]["offer"] = active.promotionOffer;
-        summaryActive[active.promotionId]["promotion"]["reward"] = active.promotionReward;
-        summaryActive[active.promotionId]["influencers"] = [];
-        summaryActive[active.promotionId]["influencers"].push(influencer);
-      }
-    });
-    // console.log("Group By Active Promotions... ", summaryActive);
+        // For each promotion, check whether it is an active or past promotion
+        if (promotion.expiration >= moment().format("YYYY-MM-DD")) {
+          activePromotions.push(information);
+        } else {
+          pastPromotions.push(information);
+        }
 
-    pastPromotions.forEach(function(past) {
-      var influencer = {
-        "id": past.influencerId,
-        "name": past.influencerName,
-        "email": past.influencerEmail,
-        "discountScans": past.discountScans
-      };
-      if (summaryPast[past.promotionId]) {
-        summaryPast[past.promotionId]["summary"]["totalInfluencers"]++;
-        summaryPast[past.promotionId]["summary"]["totalScans"] += influencer.discountScans;
-        summaryPast[past.promotionId]["summary"]["totalPayout"] += influencer.discountScans * past.promotionReward;        
-        summaryPast[past.promotionId]["influencers"].push(influencer);
-      } else {
-        summaryPast[past.promotionId] = {};
-        summaryPast[past.promotionId]["summary"] = {};
-        summaryPast[past.promotionId]["summary"]["totalInfluencers"] = 1;
-        summaryPast[past.promotionId]["summary"]["totalScans"] = influencer.discountScans;
-        summaryPast[past.promotionId]["summary"]["totalPayout"] = influencer.discountScans * past.promotionReward;
-        summaryPast[past.promotionId]["promotion"] = {};
-        summaryPast[past.promotionId]["promotion"]["id"] = past.promotionId;
-        summaryPast[past.promotionId]["promotion"]["name"] = past.promotionName;
-        summaryPast[past.promotionId]["promotion"]["period"] = past.promotionPeriod;
-        summaryPast[past.promotionId]["promotion"]["offer"] = past.promotionOffer;
-        summaryPast[past.promotionId]["promotion"]["reward"] = past.promotionReward;
-        summaryPast[past.promotionId]["influencers"] = [];
-        summaryPast[past.promotionId]["influencers"].push(influencer);
-      }
-    });
-    // console.log("Group By Past Promotions... ", summaryPast);
-
-    summaryActive = Object.values(summaryActive);
-    summaryPast = Object.values(summaryPast);
-    // console.log("Group By Active Promotions... ", summaryActive);
-    // console.log("Group By Past Promotions... ", summaryPast);
-
-    summaryActive.forEach(function(promotion) {
-      promotion["influencers"].sort(function(a, b) {
-        return b.discountScans - a.discountScans
+        if (promotionCount === promotions.length) {
+          console.log("Active Promotions... ", activePromotions);
+          console.log("Past Promotions... ", pastPromotions);
+          res.send({
+            "active": activePromotions,
+            "past": pastPromotions
+          });
+        }
       });
     });
-    // Return the top 5 influencers
-    summaryActive.forEach(function(promotion) {
-      promotion["influencers"] = promotion["influencers"].slice(0, 5);
-    });
-    console.log("Sorted Trimmed Group By Active Promotions... ", summaryActive);
-
-    summaryPast.forEach(function(promotion) {
-      promotion["influencers"].sort(function(a, b) {
-        return b.discountScans - a.discountScans
-      });
-    });
-    // Return the top 5 influencers
-    summaryPast.forEach(function(promotion) {
-      promotion["influencers"] = promotion["influencers"].slice(0, 5);
-    });
-    console.log("Sorted Trimmed Group By Past Promotions... ", summaryPast);
-
-    var summary = {
-      "active": summaryActive,
-      "past": summaryPast
-    };
-    // console.log("What actually gets sent over... ", summary);
-
-    res.send(summary);
-
   });
 });
 
