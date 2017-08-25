@@ -72,10 +72,6 @@ class Main extends Component {
 		});
   }
 
-  componentDidUpdate(nextProps, nextState) {
-    console.log(this.state.userAuth);
-  }
-
   setUserAuth(res) {
     this.setState({ userAuth: res });
   }
