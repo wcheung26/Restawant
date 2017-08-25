@@ -60,8 +60,6 @@ class RestaurantSignupForm extends Component {
         }
 
         $.post("/restaurant/signup", newRestaurant, (res => {
-          console.log(res);
-
           if (res.success !== null) {
             if (res.success === true) {
               this.props.setDisplay(false);
