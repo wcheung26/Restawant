@@ -2,44 +2,78 @@ const db = require("../models");
 
 module.exports = function(app, passport) {
 
-  app.post('/admin/login', passport.authenticate('admin-login', {
-    successRedirect : '/admin/dashboard',
-    failureRedirect : '/admin/login',
-    failureFlash : true
-  }));
+  app.post('/admin/login', function(req, res, next) {
+    passport.authenticate('admin-login', function(err, user, info) {
+      if (err) {
+        return next(err);
+      }
+      if (!user) {
+        return res.send({ success: false, message: info.message });
+      }
+      req.logIn(user, loginErr => {
+        if (loginErr) {
+          return next(loginErr);
+        }
+        return res.send({ success: true, message: 'success' });
+      });
+    })(req, res, next);
+  });
 
   app.post('/admin/signup', passport.authenticate('admin-signup', {
     successRedirect : '/admin/dashboard',
-    failureRedirect : '/admin/signup',
-    failureFlash : true
+    failureRedirect : '/admin/signup'
   }));
 
-  app.post('/influencer/login', passport.authenticate('influencer-login', {
-    successRedirect : '/influencer/dashboard',
-    failureRedirect : '/influencer/login',
-    failureFlash : true
-  }));
+  app.post('/influencer/login', function(req, res, next) {
+    passport.authenticate('influencer-login', function(err, user, info) {
+      if (err) {
+        return next(err);
+      }
+      if (!user) {
+        return res.send({ success: false, message: info.message });
+      }
+      req.logIn(user, loginErr => {
+        if (loginErr) {
+          return next(loginErr);
+        }
+        return res.send({ success: true, message: 'success' });
+      });
+    })(req, res, next);
+  });
 
-  app.post('/influencer/signup', passport.authenticate('influencer-signup', {
-    successRedirect : '/influencer/dashboard',
-    failureRedirect : '/influencer/signup',
-    failureFlash : true
-  }));
+  app.post('/influencer/signup', function(req, res, next) {
+    passport.authenticate('influencer-signup', function(err, user, info) {
+      if (err) {
+        return next(err);
+      }
+      if (!user) {
+        return res.send({ success: false, message: info.message });
+      }
+      req.logIn(user, loginErr => {
+        if (loginErr) {
+          return next(loginErr);
+        }
+        return res.send({ success: true, message: 'success' });
+      });
+    })(req, res, next);
+  });
 
-  app.post('/restaurant/login', passport.authenticate('restaurant-login', {
-    successRedirect : '/restaurant/dashboard',
-    failureRedirect : '/restaurant/login',
-    failureFlash : true
-  }));
-
-  // app.post('/restaurant/signup', passport.authenticate('restaurant-signup'), function(req, res) {
-  //   if (req.user) {
-  //     res.json({ success: true });
-  //   }
-  //   else {
-  //     res.send({ success: false, message: 'fail' });
-  //   }
-  // });
+  app.post('/restaurant/login', function(req, res, next) {
+    passport.authenticate('restaurant-login', function(err, user, info) {
+      if (err) {
+        return next(err);
+      }
+      if (!user) {
+        return res.send({ success: false, message: info.message });
+      }
+      req.logIn(user, loginErr => {
+        if (loginErr) {
+          return next(loginErr);
+        }
+        return res.send({ success: true, message: 'success' });
+      });
+    })(req, res, next);
+  });
 
   app.post('/restaurant/signup', function(req, res, next) {
     passport.authenticate('restaurant-signup', function(err, user, info) {
@@ -47,7 +81,7 @@ module.exports = function(app, passport) {
         return next(err);
       }
       if (!user) {
-        res.send({ success: false, message: info.message });
+        return res.send({ success: false, message: info.message });
       }
       req.logIn(user, loginErr => {
         if (loginErr) {
