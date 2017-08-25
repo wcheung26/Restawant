@@ -108,25 +108,38 @@ class Main extends Component {
         <div className="container main">
           <div className="row">
             <Switch>
-              <Route exact path="/restaurant/login" component={RestaurantLogin} />
-              <Route exact path="/restaurant/signup" component={RestaurantSignup} />
-              { 
-                this.state.restaurantAuth ? <Route path="/restaurant/dashboard" component={RestaurantDashboard} /> : null
-              }
-              <Route exact path="/influencer/login" component={InfluencerLogin} />
-              <Route exact path="/influencer/signup" component={InfluencerSignup} />
-              { 
-                this.state.influencerAuth ? <Route path="/influencer/dashboard" component={InfluencerDashboard} /> : null
-              }
+              { this.state.restaurantAuth ? (
+                  null
+                ) : (
+                  <Route exact path="/restaurant/signup" component={RestaurantSignup} />
+              )}
+              { this.state.restaurantAuth ? (
+                  <Route path="/restaurant" component={RestaurantDashboard} />
+                ) : (
+                  <Route path="/restaurant" component={RestaurantLogin} />
+              )}
+              { this.state.influencerAuth ? (
+                  null
+                ) : (
+                  <Route exact path="/influencer/signup" component={InfluencerSignup} />
+              )}
+              { this.state.influencerAuth ? (
+                  <Route path="/influencer" component={InfluencerDashboard} />
+                ) : (
+                  <Route path="/influencer" component={InfluencerLogin} />
+              )}
               <Route path="/admin/signup" component={AdminSignup} />
-              { 
-                this.state.adminAuth ? <Route path="/admin" component={AdminDashboard} />
-                  : <Route path="/admin" component={AdminLogin} />
-              }
-              { 
-                this.state.userAuth ? <Route exact path="/logout" render={(props) => (
-                <Logout {...props} setUserAuth={this.setUserAuth} /> )} /> : null
-              }
+              { this.state.adminAuth ? (
+                  <Route path="/admin" component={AdminDashboard} />
+                ) : (
+                  <Route path="/admin" component={AdminLogin} />
+              )}
+              { this.state.userAuth ? (
+                  <Route exact path="/logout" render={(props) => (
+                    <Logout {...props} setUserAuth={this.setUserAuth} /> )} />
+                ) : (
+                  null
+              )}
               <Route path="/" component={Home} />
             </Switch>
           </div>
