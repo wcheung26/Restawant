@@ -123,36 +123,51 @@ router.get("/api/restaurant/promotions", function(req, res) {
 router.get("/api/restaurant/influencers", function(req, res) {
   console.log("Retrieving all influencers...");
   // Find all the influencers in the database
-  var influencers = {};
-  db.discount.findAll({
-    include: [ db.influencer ]
-  }).then(function(discounts) {
-    // console.log("All discounts...", discounts);
-    discounts.forEach(function(discount) {
-      if (influencers[discount.influencer.id]) {
-        influencers[discount.influencer.id]["totalScans"] += discount.clicks;
-      } else {
-        influencers[discount.influencer.id] = {};
-        influencers[discount.influencer.id]["id"] = discount.influencer.id;
-        influencers[discount.influencer.id]["name"] = discount.influencer.firstName + " " + discount.influencer.lastName;
-        influencers[discount.influencer.id]["email"] = discount.influencer.email;
-        influencers[discount.influencer.id]["totalScans"] = discount.clicks;
-      }
+  var allInfluencers = [];
+  db.influencer.findAll({}).then(function(influencers) {
+    // For each influencer, see whether they have discounts
+    var influencerCount = 0;
+    influencers.forEach(function(influencer) {
+      var information = {
+        "id": influencer.id,
+        "name": influencer.firstName + " " + influencer.lastName,
+        "email": influencer.email,
+        "totalScans": 0
+      };
+
+      db.discount.findAll({
+        include: {
+          model: db.influencer,
+          where: {
+            id: influencer.id
+          }
+        }
+      }).then(function(discounts) {
+        influencerCount++;
+        // console.log("Discounts for this influencer... ", discounts);
+        if (discounts.length !== 0) {
+          discounts.forEach(function(discount) {
+            information["totalScans"] += discount.clicks;
+          });
+        }
+
+        // Add influencer to allInfluencers array
+        allInfluencers.push(information);
+
+        if (influencerCount === influencers.length) {
+          // Sort influencers by totalScans
+          allInfluencers.sort(function(a, b) {
+            return b.totalScans - a.totalScans;
+          })
+
+          // Return the top 20 influencers
+          allInfluencers = allInfluencers.slice(0, 20);
+
+          console.log("All Influencers... ", allInfluencers);
+          res.send(allInfluencers);
+        }
+      });
     });
-
-    influencers = Object.values(influencers);
-    // console.log("Group By All Influencers... ", influencers);
-
-    influencers.sort(function(a, b) {
-      return b.totalScans - a.totalScans;
-    })
-
-    // Return the top 20 influencers
-    influencers = influencers.slice(0, 20);
-    console.log("Sorted Group By All Influencers... ", influencers);
-
-    res.send(influencers);
-
   });
 });
 
