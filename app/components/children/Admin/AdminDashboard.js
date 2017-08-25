@@ -56,7 +56,7 @@ class AdminDashboard extends Component {
                       <p><strong>Address: </strong>{val.address}, {val.city}, {val.state}</p>
                       <p><strong>Phone: </strong>{val.phone}</p>
                       <p><strong>Email: </strong>{val.email}</p>
-                      <p><strong>Link to Image of Seller's Permit: </strong><Link to={val.verificationUrl}>{val.verificationUrl}</Link></p>
+                      <p><strong>Link to Image of Seller's Permit: </strong><a href={val.verificationUrl} target="_blank">{val.verificationUrl}</a></p>
                       <button type="button" className="btn btn-default" onClick={() => this.handleApprove(val.id)}>Approve</button>
                       <button type="button" className="btn btn-default" onClick={() => this.handleDeny(val.id)}>Deny</button>
                     </div>
