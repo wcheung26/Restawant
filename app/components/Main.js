@@ -59,7 +59,12 @@ class Main extends Component {
 
     helpers.checkUserAuth().then(response => {
 			if (response.data.id !== undefined) {
-        this.setState({ userAuth: true });
+        if (response.data.isVerified === undefined) {
+          this.setState({ userAuth: true });
+        }
+        else if (response.data.isVerified === true) {
+          this.setState({ userAuth: true });
+        }
       }
       else {
         this.setState({ userAuth: false });
