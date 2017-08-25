@@ -264,6 +264,26 @@ router.get("/api/restaurant/summary", function(req, res) {
 
 });
 
+
+router.get("/api/influencer/find/:state/:city", function(req, res) {
+  state = decodeURI(req.params.state);
+  city = decodeURI(req.params.city);
+  console.log("===================");
+  console.log("State:", state);
+  console.log("City:", city);
+  console.log("===================");
+  db.restaurant.findAll({
+    where: {
+      state: state,
+      city: city
+    }
+  }).then(function(doc) {
+    console.log("Sending:", doc);
+    res.send(doc);
+  })
+
+})
+
 router.get("/api/influencer/promotions", function(req, res) {
   console.log("===================") 
   console.log("Retrieving discounts under influencer...");  
