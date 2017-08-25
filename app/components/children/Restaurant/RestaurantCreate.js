@@ -8,14 +8,35 @@ class RestaurantCreate extends React.Component {
     super(props);
 
     this.state = {
-      form_promo_name: "",
-      form_promo: "",
-      form_expiration: "",
-      form_reward: ""
+      type: "text",
+      formPromoName: "",
+      formPromo: "",
+      formExpiration: "",
+      formReward: "",
+      showPromoNameError: false,
+      showPromoError: false,
+      showExpirationError: false,
+      showExpirationInvalidError: false,
+      showRewardError: false,
+      showRewardInvalidError: false
     }
 
+    this.onFocus = this.onFocus.bind(this);
+    this.onBlur = this.onBlur.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  onFocus() {
+    this.setState({
+      type: "date"
+    });
+  }
+
+  onBlur() {
+    this.setState({
+      type: "text"
+    });
   }
 
   handleChange(event) {
@@ -26,23 +47,74 @@ class RestaurantCreate extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    this.setState({
+      showPromoNameError: false,
+      showPromoError: false,
+      showExpirationError: false,
+      showExpirationInvalidError: false,
+      showRewardError: false,
+      showRewardInvalidError: false
+    });      
     // Save to Database if Valid
-    console.log("Promo Name: ", this.state.form_promo_name);
-    console.log("Promo Code: ", this.state.form_promo);
-    console.log("Expiration: ", this.state.form_expiration);
-    console.log("Reward: ", this.state.form_reward);
+    console.log("Promo Name: ", this.state.formPromoName);
+    console.log("Promo Code: ", this.state.formPromo);
+    console.log("Expiration: ", this.state.formExpiration);
+    console.log("Reward: ", this.state.formReward);
 
-    let newPromo = {
-      name: this.state.form_promo_name,
-      offer: this.state.form_promo,
-      expiration: this.state.form_expiration,
-      reward: this.state.form_reward
-    };
+    if (!this.state.formPromoName) {
+      this.setState({
+        showPromoNameError: true
+      });
+    }
 
-    helpers.createRestaurantPromo(newPromo);
-    // helpers.createRestaurantPromo(newPromo).then(function() {
-    //  console.log("Promo code successfuly created!");
-    // });
+    if (!this.state.formPromo) {
+      this.setState({
+        showPromoError: true
+      });
+    }
+
+    if (!this.state.formExpiration) {
+      this.setState({
+        showExpirationError: true
+      });
+    } else {
+      // console.log("Promo Expiration Date: ", moment(this.state.formExpiration));
+      // console.log("Today: ", moment());
+      // a.diff(b) is equivalent to a - b < 0
+      // b.diff(a) is equivalent to b - a > 0
+      // console.log(moment(this.state.formExpiration).diff(moment(), "years", true));
+      // console.log(moment(this.state.formExpiration).diff(moment(), "years", true) > 2);
+      if (this.state.formExpiration < moment().format("YYYY-MM-DD") || moment(this.state.formExpiration).diff(moment(), "years", true) > 2) {
+        this.setState({
+          showExpirationInvalidError: true
+        }); 
+      }
+    }
+
+    if (!this.state.formReward) {
+      this.setState({
+        showRewardError: true
+      });
+    } else {
+      // console.log("Reward input is string... ", !parseInt(this.state.formReward));
+      if (!parseInt(this.state.formReward)) {
+        this.setState({
+          showRewardInvalidError: true
+        });
+      }
+    }
+
+    if (this.state.formPromoName && this.state.formPromo && this.state.formExpiration && this.state.formReward) {
+      let newPromo = {
+        name: this.state.formPromoName,
+        offer: this.state.formPromo,
+        expiration: this.state.formExpiration,
+        reward: this.state.formReward
+      };
+
+      helpers.createRestaurantPromo(newPromo);
+    }
+
   }
 
   render () {
@@ -55,50 +127,70 @@ class RestaurantCreate extends React.Component {
               <span className="input-group-addon" id="certificate-icon"><i className="fa fa-certificate" aria-hidden="true"></i></span>
               <input
                 type="text" 
-                value={this.state.form_promo_name}
+                value={this.state.formPromoName}
                 className="form-control"
-                id="form_promo_name" 
+                id="formPromoName" 
                 placeholder="Promotion Name" 
                 onChange={this.handleChange}
                 required 
               />  
             </div>
+            { this.state.showPromoNameError ? 
+              <p className="form-error">* Please provide a name for your promotion.</p>
+             : null }
             <div className="input-group">
               <span className="input-group-addon" id="gift-icon"><i className="fa fa-gift" aria-hidden="true"></i></span>
               <input
                 type="text" 
-                value={this.state.form_promo}
+                value={this.state.formPromo}
                 className="form-control"
-                id="form_promo" 
+                id="formPromo" 
                 placeholder="Offer Details" 
                 onChange={this.handleChange}
                 required 
               />
             </div>
+            { this.state.showPromoError ? 
+              <p className="form-error">* Please enter the promotion details.</p>
+             : null }
             <div className="input-group">
               <span className="input-group-addon" id="calendar-icon"><i className="fa fa-calendar" aria-hidden="true"></i></span>
               <input
-                type="date" 
-                value={this.state.form_expiration}
+                type={this.state.type} 
+                value={this.state.formExpiration}
                 className="form-control" 
-                id="form_expiration"
+                id="formExpiration"
                 placeholder="Expiration Date" 
                 onChange={this.handleChange}
+                onFocus={this.onFocus}
+                onBlur={this.onBlur}
                 required
               />
             </div>
+            { this.state.showExpirationError ? 
+              <p className="form-error">* Please enter the expiration date of the promotion.</p>
+             : null }
+            { this.state.showExpirationInvalidError ? 
+              <p className="form-error">* Please enter a valid expiration date for the promotion.</p>
+             : null }
             <div className="input-group">
               <span className="input-group-addon" id="usd-icon"><i className="fa fa-usd" aria-hidden="true"></i></span>
               <input
                 type="text" 
-                value={this.state.form_reward}
+                value={this.state.formReward}
                 className="form-control" 
-                id="form_reward"
+                id="formReward"
                 placeholder="Reward Per Scan" 
                 onChange={this.handleChange}
                 required
               />
             </div>
+            { this.state.showRewardError ? 
+              <p className="form-error">* Please enter the reward per scan (in dollars) to the influencer.</p>
+             : null }
+            { this.state.showRewardInvalidError ? 
+              <p className="form-error">* Please enter a number for the reward per scan (in dollars).</p>
+             : null }
             <button type="submit" className="btn btn-default" onClick={this.handleSubmit}>Submit</button>
           </form>
         </div>
