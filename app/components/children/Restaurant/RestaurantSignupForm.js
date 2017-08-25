@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
+import ErrorMessage from "../ErrorMessage";
+
 class RestaurantSignupForm extends Component {
   constructor(props) {
     super(props);
@@ -15,7 +17,8 @@ class RestaurantSignupForm extends Component {
       state: '',
       phone: '',
       email: '',
-      password: ''
+      password: '',
+      error: null
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -58,8 +61,14 @@ class RestaurantSignupForm extends Component {
 
         $.post("/restaurant/signup", newRestaurant, (res => {
           console.log(res);
-          if (res.success !== null && res.success === true) {
-            this.props.setDisplay(false);
+
+          if (res.success !== null) {
+            if (res.success === true) {
+              this.props.setDisplay(false);
+            }
+            else if (res.success === false) {
+              this.setState({ error: res.message });
+            }
           }
         }));
 
@@ -161,6 +170,12 @@ class RestaurantSignupForm extends Component {
           </div>
           <button type="submit" className="btn btn-default">Submit</button>
         </form>
+        { this.state.error ? (
+            <ErrorMessage error={this.state.error} />
+          ) : (
+            null
+          )
+        }
         <div className="extra-action">
           <p>ALREADY A MEMBER? <Link to="/restaurant/login">LOGIN</Link></p>
         </div> 

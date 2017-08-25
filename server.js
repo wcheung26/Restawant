@@ -4,7 +4,6 @@ var logger = require('morgan');
 var path = require('path');
 var passport = require('passport');
 var session = require('express-session');
-var flash = require('connect-flash');
 
 var app = express();
 var PORT = process.env.PORT || 8080;
@@ -24,7 +23,6 @@ app.use(session({
   resave: true,
   saveUninitialized:true
 }));
-app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 

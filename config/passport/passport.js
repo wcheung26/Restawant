@@ -99,7 +99,7 @@ module.exports = function(passport) {
     }).then(function(result) {
       if (!result) {
         return done(null, false, {
-          message: 'Email does not exist.'
+          message: 'Account does not exist.'
         });
       }
       if (!isValidPassword(result.password, password)) {
