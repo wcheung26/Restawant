@@ -18,13 +18,24 @@ class RestaurantCreate extends React.Component {
       showExpirationError: false,
       showExpirationInvalidError: false,
       showRewardError: false,
-      showRewardInvalidError: false
+      showRewardInvalidError: false,
+      showSuccessMessage: false
     }
 
     this.onFocus = this.onFocus.bind(this);
     this.onBlur = this.onBlur.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidUpdate(previousProps, previousState) {
+    if (previousProps.showSuccessMessage !== this.state.showSuccessMessage) {
+      setTimeout(() => {
+        this.setState({
+          showSuccessMessage: false
+        })
+      }, 10000);
+    }
   }
 
   onFocus() {
@@ -53,7 +64,8 @@ class RestaurantCreate extends React.Component {
       showExpirationError: false,
       showExpirationInvalidError: false,
       showRewardError: false,
-      showRewardInvalidError: false
+      showRewardInvalidError: false,
+      showSuccessMessage: false
     });      
     // Save to Database if Valid
     console.log("Promo Name: ", this.state.formPromoName);
@@ -61,19 +73,25 @@ class RestaurantCreate extends React.Component {
     console.log("Expiration: ", this.state.formExpiration);
     console.log("Reward: ", this.state.formReward);
 
+    // Must set a variable like this because setState is asynchronous 
+    let success = true;
+
     if (!this.state.formPromoName) {
+      success = false;
       this.setState({
         showPromoNameError: true
       });
     }
 
     if (!this.state.formPromo) {
+      success = false;
       this.setState({
         showPromoError: true
       });
     }
 
     if (!this.state.formExpiration) {
+      success = false;
       this.setState({
         showExpirationError: true
       });
@@ -85,6 +103,7 @@ class RestaurantCreate extends React.Component {
       // console.log(moment(this.state.formExpiration).diff(moment(), "years", true));
       // console.log(moment(this.state.formExpiration).diff(moment(), "years", true) > 2);
       if (this.state.formExpiration < moment().format("YYYY-MM-DD") || moment(this.state.formExpiration).diff(moment(), "years", true) > 2) {
+        success = false;
         this.setState({
           showExpirationInvalidError: true
         }); 
@@ -92,19 +111,21 @@ class RestaurantCreate extends React.Component {
     }
 
     if (!this.state.formReward) {
+      success = false;
       this.setState({
         showRewardError: true
       });
     } else {
       // console.log("Reward input is string... ", !parseInt(this.state.formReward));
       if (!parseInt(this.state.formReward)) {
+        success = false;
         this.setState({
           showRewardInvalidError: true
         });
       }
     }
 
-    if (this.state.formPromoName && this.state.formPromo && this.state.formExpiration && this.state.formReward) {
+    if (success) {
       let newPromo = {
         name: this.state.formPromoName,
         offer: this.state.formPromo,
@@ -113,6 +134,14 @@ class RestaurantCreate extends React.Component {
       };
 
       helpers.createRestaurantPromo(newPromo);
+
+      this.setState({
+        formPromoName: "",
+        formPromo: "",
+        formExpiration: "",
+        formReward: "",
+        showSuccessMessage: true
+      });
     }
 
   }
@@ -192,6 +221,9 @@ class RestaurantCreate extends React.Component {
               <p className="form-error">* Please enter a number for the reward per scan (in dollars).</p>
              : null }
             <button type="submit" className="btn btn-default" onClick={this.handleSubmit}>Submit</button>
+            { this.state.showSuccessMessage ?
+              <span className="success-message"><i className="fa fa-check-square" aria-hidden="true"></i> Promotion successfully created!</span>
+             : null }
           </form>
         </div>
       </div>
