@@ -1,5 +1,30 @@
 .main {
-  margin-top: 70px;
+  margin-top: 50px;
+}
+
+.ribbon {
+  margin-top: 20px;
+}
+
+.fa.home-icon {
+  font-size: 80px;
+  line-height: 150px;
+  color: #fff;
+  width: 150px;
+  height: 150px;
+  background: #53A8FB; 
+  -moz-border-radius: 90px; 
+  -webkit-border-radius: 90px; 
+  border-radius: 90px;
+}
+
+.fa.home-icon:hover {
+  color: #fff;
+  background: #29527B;
+}
+
+.icon-div {
+  margin-bottom: 20px;
 }
 
 .extra-action {
