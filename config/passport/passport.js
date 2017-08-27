@@ -135,27 +135,40 @@ module.exports = function(passport) {
         });
       }
       else {
-        var newPassword = generateHash(password);
-        var data = {
-          email: email,
-          password: newPassword,
-          name: req.body.name,
-          yelpId: req.body.yelpId,
-          address: req.body.address,
-          city: req.body.city,
-          state: req.body.state,
-          phone: req.body.phone,
-          verificationUrl: req.body.url
-        };
-        Restaurant.create(data).then(function(user, created) {
-          if (!user) {
-            return done(null, false);
+        Restaurant.findOne({
+          where: {
+            yelpId: req.body.yelpId
           }
-          else if (user) {
-            return done(null, user);
+        }).then(function(result) {
+          if (result) {
+            return done(null, false, {
+              message: 'Yelp ID already exists.'
+            });
           }
-        }).catch(function(err) {
-          console.log(err);
+          else {
+            var newPassword = generateHash(password);
+            var data = {
+              email: email,
+              password: newPassword,
+              name: req.body.name,
+              yelpId: req.body.yelpId,
+              address: req.body.address,
+              city: req.body.city,
+              state: req.body.state,
+              phone: req.body.phone,
+              verificationUrl: req.body.url
+            };
+            Restaurant.create(data).then(function(user, created) {
+              if (!user) {
+                return done(null, false);
+              }
+              else if (user) {
+                return done(null, user);
+              }
+            }).catch(function(err) {
+              console.log(err);
+            });
+          }
         });
       }
     });

@@ -18,7 +18,15 @@ class RestaurantSignupForm extends Component {
       phone: '',
       email: '',
       password: '',
-      error: null
+      error: null,
+      showNameError: false,
+      showYelpError: false,
+      showUrlError: false,
+      showAddressError: false,
+      showPhoneError: false,
+      showValidEmailError: false,
+      showEmailError: false,
+      showPasswordError: false
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -38,39 +46,124 @@ class RestaurantSignupForm extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    geocodeByAddress(this.state.fullAddress)
-      .then(results => {
-        var res = results[0].address_components;
-        this.setState({
-          address: `${res[0].short_name} ${res[1].short_name}`,
-          city: res[3].long_name,
-          state: res[5].short_name
-        });
 
-        let newRestaurant = {
-          name: this.state.name,
-          yelpId: this.state.yelpId,
-          url: this.state.url,
-          address: this.state.address,
-          city: this.state.city,
-          state: this.state.state,
-          phone: this.state.phone,
-          email: this.state.email,
-          password: this.state.password
-        }
+    this.setState({
+      error: null,
+      showNameError: false,
+      showYelpError: false,
+      showUrlError: false,
+      showValidUrlError: false,
+      showAddressError: false,
+      showPhoneError: false,
+      showEmailError: false,
+      showPasswordError: false,
+      showValidEmailError: false,
+      showValidUrlError: false
+    });
 
-        $.post("/restaurant/signup", newRestaurant, (res => {
-          if (res.success !== null) {
-            if (res.success === true) {
-              this.props.setDisplay(false);
-            }
-            else if (res.success === false) {
-              this.setState({ error: res.message });
-            }
+    let validate = true;
+    
+    if (!this.state.name) {
+      validate = false;
+      this.setState({
+        showNameError: true
+      });
+    }
+
+    if (!this.state.yelpId) {
+      validate = false;
+      this.setState({
+        showYelpError: true
+      });
+    }
+
+    let urlRe = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/;
+    let validUrl = urlRe.test(this.state.url);
+
+    if (!this.state.url) {
+      validate = false;
+      this.setState({
+        showUrlError: true
+      });
+    }
+    else if (!validUrl) {
+      validate = false;
+      this.setState({
+        showValidUrlError: true
+      });
+    }
+
+    if (!this.state.fullAddress) {
+      validate = false;
+      this.setState({
+        showAddressError: true
+      });
+    }
+
+    if (!this.state.phone) {
+      validate = false;
+      this.setState({
+        showPhoneError: true
+      });
+    }
+
+    let emailRe = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@([^<>()\.,;\s@\"])+\.([^<>()\.,;:\s@\"]{2,})$/;
+    let validEmail = emailRe.test(this.state.email);
+
+    if (!this.state.email) {
+      validate = false;
+      this.setState({
+        showEmailError: true
+      });
+    }
+    else if (!validEmail) {
+      validate = false;
+      this.setState({
+        showValidEmailError: true
+      });
+    }
+
+    if (!this.state.password) {
+      validate = false;
+      this.setState({
+        showPasswordError: true
+      });
+    }
+
+    if (validate) {
+      geocodeByAddress(this.state.fullAddress)
+        .then(results => {
+          let res = results[0].address_components;
+          this.setState({
+            address: `${res[0].short_name} ${res[1].short_name}`,
+            city: res[3].long_name,
+            state: res[5].short_name
+          });
+
+          let newRestaurant = {
+            name: this.state.name,
+            yelpId: this.state.yelpId,
+            url: this.state.url,
+            address: this.state.address,
+            city: this.state.city,
+            state: this.state.state,
+            phone: this.state.phone,
+            email: this.state.email,
+            password: this.state.password
           }
-        }));
 
+          $.post("/restaurant/signup", newRestaurant, (res => {
+            if (res.success !== null) {
+              if (res.success === true) {
+                this.props.setDisplay(false);
+              }
+              else if (res.success === false) {
+                this.setState({ error: res.message });
+              }
+            }
+          }));
       }).catch(error => console.log('Error', error));
+    }
   }
 
   render() {
@@ -89,7 +182,7 @@ class RestaurantSignupForm extends Component {
     return (
       <div className="col-md-6">
         <h3>Restaurant Signup</h3>
-        <form onSubmit={this.handleSubmit}>
+        <form>
           <div className="form-group">
             <label htmlFor="name">Restaurant Name</label>
             <input
@@ -101,6 +194,10 @@ class RestaurantSignupForm extends Component {
               onChange={this.handleChange}
               required
             />
+            { this.state.showNameError ? 
+              <p className="form-error">* Please enter the name of your restaurant.</p>
+              : null
+            }
           </div>
           <div className="form-group">
             <label htmlFor="yelpId">Yelp Business ID</label>
@@ -113,6 +210,10 @@ class RestaurantSignupForm extends Component {
               onChange={this.handleChange}
               required
             />
+            { this.state.showYelpError ? 
+              <p className="form-error">* Please enter your Yelp Business ID.</p>
+              : null
+            }
           </div>
           <div className="form-group">
             <label htmlFor="url">Link to Image of Seller's Permit</label>
@@ -125,10 +226,22 @@ class RestaurantSignupForm extends Component {
               onChange={this.handleChange}
               required
             />
+            { this.state.showUrlError ? 
+              <p className="form-error">* Please enter the link to your seller's permit.</p>
+              : null
+            }
+            { this.state.showValidUrlError ? 
+              <p className="form-error">* Please enter a valid url.</p>
+              : null
+            }
           </div>
           <div className="form-group">
             <label>Address</label>
             <PlacesAutocomplete inputProps={inputProps} onSelect={this.handleSelect} classNames={cssClasses} />
+            { this.state.showAddressError ? 
+              <p className="form-error">* Please enter your address.</p>
+              : null
+            }
           </div>
           <div className="form-group">
             <label htmlFor="phone">Phone Number</label>
@@ -141,6 +254,10 @@ class RestaurantSignupForm extends Component {
               onChange={this.handleChange}
               required
             />
+            { this.state.showPhoneError ? 
+              <p className="form-error">* Please enter your phone number.</p>
+              : null
+            }
           </div>
           <div className="form-group">
             <label htmlFor="email">Email Address</label>
@@ -153,6 +270,14 @@ class RestaurantSignupForm extends Component {
               onChange={this.handleChange}
               required
             />
+            { this.state.showEmailError ? 
+              <p className="form-error">* Please enter your email address.</p>
+              : null
+            }
+            { this.state.showValidEmailError ? 
+              <p className="form-error">* Please enter a valid email address.</p>
+              : null
+            }
           </div>
           <div className="form-group">
             <label htmlFor="password">Password</label>
@@ -165,8 +290,12 @@ class RestaurantSignupForm extends Component {
               onChange={this.handleChange}
               required
             />
+            { this.state.showPasswordError ? 
+              <p className="form-error">* Please enter a password.</p>
+              : null
+            }
           </div>
-          <button type="submit" className="btn btn-default">Submit</button>
+          <button type="submit" className="btn btn-default" onClick={this.handleSubmit}>Submit</button>
         </form>
         { this.state.error ? (
             <ErrorMessage error={this.state.error} />

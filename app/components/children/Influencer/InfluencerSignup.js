@@ -11,7 +11,12 @@ class InfSignup extends Component {
       lastName: '',
       email: '',
       password: '',
-      error: null
+      error: null,
+      showFirstError: false,
+      showLastError: false,
+      showEmailError: false,
+      showPasswordError: false,
+      showValidEmailError: false
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -27,23 +32,73 @@ class InfSignup extends Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    let newUser = {
-      firstName: this.state.firstName,
-      lastName: this.state.lastName,
-      email: this.state.email,
-      password: this.state.password
+    this.setState({
+      error: null,
+      showFirstError: false,
+      showLastError: false,
+      showEmailError: false,
+      showPasswordError: false,
+      showValidEmailError: false
+    });
+
+    let validate = true;
+    
+    if (!this.state.firstName) {
+      validate = false;
+      this.setState({
+        showFirstError: true
+      });
     }
 
-    $.post("/influencer/signup", newUser, (res => {
-      if (res.success !== null) {
-        if (res.success === true) {
-          window.location.replace("/influencer/dashboard");
-        }
-        else if (res.success === false) {
-          this.setState({ error: res.message });
-        }
+    if (!this.state.lastName) {
+      validate = false;
+      this.setState({
+        showLastError: true
+      });
+    }
+
+    let emailRe = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@([^<>()\.,;\s@\"])+\.([^<>()\.,;:\s@\"]{2,})$/;
+    let validEmail = emailRe.test(this.state.email);
+
+    if (!this.state.email) {
+      validate = false;
+      this.setState({
+        showEmailError: true
+      });
+    }
+    else if (!validEmail) {
+      validate = false;
+      this.setState({
+        showValidEmailError: true
+      });
+    }
+
+    if (!this.state.password) {
+      validate = false;
+      this.setState({
+        showPasswordError: true
+      });
+    }
+
+    if (validate) {
+      let newUser = {
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        email: this.state.email,
+        password: this.state.password
       }
-    }));
+
+      $.post("/influencer/signup", newUser, (res => {
+        if (res.success !== null) {
+          if (res.success === true) {
+            window.location.replace("/influencer/dashboard");
+          }
+          else if (res.success === false) {
+            this.setState({ error: res.message });
+          }
+        }
+      }));
+    }
   }
 
   render() {
@@ -52,7 +107,7 @@ class InfSignup extends Component {
         <div className="col-md-3"></div>
         <div className="col-md-6">
           <h3>Influencer Signup</h3>
-          <form onSubmit={this.handleSubmit}>
+          <form>
             <div className="form-group" >
               <label htmlFor="firstName">First Name</label>
               <input className="form-control"
@@ -63,6 +118,10 @@ class InfSignup extends Component {
                 onChange={this.handleChange}
                 required
               />
+              { this.state.showFirstError ? 
+              <p className="form-error">* Please enter your first name.</p>
+              : null
+              }
             </div>
             <div className="form-group">
               <label htmlFor="lastName">Last Name</label>
@@ -74,6 +133,10 @@ class InfSignup extends Component {
                 onChange={this.handleChange}
                 required
               />
+              { this.state.showLastError ? 
+              <p className="form-error">* Please enter your last name.</p>
+              : null
+              }
             </div>
             <div className="form-group">
               <label htmlFor="email">Email Address</label>
@@ -85,6 +148,14 @@ class InfSignup extends Component {
                 onChange={this.handleChange}
                 required
               />
+              { this.state.showEmailError ? 
+                <p className="form-error">* Please enter your email address.</p>
+                : null
+              }
+              { this.state.showValidEmailError ? 
+                <p className="form-error">* Please enter a valid email address.</p>
+                : null
+              }
             </div>
             <div className="form-group">
               <label htmlFor="password">Password</label>
@@ -96,8 +167,12 @@ class InfSignup extends Component {
                 onChange={this.handleChange}
                 required
               />
+              { this.state.showPasswordError ? 
+                <p className="form-error">* Please enter a password.</p>
+                : null
+              }
             </div>
-            <button type="submit" className="btn btn-default">Submit</button>
+            <button type="submit" className="btn btn-default" onClick={this.handleSubmit}>Submit</button>
           </form>
           { this.state.error ? (
               <ErrorMessage error={this.state.error} />

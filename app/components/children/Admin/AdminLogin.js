@@ -8,7 +8,9 @@ class AdminLogin extends Component {
     this.state = {
       email: '',
       password: '',
-      error: null
+      error: null,
+      showEmailError: false,
+      showPasswordError: false
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -24,21 +26,45 @@ class AdminLogin extends Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    let login = {
-      email: this.state.email,
-      password: this.state.password
+    this.setState({
+      showEmailError: false,
+      showPasswordError: false,
+      error: null
+    });
+
+    let validate = true;
+
+    if (!this.state.email) {
+      validate = false;
+      this.setState({
+        showEmailError: true
+      });
     }
 
-    $.post("/admin/login", login, (res => {
-      if (res.success !== null) {
-        if (res.success === true) {
-          window.location.replace("/admin/dashboard");
-        }
-        else if (res.success === false) {
-          this.setState({ error: res.message });
-        }
+    if (!this.state.password) {
+      validate = false;
+      this.setState({
+        showPasswordError: true
+      });
+    }
+
+    if (validate) {
+      let login = {
+        email: this.state.email,
+        password: this.state.password
       }
-    }));
+
+      $.post("/admin/login", login, (res => {
+        if (res.success !== null) {
+          if (res.success === true) {
+            window.location.replace("/admin/dashboard");
+          }
+          else if (res.success === false) {
+            this.setState({ error: res.message });
+          }
+        }
+      }));
+    }
   }
   
   render() {
@@ -47,7 +73,7 @@ class AdminLogin extends Component {
         <div className="col-md-3"></div>
         <div className="col-md-6">
           <h3>Admin Login</h3>
-          <form onSubmit={this.handleSubmit}>
+          <form>
             <div className="form-group">
               <label htmlFor="email">Email Address</label>
               <input
@@ -59,6 +85,10 @@ class AdminLogin extends Component {
                 onChange={this.handleChange}
                 required
               />
+              { this.state.showEmailError ? 
+                <p className="form-error">* Please enter your email address.</p>
+                : null
+              }
             </div>
             <div className="form-group">
               <label htmlFor="password">Password</label>
@@ -71,8 +101,12 @@ class AdminLogin extends Component {
                 onChange={this.handleChange}
                 required
               />
+              { this.state.showPasswordError ? 
+                <p className="form-error">* Please enter your password.</p>
+                : null
+              }
             </div>
-            <button type="submit" className="btn btn-default">Submit</button>
+            <button type="submit" className="btn btn-default" onClick={this.handleSubmit}>Submit</button>
           </form>
           { this.state.error ? (
               <ErrorMessage error={this.state.error} />
