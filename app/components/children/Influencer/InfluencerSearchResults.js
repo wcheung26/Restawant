@@ -9,11 +9,13 @@ class SearchResults extends Component {
     this.state = {
       modalIsOpen: false,
       promotions: [],
-      newQR: ""
+      newQR: null
     };
 
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.generateQR = this.generateQR.bind(this);
+    this.resetQRState = this.resetQRState.bind(this);
   };
 
   // Search for promotions, then open modal
@@ -43,9 +45,24 @@ class SearchResults extends Component {
         });
       }
     })
+  };
+
+  resetQRState() {
+    this.setState({ newQR: null })
   }
   
   render() {
+    if (this.state.newQR) {
+      return(
+        <div>
+          <h2>Unique QR Code Generated!</h2>
+          <p>Save and share this code on your social media and with your friends</p>
+          <img src={this.state.newQR} alt="Your QR Code" />
+          <br />
+          <button onClick={ this.resetQRState } className="btn btn-default">Back to Results</button>
+        </div>
+      )
+    }
     if (this.props.results.length > 0) {
       // Render results if restaurants found
       return (
