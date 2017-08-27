@@ -255,6 +255,7 @@ router.get("/api/influencer/find/:state/:city", function(req, res) {
 
 })
 
+// Query influencer's existing promtions
 router.get("/api/influencer/promotions", function(req, res) {
   console.log("===================") 
   console.log("Retrieving discounts under influencer...");  
@@ -272,6 +273,19 @@ router.get("/api/influencer/promotions", function(req, res) {
     console.log("Sending doc...")
     res.send(doc);
   });
+});
+
+// Query for a selected restaurant's active promotions to sign up for
+router.get("/api/influencer/findPromotions/:rId", function(req, res) {
+  console.log("Retrieving desired restaurant promotions...");
+  db.promotion.findAll({
+    where: {
+      restaurantId: req.params.rId
+    }
+  }).then(function(promotions) {
+    console.log("Sending promotions:", promotions)
+    res.send(promotions)
+  })
 });
 
 router.get("/api/admin", function(req, res) {
