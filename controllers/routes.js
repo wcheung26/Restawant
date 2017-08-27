@@ -4,6 +4,10 @@ var path = require('path');
 var moment = require('moment');
 var db = require("../models");
 
+// URL for QR codes, change productionURL for deployment
+var productionURL = null;
+var hostURL = productionURL || "http://localhost:8080";
+
 router.post("/api/restaurant/promotions", function(req, res) {
   console.log("Saving new restaurant promotion...");
   console.log("Requesting to save promotion... ", req.body);
@@ -252,7 +256,6 @@ router.get("/api/influencer/find/:state/:city", function(req, res) {
     console.log("Sending:", doc);
     res.send(doc);
   })
-
 })
 
 // Query influencer's existing promtions
@@ -287,6 +290,23 @@ router.get("/api/influencer/findPromotions/:rId", function(req, res) {
     res.send(promotions)
   })
 });
+
+// Generate new qr for influencer specific to the promotion
+router.get("/api/qr/:promotionId" ,function(req, res) {
+  // Real QR scans require a produciton URL as hostURL
+  var qrTarget = hostURL + "/api/qr/" + req.params.promotionId + "/" + req.user.id;
+  var qrUrl = "http://qrickit.com/api/qr.php?d=" + qrTarget;
+  console.log(qrUrl);
+  db.discount.create({
+    url: qrUrl,
+    promotionId: req.params.promotionId, 
+    influencerId: req.user.id
+  }).then(function(results) {
+   res.send(qrUrl);
+  })
+})
+
+
 
 router.get("/api/admin", function(req, res) {
   db.restaurant.findAll({

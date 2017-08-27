@@ -64,6 +64,10 @@ var helpers = {
 		return $.get(`/api/influencer/findPromotions/${rId}`)
 	},
 
+	generateQR: function(promotionId) {
+		return $.get(`/api/qr/${promotionId}`)
+	},
+
 	// ==================================
 	// Admin panel helpers
 
