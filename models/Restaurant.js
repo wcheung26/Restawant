@@ -7,8 +7,7 @@ module.exports = function(sequelize, DataTypes) {
     }, 
     yelpId: {
       type: DataTypes.STRING,
-      allowNull: false,
-      unique: true
+      allowNull: false
     },
     address: {
       type: DataTypes.STRING,
