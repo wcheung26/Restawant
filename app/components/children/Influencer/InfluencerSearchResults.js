@@ -34,10 +34,10 @@ class SearchResults extends Component {
     this.setState({modalIsOpen: false});
   };
 
-  generateQR() {
-    helpers.generateQR().then(response => {
+  generateQR(promotionId) {
+    helpers.generateQR(promotionId).then(response => {
       if (this.state.newQR !== response) {
-      console.log("New QR url: ", response);
+        console.log("New QR url: ", response);
         this.setState({ 
           newQR: response,
         });
@@ -91,7 +91,7 @@ class SearchResults extends Component {
                         <td>{promotion.offer}</td>
                         <td>{promotion.reward}</td>
                         <td>{promotion.expiration}</td>
-                        <td><button onClick{this.generateQR} className="btn btn-default">Promote</button></td>
+                        <td><button onClick={ () => this.generateQR(promotion.id) } className="btn btn-default">Promote</button></td>
                       </tr>
                     )
                   })}

@@ -7,13 +7,13 @@ module.exports = function(sequelize, DataTypes) {
     }, 
 
     url: { 
-      type: DataTypes.STRING, 
+      type: DataTypes.STRING,
+      unique: true, 
       allowNull: false, 
       validate: { 
         isUrl: true     
       }
     }
- 
   });
 
     Discount.associate = function(models) {
