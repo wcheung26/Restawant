@@ -215,7 +215,11 @@ router.get("/api/restaurant/summary", function(req, res) {
     });
     // console.log("Group By All Influencers... ", influencers);
 
-    finance["averagePayout"] = (finance["totalPayout"] / finance["totalScans"]).toFixed(2);
+    if (finance["totalScans"] === 0) {
+      finance["averagePayout"] = 0;
+    } else {
+      finance["averagePayout"] = (finance["totalPayout"] / finance["totalScans"]).toFixed(2);
+    }
     console.log("Finance Summary... ", finance);
 
     influencers.sort(function(a, b) {
