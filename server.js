@@ -11,8 +11,14 @@ var PORT = process.env.PORT || 8080;
 // Models to sync
 var db = require("./models");
 
-var secretLocal = require("./secret.js");
-var secret = process.env.SECRET || secretLocal.secret;
+var secret;
+if (process.env.SECRET) {
+  secret = process.env.SECRET;
+}
+else {
+  var secretLocal = require("./secret.js");
+  secret = secretLocal.secret;
+}
 
 app.use(logger("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
