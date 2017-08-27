@@ -54,6 +54,19 @@ var helpers = {
 		return $.get("/api/influencer/promotions");
 	},
 
+  // Get influencer summary data
+	getInflHistory: function() {
+		return $.get("/api/influencer/summary");
+	},
+
+	// Get active promotions for specific restaurant (for influencer modal)
+	getActivePromotions: function(rId) {
+		return $.get(`/api/influencer/findPromotions/${rId}`)
+	},
+
+	// ==================================
+	// Admin panel helpers
+
   getAdminApprove: function() {
     return $.get("/api/admin");
   },
@@ -64,11 +77,7 @@ var helpers = {
 
   denyRestaurant: function(id) {
     return $.post("/api/admin/deny", id);
-  },
-  // This function hits our own server to retrieve the record of query results
-	getInflHistory: function() {
-		return $.get("/api/influencer/summary");
-	}
+  }
 
   // getBizHistory: function(rid) {
   //   return axios.get(`/api/${rid}/history`);

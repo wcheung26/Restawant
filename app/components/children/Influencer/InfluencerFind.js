@@ -1,6 +1,6 @@
 import React from "react";
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
-import InfluencerSearchResults from "./InfluencerSearchResults"
+import InfluencerSearchResults from "./InfluencerSearchResults";
 
 class InfluencerFind extends React.Component {
 
