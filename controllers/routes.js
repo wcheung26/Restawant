@@ -3,6 +3,7 @@ var router = express.Router();
 var path = require('path');
 var moment = require('moment');
 var db = require("../models");
+var sequelize = require('sequelize');
 
 // URL for QR codes, change productionURL for deployment
 var productionURL = null;
@@ -310,6 +311,20 @@ router.get("/api/qr/:promotionId" ,function(req, res) {
   })
 })
 
+// Listen to QR code scans
+router.get("/api/qr/:promotionId/:influencerId", function(req, res) {
+  db.discount.update({
+    clicks: sequelize.literal('clicks + 1')
+  },
+  {
+    where: {
+      promotionId: req.params.promotionId,
+      influencerId: req.params.influencerId
+    }
+  }).then(function(doc) {
+    res.send(doc)
+  })
+})
 
 
 router.get("/api/admin", function(req, res) {
