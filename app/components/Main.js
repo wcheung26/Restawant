@@ -12,6 +12,7 @@ import AdminSignup from "./children/Admin/AdminSignup";
 import AdminDashboard from "./children/Admin/AdminDashboard";
 import Home from "./children/Home";
 import Logout from "./children/Logout";
+import { Modal, Button } from 'react-bootstrap';
 
 import helpers from "./utils/helpers";
 
@@ -23,10 +24,13 @@ class Main extends Component {
       restaurantAuth: false,
       influencerAuth: false,
       adminAuth: false,
-      userAuth: false
+      userAuth: false,
+      showModal: false
     }
     
     this.setUserAuth = this.setUserAuth.bind(this);
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
   componentDidMount() {
@@ -75,6 +79,14 @@ class Main extends Component {
   setUserAuth(res) {
     this.setState({ userAuth: res });
   }
+
+  closeModal() {
+    this.setState({ showModal: false });
+  }
+
+  openModal() {
+    this.setState({ showModal: true });
+  }
   
   render() {
     return (
@@ -92,7 +104,7 @@ class Main extends Component {
 						</div>
 						<div id="navbar" className="navbar-collapse collapse">
 							<ul className="nav navbar-nav navbar-right">
-                <li><Link to="/about"><i className="fa fa-info-circle" aria-hidden="true"></i> About</Link></li>
+                <li><Link to="#" onClick={this.openModal}><i className="fa fa-info-circle" aria-hidden="true"></i> About</Link></li>
                 { this.state.userAuth === true &&
                   <li><Link to="/logout"><i className="fa fa-sign-out" aria-hidden="true"></i> Log Out</Link></li>
                 }
@@ -137,6 +149,17 @@ class Main extends Component {
               )}
               <Route path="/" component={Home} />
             </Switch>
+            <Modal show={this.state.showModal} onHide={this.closeModal}>
+              <Modal.Header closeButton>
+                <Modal.Title>About Restawant</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <h4>A platform assisting restaurants to manage and grow their social media marketing.</h4>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button onClick={this.closeModal}>Close</Button>
+              </Modal.Footer>
+            </Modal>
           </div>
         </div>
       </div>
