@@ -154,7 +154,7 @@ class Main extends Component {
                 <Modal.Title>About Restawant</Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                <h4>Text in a modal</h4>
+                <h4>A platform assisting restaurants to manage and grow their social media marketing.</h4>
               </Modal.Body>
               <Modal.Footer>
                 <Button onClick={this.closeModal}>Close</Button>
