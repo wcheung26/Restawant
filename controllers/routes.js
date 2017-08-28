@@ -6,8 +6,7 @@ var db = require("../models");
 var sequelize = require('sequelize');
 
 // URL for QR codes, change productionURL for deployment
-var productionURL = null;
-var hostURL = productionURL || "http://localhost:8080";
+var hostURL = process.env.PRODUCTION_URL || "http://localhost:8080";
 
 router.post("/api/restaurant/promotions", function(req, res) {
   console.log("Saving new restaurant promotion...");
