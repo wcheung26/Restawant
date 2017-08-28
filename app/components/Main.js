@@ -19,9 +19,12 @@ class Main extends Component {
       influencerAuth: false,
       adminAuth: false,
       userAuth: false,
+      showModal: false
     }
     
     this.setUserAuth = this.setUserAuth.bind(this);
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
   componentDidMount() {
@@ -70,6 +73,15 @@ class Main extends Component {
   setUserAuth(res) {
     this.setState({ userAuth: res });
   }
+
+  closeModal() {
+    this.setState({ showModal: false });
+  }
+
+  openModal() {
+    console.log("Test");
+    this.setState({ showModal: true });
+  }
   
   render() {
     return (
@@ -103,7 +115,10 @@ class Main extends Component {
                   restaurantAuth={this.state.restaurantAuth}
                   influencerAuth={this.state.influencerAuth}
                   adminAuth={this.state.adminAuth}
-                  userAuth={this.state.userAuth} /> )} />
+                  userAuth={this.state.userAuth}
+                  openModal={this.openModal}
+                  closeModal={this.closeModal}
+                  showModal={this.state.showModal} /> )} />
             </Switch>
           </div>
         </div>
