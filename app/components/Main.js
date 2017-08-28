@@ -100,7 +100,12 @@ class Main extends Component {
 								<span className="icon-bar"></span>
 								<span className="icon-bar"></span>
 							</button>
-							<Link className="navbar-brand" to="/">Restawant</Link>
+              { this.state.userAuth ? (
+							    <Link className="navbar-brand" to="#">Restawant</Link>
+                ) : (
+                  <Link className="navbar-brand" to="/">Restawant</Link>
+              )}
+
 						</div>
 						<div id="navbar" className="navbar-collapse collapse">
 							<ul className="nav navbar-nav navbar-right">
