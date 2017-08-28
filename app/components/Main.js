@@ -92,12 +92,7 @@ class Main extends Component {
 						</div>
 						<div id="navbar" className="navbar-collapse collapse">
 							<ul className="nav navbar-nav navbar-right">
-                { this.state.userAuth === false &&
-                  <li><Link to="/restaurant/login"><i className="fa fa-cutlery" aria-hidden="true"></i> Restaurants</Link></li>
-                }
-                { this.state.userAuth === false &&
-                  <li><Link to="/influencer/login"><i className="fa fa-user" aria-hidden="true"></i> Influencers</Link></li>
-                }
+                <li><Link to="/about"><i className="fa fa-info-circle" aria-hidden="true"></i> About</Link></li>
                 { this.state.userAuth === true &&
                   <li><Link to="/logout"><i className="fa fa-sign-out" aria-hidden="true"></i> Log Out</Link></li>
                 }
