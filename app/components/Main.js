@@ -105,7 +105,7 @@ class Main extends Component {
 						</div>
 					</div>
 				</nav>
-        <div className="container main">
+        <div className="container-fluid main">
           <div className="row">
             <Switch>
               { this.state.restaurantAuth && this.state.userAuth ? (

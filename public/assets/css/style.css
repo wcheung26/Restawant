@@ -1,3 +1,190 @@
+body {
+  background-color: #2f3238;
+  font-family: 'Raleway', Arial, sans-serif;
+}
+
+.navbar-default {
+  background-color: #fff;
+  border-color: #fff;
+}
+
+.jumbotron {
+  background-color: inherit;
+  color: #fff;
+  margin-bottom: 0px;
+}
+
+.jumbotron p {
+  font-size: 15px;
+}
+
+.grid {
+  position: relative;
+  clear: both;
+  margin: 0 auto;
+  padding: 1em 0 4em;
+  max-width: 2000px;
+  list-style: none;
+  text-align: center;
+}
+
+.grid figure {
+  position: relative;
+  float: left;
+  overflow: hidden;
+  margin: 10px 1%;
+  min-width: 320px;
+  max-width: 960px;
+  max-height: 720px;
+  width: 48%;
+  height: auto;
+  background: #3085a3;
+  text-align: center;
+  cursor: pointer;
+}
+
+.grid figure img {
+  position: relative;
+  display: block;
+  min-height: 100%;
+  max-width: 100%;
+  opacity: 0.8;
+}
+
+.grid figure figcaption {
+  padding: 2em;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 1.25em;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.grid figure figcaption::before,
+.grid figure figcaption::after {
+  pointer-events: none;
+}
+
+.grid figure figcaption {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.grid figure h2 {
+  word-spacing: -0.15em;
+  font-weight: 300;
+}
+
+.grid figure h2 span {
+  font-weight: 800;
+}
+
+.grid figure h2,
+.grid figure p {
+  margin: 0;
+}
+
+.grid figure p {
+  letter-spacing: 1px;
+  font-size: 68.5%;
+}
+
+figure.effect-ming {
+  background: #030c17;
+}
+
+figure.effect-ming img {
+  opacity: 0.9;
+  -webkit-transition: opacity 0.35s;
+  transition: opacity 0.35s;
+}
+
+figure.effect-ming figcaption::before {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  bottom: 30px;
+  left: 30px;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 30px rgba(255,255,255,0.2);
+  content: '';
+  opacity: 0;
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  -webkit-transform: scale3d(1.4,1.4,1);
+  transform: scale3d(1.4,1.4,1);
+}
+
+figure.effect-ming h2 {
+  margin: 20% 0 10px 0;
+  -webkit-transition: -webkit-transform 0.35s;
+  transition: transform 0.35s;
+}
+
+figure.effect-ming p,
+figure.effect-ming button {
+  font-size: 70%;
+  padding: 1em;
+  opacity: 0;
+  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+  transition: opacity 0.35s, transform 0.35s;
+  -webkit-transform: scale(1.5);
+  transform: scale(1.5);
+}
+
+figure.effect-ming button {
+  background-color: Transparent;
+  border: 2px solid #fff;
+  color: #fff;
+  margin-top: 10px;
+  min-width: 100px;
+  padding: 10px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.home-sign-up {
+  margin-right: 10px;
+}
+
+figure.effect-ming:hover h2 {
+  -webkit-transform: scale(0.9);
+  transform: scale(0.9);
+}
+
+figure.effect-ming:hover figcaption::before,
+figure.effect-ming:hover p,
+figure.effect-ming:hover button {
+  opacity: 1;
+  -webkit-transform: scale3d(1,1,1);
+  transform: scale3d(1,1,1);
+}
+
+figure.effect-ming:hover figcaption {
+  background-color: rgba(58,52,42,0);
+}
+
+figure.effect-ming:hover img {
+  opacity: 0.4;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .main {
   margin-top: 50px;
 }
@@ -45,6 +232,46 @@
 footer {
   padding: 20px;
 }
+
+@media screen and (max-width: 1000px) {
+  figure.effect-ming h2 {
+    font-size: 25px;
+    margin: 10% 0 10px 0;
+  }
+
+  figure.effect-ming p, 
+  figure.effect-ming button {
+    font-size: 60%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .grid {
+    max-width: 500px;
+  }
+
+  .grid figure {
+    width: 500px;
+  }
+
+  figure.effect-ming h2 {
+    margin: 20% 0 10px 0;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .grid figure {
+    min-width: 320px;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 535px) {
+  figure.effect-ming h2 {
+    margin: 10% 0 10px 0;
+  }
+}
+
 
 /*table, th, td {
    border: 1px solid black;
