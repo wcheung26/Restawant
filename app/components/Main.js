@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Route, Link, Switch } from "react-router-dom";
 
 import RestaurantDashboard from "./children/Restaurant/RestaurantDashboard";
+import RestaurantScan from "./children/Restaurant/RestaurantScan"
 import InfluencerDashboard from "./children/Influencer/InfluencerDashboard";
 import AdminDashboard from "./children/Admin/AdminDashboard";
 import OtherView from "./children/OtherView";
@@ -112,6 +113,7 @@ class Main extends Component {
                 ) : (
                   null
               )}
+              <Route path="/api/restaurant/qr/confirm" component={RestaurantScan} />
               <Route path="/" render={(props) => (
                 <OtherView {...props}
                   restaurantAuth={this.state.restaurantAuth}
