@@ -480,11 +480,8 @@ figure.effect-ming:hover img {
 }
 
 .view-promotions:hover,
-.view-promotions:focus,
 .promote:hover,
-.promote:focus,
-.back-to-results:hover,
-.back-to-results:focus {
+.back-to-results:hover {
   background-color: #2f3238;
   color: #ffffff;
 }

@@ -107,7 +107,7 @@ class SearchResults extends Component {
                         <td>{i + 1}</td>
                         <td>{promotion.name}</td>
                         <td>{promotion.offer}</td>
-                        <td>{promotion.reward}</td>
+                        <td>${promotion.reward}</td>
                         <td>{moment(promotion.expiration).format("MMMM D, YYYY")}</td>
                         <td><button onClick={ () => this.generateQR(promotion.id) } className="btn btn-default promote">Promote</button></td>
                       </tr>
