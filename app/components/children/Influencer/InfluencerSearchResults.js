@@ -75,7 +75,7 @@ class SearchResults extends Component {
                 return (
                   <tr key={restaurant.id}>
                     <td>{i + 1}</td>
-                    <td><a href={"https://www.yelp.com/biz/" + restaurant.yelpId}>{restaurant.name}</a></td>
+                    <td><a href={"https://www.yelp.com/biz/" + restaurant.yelpId} target="_blank">{restaurant.name}</a></td>
                     <td>{restaurant.address}, {restaurant.city}</td>
                     <td><button onClick={ () => this.openModal(restaurant.id) } className="btn btn-default view-promotions">See Promotions</button></td>
                   </tr>
