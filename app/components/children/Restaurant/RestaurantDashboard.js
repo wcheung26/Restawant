@@ -12,6 +12,14 @@ class RestaurantDashboard extends React.Component {
     super(props);
   }
   
+  componentDidMount() {
+    document.getElementById("main").style.marginTop = "50px";
+  }
+
+  componentWillUnmount(){
+    document.getElementById("main").style.marginTop = "70px";
+  }  
+
   render() {
     return (
       <div className="dashboard-content-wrapper">

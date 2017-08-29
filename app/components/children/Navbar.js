@@ -18,9 +18,9 @@ class Navbar extends Component {
                 <span className="icon-bar"></span>
               </button>
               { this.props.userAuth ? (
-                  <Link className="navbar-brand" to="#">Restawant</Link>
+                  <Link className="navbar-brand" to="#"><img className="home-navbar-logo" src="../../../assets/images/logo2.png" alt="Restawant"/></Link>
                 ) : (
-                  <Link className="navbar-brand" to="/">Restawant</Link>
+                  <Link className="navbar-brand" to="/"><img className="home-navbar-logo" src="../../../assets/images/logo2.png" alt="Restawant"/></Link>
               )}
 
             </div>

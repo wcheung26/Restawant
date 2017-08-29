@@ -88,7 +88,7 @@ class Main extends Component {
       <div>
         <div id="background"></div>
         <div id="background-overlay"></div>
-        <div className="container-fluid main">
+        <div className="container-fluid" id="main">
           <div className="row">
             <Switch>
               { this.state.restaurantAuth && this.state.userAuth ? (

@@ -56,14 +56,11 @@ class OtherView extends Component {
             </Switch>
             <Modal show={this.props.showModal} onHide={this.props.closeModal}>
               <Modal.Header closeButton>
-                <Modal.Title>About Restawant</Modal.Title>
+                <Modal.Title>About</Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                <h4>A platform assisting restaurants to manage and grow their social media marketing.</h4>
+                A platform assisting restaurants to manage and grow their social media marketing.
               </Modal.Body>
-              <Modal.Footer>
-                <Button onClick={this.props.closeModal}>Close</Button>
-              </Modal.Footer>
             </Modal>
           </div>
         </div>
