@@ -20,23 +20,33 @@ class InfluencerSummary extends React.Component {
   render() {
     if (this.state.summary.length === 0) {
       return (
-        <div>
-          <h3>Performance Summary</h3>
-          <div className="panel panel-default">
-          <div className="panel-body text-center">
-            <h4>No performance summary available.</h4>
-          </div>
-        </div>
+        <div className="">
+          <h2 className="dashboard-header"><i className="fa fa-info-circle" aria-hidden="true"></i> Performance Summary</h2>
+          <hr />
+          <table className="table">
+            <thead>
+              <tr className="info">
+                <th>Restaurant Name</th>
+                <th>Promotions Participated</th>
+                <th>Total Scans</th>
+                <th>Total Earnings</th>
+              </tr>
+            </thead>
+            <tbody className="text-center">
+              No performance summary available.
+            </tbody>
+          </table>
         </div>
       );
     }
     else {
       return (
-        <div>
-          <h3>Performance Summary</h3>
+        <div className="">
+          <h2 className="dashboard-header"><i className="fa fa-info-circle" aria-hidden="true"></i> Performance Summary</h2>
+          <hr />
           <table className="table">
             <thead>
-              <tr>
+              <tr className="info">
                 <th>Restaurant Name</th>
                 <th>Promotions Participated</th>
                 <th>Total Scans</th>

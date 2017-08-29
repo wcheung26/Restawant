@@ -2,6 +2,31 @@ body {
   font-family: 'Raleway', Arial, sans-serif;
 }
 
+.home-logo {
+  display: block;
+  margin: auto;
+  margin-bottom: 40px;
+  max-width: 600px;
+}
+
+.home-navbar-logo {
+  width: 120px;
+}
+
+.modal-header {
+  background-color: #2f3238;
+  color: #ffffff;
+}
+
+.modal-body {
+  font-size: 15px;
+  padding: 30px;
+}
+
+.close {
+  opacity: 0.5;
+}
+
 .sidebar-nav {
   background-color: #2f3238;
   border: 1px solid #2f3238;
@@ -140,10 +165,16 @@ select {
   border-color: #fff;
 }
 
+.navbar-default .navbar-brand,
+.navbar-default .navbar-nav>li>a {
+  color: #2f3238;
+}
+
 .jumbotron {
   background-color: inherit;
   color: #fff;
   margin-bottom: 0px;
+  padding-bottom: 30px;
 }
 
 .jumbotron p {
@@ -320,8 +351,8 @@ figure.effect-ming:hover img {
   text-decoration: none;
 }
 
-.main {
-  margin-top: 50px;
+#main {
+  margin-top: 70px;
 }
 
 .dashboard-content-wrapper {
@@ -436,6 +467,9 @@ figure.effect-ming:hover img {
   text-decoration: none;
 }
 
+.view-promotions {
+  
+}
 
 
 
@@ -444,34 +478,6 @@ figure.effect-ming:hover img {
   margin-top: 20px;
 }
 
-.fa.home-icon {
-  font-size: 80px;
-  line-height: 150px;
-  color: #fff;
-  width: 150px;
-  height: 150px;
-  background: #53A8FB; 
-  -moz-border-radius: 90px; 
-  -webkit-border-radius: 90px; 
-  border-radius: 90px;
-}
-
-.fa.home-icon:hover {
-  color: #fff;
-  background: #29527B;
-}
-
-.icon-div {
-  margin-bottom: 20px;
-}
-
-
-.form-error {
-  color: #a94442;
-  margin-bottom: 15px;
-  margin-top: 5px;
-  font-size: 12px;
-}
 
 .alert-danger {
   margin-top: 20px;
