@@ -91,7 +91,7 @@ class InfluencerFind extends React.Component {
           <div className="form-group">
             <PlacesAutocomplete inputProps={inputProps} onSelect={this.handleSelect} classNames={cssClasses} />
             { this.state.showAddressError ? 
-              <p className="form-error">* Please enter an address.</p>
+              <p className="form-error">* Please enter a city or address.</p>
               : null
             }
           </div>
