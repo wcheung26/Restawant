@@ -2,12 +2,7 @@ import React, { Component } from "react";
 import { Route, Link, Switch } from "react-router-dom";
 
 import RestaurantDashboard from "./children/Restaurant/RestaurantDashboard";
-<<<<<<< HEAD
 import RestaurantScan from "./children/Restaurant/RestaurantScan"
-import InfluencerLogin from "./children/Influencer/InfluencerLogin";
-import InfluencerSignup from "./children/Influencer/InfluencerSignup";
-=======
->>>>>>> master
 import InfluencerDashboard from "./children/Influencer/InfluencerDashboard";
 import AdminDashboard from "./children/Admin/AdminDashboard";
 import OtherView from "./children/OtherView";
