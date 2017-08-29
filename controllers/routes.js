@@ -220,7 +220,11 @@ router.get("/api/restaurant/summary", function(req, res) {
     });
 
     influencers.forEach(function(influencer) {
-      influencer["averagePayout"] = (influencer["totalPayout"] / influencer["totalScans"]).toFixed(2);
+      if (influencer["totalScans"] === 0) {
+        influencer["averagePayout"] = 0;
+      } else {
+        influencer["averagePayout"] = (influencer["totalPayout"] / influencer["totalScans"]).toFixed(2);
+      }
     });
     // console.log("Group By All Influencers... ", influencers);
 
