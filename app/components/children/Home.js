@@ -6,6 +6,14 @@ class Home extends Component {
     super(props);
   }
 
+  componentDidMount() {
+    document.getElementById("background").style.backgroundColor = "#2f3238";
+  }
+
+  componentWillUnmount(){
+    document.getElementById("background").style.backgroundColor = null;
+  }
+
   render() {
     return (
       <div className="col-lg-12 col-md-12 col-sm-12 text-center">
