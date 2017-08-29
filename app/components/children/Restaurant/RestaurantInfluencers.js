@@ -19,6 +19,18 @@ class RestaurantInfluencers extends React.Component {
   }
 
   render() {
+    if (this.state.influencers.length === 0) {
+      console.log("HERE");
+      return (
+        <div>
+          <div className="panel panel-default">
+          <div className="panel-body text-center">
+            <h4>There are no influencers currently signed up.</h4>
+          </div>
+        </div>
+        </div>
+      );
+    }
     return (
       <div className="panel panel-default">
         <div className="panel-heading text-center">All Influencers</div>
