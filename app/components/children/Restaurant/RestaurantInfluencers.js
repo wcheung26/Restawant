@@ -20,7 +20,6 @@ class RestaurantInfluencers extends React.Component {
 
   render() {
     if (this.state.influencers.length === 0) {
-      console.log("HERE");
       return (
         <div>
           <div className="panel panel-default">

@@ -193,7 +193,7 @@ router.get("/api/restaurant/summary", function(req, res) {
       model: db.influencer
     }]
   }).then(function(discounts) {
-    // console.log("All discounts...", discounts);
+    console.log("All discounts...", discounts);
     discounts.forEach(function(discount) {
       // console.log("Current Scan...", discount.clicks);
       // console.log("Current Reward...", discount.promotion.reward);
@@ -213,7 +213,11 @@ router.get("/api/restaurant/summary", function(req, res) {
       }
     });
 
-    influencers = Object.values(influencers);
+    // influencers = Object.values(influencers);
+    influencers = Object.keys(influencers).map(function(key) {
+      return influencers[key];
+    });
+
     influencers.forEach(function(influencer) {
       influencer["averagePayout"] = (influencer["totalPayout"] / influencer["totalScans"]).toFixed(2);
     });
@@ -384,7 +388,7 @@ router.get("/api/influencer/summary", function(req, res) {
       }]
     }]
   }).then(function(discounts) {
-      // console.log("All of user's existing discounts... ", discounts);
+      console.log("All of user's existing discounts... ", discounts);
       discounts.forEach(function(discount) {
         if (restaurants[discount.promotion.restaurant.id]) {
           if (restaurants[discount.promotion.restaurant.id]["promotionsId"].indexOf(discount.promotion.id) === -1) {
@@ -403,7 +407,10 @@ router.get("/api/influencer/summary", function(req, res) {
         }
       });
 
-      restaurants = Object.values(restaurants);
+      // restaurants = Object.values(restaurants);
+      restaurants = Object.keys(restaurants).map(function(key) {
+        return restaurants[key];
+      });
       // console.log("Group By Restaurants... ", restaurants);
 
       restaurants.forEach(function(restaurant) {

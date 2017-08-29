@@ -24,7 +24,7 @@ class InfluencerSummary extends React.Component {
           <h3>Performance Summary</h3>
           <div className="panel panel-default">
           <div className="panel-body text-center">
-            <h4>No performance history available.</h4>
+            <h4>No performance summary available.</h4>
           </div>
         </div>
         </div>
