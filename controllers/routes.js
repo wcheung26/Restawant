@@ -213,7 +213,11 @@ router.get("/api/restaurant/summary", function(req, res) {
       }
     });
 
-    influencers = Object.values(influencers);
+    // influencers = Object.values(influencers);
+    influencers = Object.keys(influencers).map(function(key) {
+      return influencers[key];
+    });
+
     influencers.forEach(function(influencer) {
       influencer["averagePayout"] = (influencer["totalPayout"] / influencer["totalScans"]).toFixed(2);
     });
@@ -403,7 +407,10 @@ router.get("/api/influencer/summary", function(req, res) {
         }
       });
 
-      restaurants = Object.values(restaurants);
+      // restaurants = Object.values(restaurants);
+      restaurants = Object.keys(restaurants).map(function(key) {
+        return restaurants[key];
+      });
       // console.log("Group By Restaurants... ", restaurants);
 
       restaurants.forEach(function(restaurant) {
