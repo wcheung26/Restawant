@@ -214,7 +214,11 @@ router.get("/api/restaurant/summary", function(req, res) {
       }
     });
 
-    influencers = Object.values(influencers);
+    // influencers = Object.values(influencers);
+    influencers = Object.keys(influencers).map(function(key) {
+      return influencers[key];
+    });
+
     influencers.forEach(function(influencer) {
       influencer["averagePayout"] = (influencer["totalPayout"] / influencer["totalScans"]).toFixed(2);
     });
@@ -313,16 +317,26 @@ router.get("/api/qr/:promotionId" ,function(req, res) {
 
 // Listen to QR code scans
 router.get("/api/qr/:promotionId/:influencerId", function(req, res) {
-  db.discount.update({
-    clicks: sequelize.literal('clicks + 1')
-  },
-  {
+  db.promotion.findAll({
     where: {
-      promotionId: req.params.promotionId,
-      influencerId: req.params.influencerId
+      id: req.params.promotionId
     }
-  }).then(function(doc) {
-    res.send(doc)
+  }).then(function(promotion) { 
+    if (req.user && (promotion[0].restaurantId == req.user.id)) {
+      db.discount.update({
+        clicks: sequelize.literal('clicks + 1')
+      },
+      {
+        where: {
+          promotionId: req.params.promotionId,
+          influencerId: req.params.influencerId
+        }
+      }).then(function(doc) {
+        res.redirect("/api/restaurant/qr/confirm")
+      })
+    } else {
+      res.redirect("/api/restaurant/qr/confirm")      
+    }
   })
 })
 
@@ -394,7 +408,10 @@ router.get("/api/influencer/summary", function(req, res) {
         }
       });
 
-      restaurants = Object.values(restaurants);
+      // restaurants = Object.values(restaurants);
+      restaurants = Object.keys(restaurants).map(function(key) {
+        return restaurants[key];
+      });
       // console.log("Group By Restaurants... ", restaurants);
 
       restaurants.forEach(function(restaurant) {
