@@ -23,6 +23,11 @@ class InfLogin extends Component {
     document.getElementById("background").style.backgroundRepeat = "no-repeat";
     document.getElementById("background").style.backgroundPosition = "75%";
     document.getElementById("background").style.opacity = "0.8";
+    document.getElementById("background").style.position = "fixed";
+    document.getElementById("background").style.height = "100vh";
+    document.getElementById("background-overlay").style.background = "rgba(47, 50, 56, 0.8)";
+    document.getElementById("background-overlay").style.position = "fixed";
+    document.getElementById("background-overlay").style.height = "100vh";
   }
 
   componentWillUnmount() {
@@ -30,6 +35,11 @@ class InfLogin extends Component {
     document.getElementById("background").style.backgroundRepeat = null;
     document.getElementById("background").style.backgroundPosition = null;
     document.getElementById("background").style.opacity = null;
+    document.getElementById("background").style.position = null;
+    document.getElementById("background").style.height = null;
+    document.getElementById("background-overlay").style.background = null;
+    document.getElementById("background-overlay").style.position = null;
+    document.getElementById("background-overlay").style.height = null;
   }
 
   handleChange(event) {

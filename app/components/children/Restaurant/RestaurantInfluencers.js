@@ -21,28 +21,44 @@ class RestaurantInfluencers extends React.Component {
   render() {
     if (this.state.influencers.length === 0) {
       return (
-        <div>
-          <div className="panel panel-default">
-          <div className="panel-body text-center">
-            <h4>There are no influencers currently signed up.</h4>
-          </div>
-        </div>
+        <div className=""> 
+          <h2 className="dashboard-header"><i className="fa fa-search" aria-hidden="true"></i> Find Influencers</h2>
+          <hr />
+          <table className="table">
+            <thead>
+              <tr className="info">
+                <th>There are no influencers currently signed up.</th>
+              </tr>
+            </thead>
+          </table>
         </div>
       );
     }
     else {
       return (
-        <div className="panel panel-default">
-          <div className="panel-heading text-center">All Influencers</div>
-          <div className="panel-body">
-            <ul className="list-group">
+        <div className=""> 
+          <h2 className="dashboard-header"><i className="fa fa-search" aria-hidden="true"></i> Find Influencers</h2>
+          <hr />
+          <table className="table">
+            <thead>
+              <tr className="info">
+                <th>Name</th>
+                <th>Email</th>
+                <th>Total Scans</th>
+              </tr>
+            </thead>
+            <tbody>
               {this.state.influencers.map((influencer, i) => {
                 return (
-                  <li className="list-group-item" key={influencer.id}>Name: {influencer.name}, Email: {influencer.email}, Total Scans: {influencer.totalScans}</li>
+                  <tr key={influencer.id}>
+                    <td>{influencer.name}</td>
+                    <td><a href={"mailto:" + influencer.email + "?Subject=Hello,%20" + influencer.name + "!"} target="_top">{influencer.email}</a></td>
+                    <td>{influencer.totalScans}</td>
+                  </tr>
                 );
-              })}
-            </ul>
-          </div>
+              })}               
+            </tbody>
+          </table>
         </div>
       );
     }

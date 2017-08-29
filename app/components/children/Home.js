@@ -8,10 +8,14 @@ class Home extends Component {
 
   componentDidMount() {
     document.getElementById("background").style.backgroundColor = "#2f3238";
+    document.getElementById("background").style.position = "fixed";
+    document.getElementById("background").style.height = "100vh";
   }
 
   componentWillUnmount(){
     document.getElementById("background").style.backgroundColor = null;
+    document.getElementById("background").style.position = null;
+    document.getElementById("background").style.height = null;
   }
 
   render() {

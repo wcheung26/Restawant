@@ -8,7 +8,7 @@ body {
   height: 100%;
   left: 0;
   overflow-x: hidden;
-  padding-top: 60px;
+  /*padding-top: 60px;*/
   position: fixed;
   top: 0;
   transition: 0.5s;
@@ -16,10 +16,14 @@ body {
   z-index: 1;
 }
 
+.sidebar-nav hr {
+  width: 90%;
+}
+
 .sidebar-nav a {
   color: #ffffff;
   display: block;
-  font-size: 17px;
+  font-size: 15px;
   padding: 10px 15px;
   text-decoration: none;
   transition: 0.3s;
@@ -30,31 +34,28 @@ body {
   color: #2f3238;
 }
 
+.logout {
+  bottom: 10px;
+  position: absolute;
+  width: 100%;
+}
+
 .dashboard-wrapper {
   margin-left: 250px;
 }
 
-.main {
-  margin-top: 50px;
-}
-
 #background {
-  position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 100vh;
 }
 
 #background-overlay {
-  background: rgba(47, 50, 56, 0.8);
-  position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 100vh;
 }
 
 .forms-header {
@@ -125,8 +126,13 @@ select {
   float: right;
 }
 
-.fa-info-circle {
-  margin-right: 5px;
+.fa-info-circle,
+.fa-plus, 
+.fa-check,
+.fa-search,
+.fa-sign-out,
+.fa-times {
+  margin-right: 10px;
 }
 
 .navbar-default {
@@ -314,14 +320,121 @@ figure.effect-ming:hover img {
   text-decoration: none;
 }
 
+.main {
+  margin-top: 50px;
+}
 
+.dashboard-content-wrapper {
+  margin-left: 20px;
+  margin-right: 20px;
+}
 
+.dashboard-logo {
+  display: block;
+  margin: auto;
+  margin-top: 20px;
+  width: 200px;
+}
 
+.dashboard-header {
+  /*background: #2f3238;*/
+  /*color: #ffffff;*/
+  color: #2f3238;
+  font-size: 20px;
+  margin-bottom: 15px;
+  margin-top: 0px;
+  /*padding: 20px 30px;*/
+}
 
+.dashboard-form {
 
+}
 
+.dashboard-form .form-group {
+  margin-bottom: 10px;
+}
 
+.dashboard-form .form-control {
+  border: none;
+  border-bottom: 1px solid #ccc;
+  border-radius: 0;
+  font-size: 15px;
+  height: 45px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
 
+.dashboard-submit {
+  background-color: #2f3238;
+  border: 2px solid #ffffff;
+  border-radius: 0px;
+  color: #ffffff;
+  font-size: 13px;
+  margin-top: 15px;
+  padding: 15px;
+  text-align: left;
+  text-transform: uppercase;
+  width: 200px;
+}
+
+.dashboard-submit:hover,
+.dashboard-submit:focus {
+  background-color: #2f3238;
+  border: 2px solid #ffffff;
+  color: #ffffff;
+}
+
+.success-message {
+
+}
+
+.panel-body {
+  padding-bottom: 15px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 0px;
+}
+
+.panel-group .panel {
+  border-radius: 0px;
+}
+
+.panel-group .panel a:hover,
+.panel-group .panel a:focus {
+  text-decoration: none;
+}
+
+.panel-title {
+  background: #eee;
+  color: #2f3238;
+  font-size: 16px;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 20px;
+}
+
+.panel-title:hover {
+  background: #2f3238;
+  color: #ffffff;
+}
+
+.dashboard-subheader {
+  color: #706fb7;
+  font-size: 18px;
+  font-weight: bolder;
+}
+
+.table {
+  margin-bottom: 10px;
+}
+
+.table>thead {
+  /*border-top: 2px solid #ddd;*/
+}
+
+.table>tbody>tr>td>a:hover {
+  text-decoration: none;
+}
 
 
 
