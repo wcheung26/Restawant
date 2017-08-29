@@ -4,7 +4,6 @@ import { Route, Link, Switch } from "react-router-dom";
 import RestaurantDashboard from "./children/Restaurant/RestaurantDashboard";
 import RestaurantScan from "./children/Restaurant/RestaurantScan"
 import InfluencerDashboard from "./children/Influencer/InfluencerDashboard";
-import AdminDashboard from "./children/Admin/AdminDashboard";
 import OtherView from "./children/OtherView";
 import Logout from "./children/Logout";
 import { Modal, Button } from 'react-bootstrap';
@@ -99,11 +98,6 @@ class Main extends Component {
                 )}
               { this.state.influencerAuth && this.state.userAuth ? (
                   <Route path="/influencer" component={InfluencerDashboard} />
-                ) : (
-                  null
-              )}
-              { this.state.adminAuth && this.state.userAuth ? (
-                  <Route path="/admin" component={AdminDashboard} />
                 ) : (
                   null
               )}

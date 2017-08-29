@@ -9,6 +9,7 @@ import InfluencerLogin from "../children/Influencer/InfluencerLogin";
 import InfluencerSignup from "../children/Influencer/InfluencerSignup";
 import AdminLogin from "../children/Admin/AdminLogin";
 import AdminSignup from "../children/Admin/AdminSignup";
+import AdminDashboard from "../children/Admin/AdminDashboard";
 import Home from "../children/Home";
 import Logout from "../children/Logout";
 
@@ -48,7 +49,7 @@ class OtherView extends Component {
               )}
               <Route path="/admin/signup" component={AdminSignup} />
               { this.props.adminAuth && this.props.userAuth ? (
-                  null
+                  <Route path="/admin" component={AdminDashboard} />
                 ) : (
                   <Route path="/admin" component={AdminLogin} />
               )}
