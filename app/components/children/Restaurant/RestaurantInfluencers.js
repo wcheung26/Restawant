@@ -45,6 +45,7 @@ class RestaurantInfluencers extends React.Component {
           <table className="table">
             <thead>
               <tr className="info">
+                <th></th>
                 <th>Influencer Name</th>
                 <th>Email</th>
                 <th>Total Scans</th>
@@ -54,6 +55,7 @@ class RestaurantInfluencers extends React.Component {
               {this.state.influencers.map((influencer, i) => {
                 return (
                   <tr key={influencer.id}>
+                    <td>{i + 1}</td>
                     <td>{influencer.name}</td>
                     <td><a href={"mailto:" + influencer.email + "?Subject=Hello,%20" + influencer.name + "!"} target="_top">{influencer.email}</a></td>
                     <td>{influencer.totalScans}</td>

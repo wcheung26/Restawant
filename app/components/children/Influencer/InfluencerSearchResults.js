@@ -64,7 +64,7 @@ class SearchResults extends Component {
           <table className="table">
             <thead>
               <tr className="info">
-                <td>ID</td>
+                <td></td>
                 <td>Restaurant Name</td>
                 <td>Address</td>
                 <td>Promotions</td>
@@ -74,7 +74,7 @@ class SearchResults extends Component {
               {this.props.results.map((restaurant, i) => {
                 return (
                   <tr key={restaurant.id}>
-                    <th>{i + 1}</th>
+                    <td>{i + 1}</td>
                     <td><a href={"https://www.yelp.com/biz/" + restaurant.yelpId}>{restaurant.name}</a></td>
                     <td>{restaurant.address}, {restaurant.city}</td>
                     <td><button onClick={ () => this.openModal(restaurant.id) } className="btn btn-default view-promotions">See Promotions</button></td>
@@ -86,30 +86,30 @@ class SearchResults extends Component {
 
           <Modal show={this.state.showModal} onHide={this.closeModal} bsSize="large">
             <Modal.Header closeButton>
-              <Modal.Title>Active Promotions For This Restaurant</Modal.Title>
+              <Modal.Title>Active Promotions</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <p>Select a promotion:</p>
               <table className="table">
                 <thead>
-                  <tr>
-                    <th>#</th>
+                  <tr className="info">
+                    <th></th>
                     <th>Promotion Name</th>
-                    <th>Promotion Offer</th>
-                    <th>Reward per Scan</th>
-                    <th>Expires On</th>
+                    <th>Description</th>
+                    <th>Reward Per Scan</th>
+                    <th>Expiration</th>
+                    <th>Promote</th>
                   </tr>
                 </thead>
                 <tbody>
                   {this.state.promotions.map((promotion, i) => {
                     return (
                       <tr key={promotion.id}>
-                        <th>{i + 1}</th>
+                        <td>{i + 1}</td>
                         <td>{promotion.name}</td>
                         <td>{promotion.offer}</td>
                         <td>{promotion.reward}</td>
-                        <td>{promotion.expiration}</td>
-                        <td><button onClick={ () => this.generateQR(promotion.id) } className="btn btn-default">Promote</button></td>
+                        <td>{moment(promotion.expiration).format("MMMM D, YYYY")}</td>
+                        <td><button onClick={ () => this.generateQR(promotion.id) } className="btn btn-default promote">Promote</button></td>
                       </tr>
                     )
                   })}
@@ -124,11 +124,11 @@ class SearchResults extends Component {
             </Modal.Header>
             <Modal.Body>
               <div>
-                <h2>Unique QR Code Generated!</h2>
+                <h3>Unique QR Code Generated!</h3>
                 <p>Save and share this code on your social media and with your friends</p>
                 <img src={this.state.newQR} alt="Your QR Code" />
                 <br />
-                <button onClick={ this.closeQR } className="btn btn-default">Back to Results</button>
+                <button onClick={ this.closeQR } className="btn btn-default back-to-results">Back to Results</button>
               </div>
             </Modal.Body>
           </Modal>
@@ -145,8 +145,19 @@ class SearchResults extends Component {
     } else {
       // Render text if no results were found after search
       return (
-        <div className="text-center">
-          <p>No results found.</p>
+        <div>
+          <h3 className="dashboard-subheader">Search Results</h3>
+          <table className="table">
+            <thead>
+              <tr className="info">
+                <td></td>
+                <td>Restaurant Name</td>
+                <td>Address</td>
+                <td>Promotions</td>
+              </tr>
+            </thead>
+          </table>
+          <p className="text-center">No search results.</p>
         </div>
       )
     }
