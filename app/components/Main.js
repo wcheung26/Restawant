@@ -79,6 +79,9 @@ class Main extends Component {
   render() {
     return (
       <div>
+        <div id="background"></div>
+        <div id="background-overlay"></div>
+
         <nav className="navbar navbar-default navbar-fixed-top">
 					<div className="container">
 						<div className="navbar-header">
@@ -101,43 +104,41 @@ class Main extends Component {
 					</div>
 				</nav>
         <div className="container-fluid main">
-          <div className="row">
-            <Switch>
-              { this.state.restaurantAuth && this.state.userAuth ? (
-                  null
-                ) : (
-                  <Route exact path="/restaurant/signup" component={RestaurantSignup} />
-              )}
-              { this.state.restaurantAuth && this.state.userAuth ? (
-                  <Route path="/restaurant" component={RestaurantDashboard} />
-                ) : (
-                  <Route path="/restaurant" component={RestaurantLogin} />
-              )}
-              { this.state.influencerAuth && this.state.userAuth ? (
-                  null
-                ) : (
-                  <Route exact path="/influencer/signup" component={InfluencerSignup} />
-              )}
-              { this.state.influencerAuth && this.state.userAuth ? (
-                  <Route path="/influencer" component={InfluencerDashboard} />
-                ) : (
-                  <Route path="/influencer" component={InfluencerLogin} />
-              )}
-              <Route path="/admin/signup" component={AdminSignup} />
-              { this.state.adminAuth && this.state.userAuth ? (
-                  <Route path="/admin" component={AdminDashboard} />
-                ) : (
-                  <Route path="/admin" component={AdminLogin} />
-              )}
-              { this.state.userAuth ? (
-                  <Route exact path="/logout" render={(props) => (
-                    <Logout {...props} setUserAuth={this.setUserAuth} /> )} />
-                ) : (
-                  null
-              )}
-              <Route path="/" component={Home} />
-            </Switch>
-          </div>
+          <Switch>
+            { this.state.restaurantAuth && this.state.userAuth ? (
+                null
+              ) : (
+                <Route exact path="/restaurant/signup" component={RestaurantSignup} />
+            )}
+            { this.state.restaurantAuth && this.state.userAuth ? (
+                <Route path="/restaurant" component={RestaurantDashboard} />
+              ) : (
+                <Route path="/restaurant" component={RestaurantLogin} />
+            )}
+            { this.state.influencerAuth && this.state.userAuth ? (
+                null
+              ) : (
+                <Route exact path="/influencer/signup" component={InfluencerSignup} />
+            )}
+            { this.state.influencerAuth && this.state.userAuth ? (
+                <Route path="/influencer" component={InfluencerDashboard} />
+              ) : (
+                <Route path="/influencer" component={InfluencerLogin} />
+            )}
+            <Route path="/admin/signup" component={AdminSignup} />
+            { this.state.adminAuth && this.state.userAuth ? (
+                <Route path="/admin" component={AdminDashboard} />
+              ) : (
+                <Route path="/admin" component={AdminLogin} />
+            )}
+            { this.state.userAuth ? (
+                <Route exact path="/logout" render={(props) => (
+                  <Logout {...props} setUserAuth={this.setUserAuth} /> )} />
+              ) : (
+                null
+            )}
+            <Route path="/" component={Home} />
+          </Switch>
         </div>
       </div>
     );

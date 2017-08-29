@@ -23,6 +23,20 @@ class InfSignup extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount() {
+    document.getElementById("background").style.backgroundImage = "url('../../../../assets/images/influencers.jpg')";
+    document.getElementById("background").style.backgroundRepeat = "no-repeat";
+    document.getElementById("background").style.backgroundPosition = "75%";
+    document.getElementById("background").style.opacity = "0.8";
+  }
+
+  componentWillUnmount() {
+    document.getElementById("background").style.backgroundImage = null;
+    document.getElementById("background").style.backgroundRepeat = null;
+    document.getElementById("background").style.backgroundPosition = null;
+    document.getElementById("background").style.opacity = null;
+  }
+
   handleChange(event) {
     let newState = {};
     newState[event.target.name] = event.target.value;
@@ -106,16 +120,16 @@ class InfSignup extends Component {
       <div>
         <div className="col-md-3"></div>
         <div className="col-md-6">
-          <h3>Influencer Signup</h3>
-          <form>
+          <h3 className="forms-header">Influencer Signup</h3>
+          <form className="forms">
             <div className="form-group" >
-              <label htmlFor="firstName">First Name</label>
               <input className="form-control"
                 type="text"
                 value={this.state.firstName}
                 name="firstName"
-                placeholder="First Name"
+                placeholder="&#xf007;   First Name"
                 onChange={this.handleChange}
+                autoComplete="off"
                 required
               />
               { this.state.showFirstError ? 
@@ -124,13 +138,13 @@ class InfSignup extends Component {
               }
             </div>
             <div className="form-group">
-              <label htmlFor="lastName">Last Name</label>
               <input className="form-control"
                 type="text"
                 value={this.state.lastName}
                 name="lastName"
-                placeholder="Last Name"
+                placeholder="&#xf007;   Last Name"
                 onChange={this.handleChange}
+                autoComplete="off"
                 required
               />
               { this.state.showLastError ? 
@@ -139,13 +153,13 @@ class InfSignup extends Component {
               }
             </div>
             <div className="form-group">
-              <label htmlFor="email">Email Address</label>
               <input className="form-control"
                 type="email"
                 value={this.state.email}
                 name="email"
-                placeholder="Email"
+                placeholder="&#xf0e0;   Email"
                 onChange={this.handleChange}
+                autoComplete="off"
                 required
               />
               { this.state.showEmailError ? 
@@ -158,13 +172,13 @@ class InfSignup extends Component {
               }
             </div>
             <div className="form-group">
-              <label htmlFor="password">Password</label>
               <input className="form-control"
                 type="password"
                 value={this.state.password}
                 name="password"
-                placeholder="Password"
+                placeholder="&#xf023;   Password"
                 onChange={this.handleChange}
+                autoComplete="off"
                 required
               />
               { this.state.showPasswordError ? 
@@ -172,7 +186,7 @@ class InfSignup extends Component {
                 : null
               }
             </div>
-            <button type="submit" className="btn btn-default" onClick={this.handleSubmit}>Submit</button>
+            <button type="submit" className="btn btn-default forms-submit" onClick={this.handleSubmit}>Sign Up <i className="fa fa-angle-double-right" aria-hidden="true"></i></button>
           </form>
           { this.state.error ? (
               <ErrorMessage error={this.state.error} />
@@ -181,7 +195,7 @@ class InfSignup extends Component {
             )
           }
           <div className="extra-action">
-            <p>ALREADY A MEMBER? <Link to="/influencer/login">LOGIN</Link></p>
+            <p>Already a member? <Link to="/influencer/login">Login</Link></p>
           </div> 
         </div>
         <div className="col-md-3"></div>
