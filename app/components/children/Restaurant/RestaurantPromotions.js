@@ -77,9 +77,6 @@ class RestaurantPromotions extends React.Component {
                         </tr>
                       </thead>
                       <tbody>
-                        {activePromotion.influencers.length === 0 ?
-                          <tr><td>No current influencers</td></tr> : null
-                        }
                         {activePromotion.influencers.map((influencer, j) => {
                           return (
                             <tr key={influencer.id}>
@@ -92,6 +89,9 @@ class RestaurantPromotions extends React.Component {
                         })}
                       </tbody>
                     </table>
+                    {activePromotion.influencers.length === 0 ?
+                      <p className="text-center">No current influencers</p> : null
+                    }
 
                     <h3 className="dashboard-subheader">Summary</h3>
                     <table className="table">
@@ -172,9 +172,6 @@ class RestaurantPromotions extends React.Component {
                         </tr>
                       </thead>
                       <tbody>
-                        {pastPromotion.influencers.length === 0 ?
-                          <tr><td>No existing influencers</td></tr> : null
-                        }
                         {pastPromotion.influencers.map((influencer, j) => {
                           return (
                             <tr key={influencer.id}>
@@ -187,6 +184,9 @@ class RestaurantPromotions extends React.Component {
                         })}
                       </tbody>
                     </table>
+                    {pastPromotion.influencers.length === 0 ?
+                      <p className="text-center">No existing influencers</p> : null
+                    }
 
                     <h3 className="dashboard-subheader">Summary</h3>
                     <table className="table">
