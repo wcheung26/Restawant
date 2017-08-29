@@ -170,28 +170,28 @@ class RestaurantSignupForm extends Component {
     const inputProps = {
       value: this.state.fullAddress,
       onChange: this.handleSelect,
-      placeholder: 'Address',
+      placeholder: "&#xf124;   Address",
       required: true
     }
 
     const cssClasses = {
-      input: 'form-control',
+      input: 'form-control address-sign-up',
       autocompleteContainer: 'my-autocomplete-container'
     }
 
     return (
       <div className="col-md-6">
-        <h3>Restaurant Signup</h3>
-        <form>
+        <h3 className="forms-header">Restaurant Signup</h3>
+        <form className="forms">
           <div className="form-group">
-            <label htmlFor="name">Restaurant Name</label>
             <input
               type="text"
               value={this.state.name}
               className="form-control"
               name="name"
-              placeholder="Name"
+              placeholder="&#xf1ad;   Restaurant Name"
               onChange={this.handleChange}
+              autoComplete="off"
               required
             />
             { this.state.showNameError ? 
@@ -200,14 +200,14 @@ class RestaurantSignupForm extends Component {
             }
           </div>
           <div className="form-group">
-            <label htmlFor="yelpId">Yelp Business ID</label>
             <input
               type="text"
               value={this.state.yelpId}
               className="form-control"
               name="yelpId"
-              placeholder="Yelp Business ID"
+              placeholder="&#xf2c2;   Yelp Business ID"
               onChange={this.handleChange}
+              autoComplete="off"
               required
             />
             { this.state.showYelpError ? 
@@ -216,14 +216,14 @@ class RestaurantSignupForm extends Component {
             }
           </div>
           <div className="form-group">
-            <label htmlFor="url">Link to Image of Seller's Permit</label>
             <input
               type="url"
               value={this.state.url}
               className="form-control"
               name="url"
-              placeholder="Image URL"
+              placeholder="&#xf03e;   Seller's Permit URL"
               onChange={this.handleChange}
+              autoComplete="off"
               required
             />
             { this.state.showUrlError ? 
@@ -236,21 +236,19 @@ class RestaurantSignupForm extends Component {
             }
           </div>
           <div className="form-group">
-            <label>Address</label>
-            <PlacesAutocomplete inputProps={inputProps} onSelect={this.handleSelect} classNames={cssClasses} />
+            <PlacesAutocomplete inputProps={inputProps} onSelect={this.handleSelect} classNames={cssClasses}/>
             { this.state.showAddressError ? 
               <p className="form-error">* Please enter your address.</p>
               : null
             }
           </div>
           <div className="form-group">
-            <label htmlFor="phone">Phone Number</label>
             <input
               type="number"
               value={this.state.phone}
               className="form-control"
               name="phone"
-              placeholder="Phone Number"
+              placeholder="&#xf095;   Phone Number"
               onChange={this.handleChange}
               required
             />
@@ -260,14 +258,14 @@ class RestaurantSignupForm extends Component {
             }
           </div>
           <div className="form-group">
-            <label htmlFor="email">Email Address</label>
             <input
               type="email"
               value={this.state.email}
               className="form-control"
               name="email"
-              placeholder="Email"
+              placeholder="&#xf0e0;   Email"
               onChange={this.handleChange}
+              autoComplete="off"
               required
             />
             { this.state.showEmailError ? 
@@ -280,14 +278,14 @@ class RestaurantSignupForm extends Component {
             }
           </div>
           <div className="form-group">
-            <label htmlFor="password">Password</label>
             <input
               type="password"
               value={this.state.password}
               className="form-control"
               name="password"
-              placeholder="Password"
+              placeholder="&#xf023;   Password"
               onChange={this.handleChange}
+              autoComplete="off"
               required
             />
             { this.state.showPasswordError ? 
@@ -295,7 +293,7 @@ class RestaurantSignupForm extends Component {
               : null
             }
           </div>
-          <button type="submit" className="btn btn-default" onClick={this.handleSubmit}>Submit</button>
+          <button type="submit" className="btn btn-default forms-submit" onClick={this.handleSubmit}>Sign Up <i className="fa fa-angle-double-right" aria-hidden="true"></i></button>
         </form>
         { this.state.error ? (
             <ErrorMessage error={this.state.error} />
@@ -304,7 +302,7 @@ class RestaurantSignupForm extends Component {
           )
         }
         <div className="extra-action">
-          <p>ALREADY A MEMBER? <Link to="/restaurant/login">LOGIN</Link></p>
+          <p>Already a member? <Link to="/restaurant/login">Login</Link></p>
         </div> 
       </div>
     );

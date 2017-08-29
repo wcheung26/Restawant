@@ -14,6 +14,20 @@ class RestaurantSignup extends Component {
     this.setDisplay = this.setDisplay.bind(this);
   }
 
+  componentDidMount() {
+    document.getElementById("background").style.backgroundImage = "url('../../../../assets/images/restaurants.jpg')";
+    document.getElementById("background").style.backgroundRepeat = "no-repeat";
+    document.getElementById("background").style.backgroundPosition = "75%";
+    document.getElementById("background").style.opacity = "0.8";
+  }
+
+  componentWillUnmount() {
+    document.getElementById("background").style.backgroundImage = null;
+    document.getElementById("background").style.backgroundRepeat = null;
+    document.getElementById("background").style.backgroundPosition = null;
+    document.getElementById("background").style.opacity = null;
+  }
+
   setDisplay(displayForm) {
     this.setState({ displayForm: displayForm });
   }

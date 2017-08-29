@@ -18,6 +18,20 @@ class InfLogin extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount() {
+    document.getElementById("background").style.backgroundImage = "url('../../../../assets/images/influencers.jpg')";
+    document.getElementById("background").style.backgroundRepeat = "no-repeat";
+    document.getElementById("background").style.backgroundPosition = "75%";
+    document.getElementById("background").style.opacity = "0.8";
+  }
+
+  componentWillUnmount() {
+    document.getElementById("background").style.backgroundImage = null;
+    document.getElementById("background").style.backgroundRepeat = null;
+    document.getElementById("background").style.backgroundPosition = null;
+    document.getElementById("background").style.opacity = null;
+  }
+
   handleChange(event) {
     let newState = {};
     newState[event.target.name] = event.target.value;
@@ -73,17 +87,17 @@ class InfLogin extends Component {
       <div>
         <div className="col-md-3"></div>
         <div className="col-md-6">
-          <h3>Influencer Login</h3>
-          <form>
+          <h3 className="forms-header">Influencer Login</h3>
+          <form className="forms">
             <div className="form-group">
-              <label htmlFor="email">Email Address</label>
               <input
                 type="email"
                 value={this.state.email}
                 className="form-control"
                 name="email"
-                placeholder="Email"
+                placeholder="&#xf0e0;   Email"
                 onChange={this.handleChange}
+                autoComplete="off"
                 required
               />
               { this.state.showEmailError ? 
@@ -92,14 +106,14 @@ class InfLogin extends Component {
               }
             </div>
             <div className="form-group">
-              <label htmlFor="password">Password</label>
               <input
                 type="password"
                 value={this.state.password}
                 className="form-control"
                 name="password"
-                placeholder="Password"
+                placeholder="&#xf023;   Password"
                 onChange={this.handleChange}
+                autoComplete="off"
                 required
               />
               { this.state.showPasswordError ? 
@@ -107,7 +121,7 @@ class InfLogin extends Component {
                 : null
               }
             </div>
-            <button type="submit" className="btn btn-default" onClick={this.handleSubmit}>Submit</button>
+            <button type="submit" className="btn btn-default forms-submit" onClick={this.handleSubmit}>Login <i className="fa fa-angle-double-right" aria-hidden="true"></i></button>
           </form>
           { this.state.error ? (
               <ErrorMessage error={this.state.error} />
@@ -116,7 +130,7 @@ class InfLogin extends Component {
             )
           }
           <div className="extra-action">
-            <p>NOT A MEMBER? <Link to="/influencer/signup">SIGN UP</Link></p>
+            <p>Not a member? <Link to="/influencer/signup">Sign Up</Link></p>
           </div>
         </div>
         <div className="col-md-3"></div>

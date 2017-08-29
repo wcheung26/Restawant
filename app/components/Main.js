@@ -86,6 +86,8 @@ class Main extends Component {
   render() {
     return (
       <div>
+        <div id="background"></div>
+        <div id="background-overlay"></div>
         <div className="container-fluid main">
           <div className="row">
             <Switch>
