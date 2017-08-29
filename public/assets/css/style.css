@@ -470,7 +470,8 @@ figure.effect-ming:hover img {
 
 .view-promotions,
 .promote,
-.back-to-results {
+.back-to-results,
+.home {
   background-color: #eee;
   border-radius: 0px;
 }
@@ -481,7 +482,8 @@ figure.effect-ming:hover img {
 
 .view-promotions:hover,
 .promote:hover,
-.back-to-results:hover {
+.back-to-results:hover,
+.home:hover {
   background-color: #2f3238;
   color: #ffffff;
 }
@@ -498,6 +500,10 @@ figure.effect-ming:hover img {
 .table>tbody>tr>td,
 .table>tbody>tr>th {
   vertical-align: middle;
+}
+
+.signup-success {
+  color: #ffffff;
 }
 
 /*.ribbon {

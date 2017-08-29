@@ -9,8 +9,8 @@ class RestaurantSignupSuccess extends Component {
   render() {
     return (
       <div className="col-md-6">
-        <h4>Thank you for signing up with us! Your account will be activated once an administrator approves your account.</h4>
-        <Link to="/"><button type="button" className="btn btn-default">Go back to Home</button></Link>
+        <h4 className="signup-success">Thank you for signing up with us! Your account will be activated once an administrator approves your account.</h4>
+        <Link to="/"><button type="button" className="btn btn-default home">Home</button></Link>
       </div>
     );
   }
