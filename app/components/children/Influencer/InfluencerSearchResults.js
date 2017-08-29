@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Modal from 'react-modal';
+import { Modal, Button } from 'react-bootstrap';
+
 import helpers from "../../utils/helpers";
 
 class SearchResults extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modalIsOpen: false,
+      showModal: false,
+      showQRL: false,
       promotions: [],
       newQR: null
     };
@@ -15,7 +17,7 @@ class SearchResults extends Component {
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.generateQR = this.generateQR.bind(this);
-    this.resetQRState = this.resetQRState.bind(this);
+    this.closeQR = this.closeQR.bind(this);
   };
 
   // Search for promotions, then open modal
@@ -25,15 +27,20 @@ class SearchResults extends Component {
       console.log("Active restaurant promotions: ", response);
         this.setState({ 
           promotions: response,
-          modalIsOpen: true
+          showModal: true
         });
       }
     });
   };
 
+  closeQR() {
+    this.setState({showQR: false});
+  }
+
   // Close modal
   closeModal() {
-    this.setState({modalIsOpen: false});
+    this.setState({showModal: false});
+    this.setState({ newQR: null });
   };
 
   generateQR(promotionId) {
@@ -42,27 +49,13 @@ class SearchResults extends Component {
         console.log("New QR url: ", response);
         this.setState({ 
           newQR: response,
+          showQR: true
         });
       }
     })
   };
 
-  resetQRState() {
-    this.setState({ newQR: null })
-  }
-  
   render() {
-    if (this.state.newQR) {
-      return(
-        <div>
-          <h2>Unique QR Code Generated!</h2>
-          <p>Save and share this code on your social media and with your friends</p>
-          <img src={this.state.newQR} alt="Your QR Code" />
-          <br />
-          <button onClick={ this.resetQRState } className="btn btn-default">Back to Results</button>
-        </div>
-      )
-    }
     if (this.props.results.length > 0) {
       // Render results if restaurants found
       return (
@@ -90,12 +83,12 @@ class SearchResults extends Component {
               })}
             </tbody>
           </table>
-          <Modal
-            isOpen={this.state.modalIsOpen}
-            contentLabel="promotionsModal"
-          >
-            <div>
-              <h2>Active Promotions For This Restaurant</h2>
+
+          <Modal show={this.state.showModal} onHide={this.closeModal} bsSize="large">
+            <Modal.Header closeButton>
+              <Modal.Title>Active Promotions For This Restaurant</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
               <p>Select a promotion:</p>
               <table className="table">
                 <thead>
@@ -122,8 +115,22 @@ class SearchResults extends Component {
                   })}
                 </tbody>
               </table>
-            </div>
-            <button onClick={this.closeModal} className="btn btn-default">Back to Restaurants</button>
+            </Modal.Body>
+          </Modal>
+
+          <Modal show={this.state.showQR} onHide={this.closeQR} bsSize="small">
+            <Modal.Header closeButton>
+              <Modal.Title>QR Code</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <div>
+                <h2>Unique QR Code Generated!</h2>
+                <p>Save and share this code on your social media and with your friends</p>
+                <img src={this.state.newQR} alt="Your QR Code" />
+                <br />
+                <button onClick={ this.closeQR } className="btn btn-default">Back to Results</button>
+              </div>
+            </Modal.Body>
           </Modal>
         </div>
       );
