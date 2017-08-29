@@ -42,7 +42,7 @@ class RestaurantInfluencers extends React.Component {
           <table className="table">
             <thead>
               <tr className="info">
-                <th>Name</th>
+                <th>Influencer Name</th>
                 <th>Email</th>
                 <th>Total Scans</th>
               </tr>
