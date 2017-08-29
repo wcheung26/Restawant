@@ -4,6 +4,7 @@ import { Route, Link, Switch } from "react-router-dom";
 import RestaurantLogin from "./children/Restaurant/RestaurantLogin";
 import RestaurantSignup from "./children/Restaurant/RestaurantSignup";
 import RestaurantDashboard from "./children/Restaurant/RestaurantDashboard";
+import RestaurantScan from "./children/Restaurant/RestaurantScan"
 import InfluencerLogin from "./children/Influencer/InfluencerLogin";
 import InfluencerSignup from "./children/Influencer/InfluencerSignup";
 import InfluencerDashboard from "./children/Influencer/InfluencerDashboard";
@@ -147,6 +148,7 @@ class Main extends Component {
                 ) : (
                   null
               )}
+              <Route path="/api/restaurant/qr/confirm" component={RestaurantScan} />
               <Route path="/" component={Home} />
             </Switch>
             <Modal show={this.state.showModal} onHide={this.closeModal}>

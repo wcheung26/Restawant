@@ -45,6 +45,14 @@ var helpers = {
     return axios.get("/api/restaurant/summary");
   },
 
+  incrementCount: function(promotionId, influencerId) {
+  	console.log("incrementCount");
+  	return $.post("/api/qr/increment", {
+  		promotionId: promotionId,
+  		influencerId: influencerId
+  	})
+  },
+
 	// ==================================
 	// Influencer panel helpers
 	getInfluencerPromotions: function() {
