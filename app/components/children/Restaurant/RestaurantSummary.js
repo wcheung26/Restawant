@@ -31,13 +31,13 @@ class RestaurantSummary extends React.Component {
 
   render() {
     return (
-      <div>
-        <h3>Summary</h3>
+      <div className="">
+        <h2 className="dashboard-header"><i className="fa fa-info-circle" aria-hidden="true"></i> Summary</h2>
         <hr />
-        <h4>Top 5 Influencers</h4>
+        <h3 className="dashboard-subheader">Top Influencers</h3>
         <table className="table">
           <thead>
-            <tr>
+            <tr className="info">
               <th>Name</th>
               <th>Email</th>
               <th>Total Scans</th>
@@ -50,19 +50,33 @@ class RestaurantSummary extends React.Component {
               return (
                 <tr key={influencer.id}>
                   <td>{influencer.name}</td>
-                  <td>{influencer.email}</td>
+                  <td><a href={"mailto:" + influencer.email + "?Subject=Hello,%20" + influencer.name + "!"} target="_top">{influencer.email}</a></td>
                   <td>{influencer.totalScans}</td>
                   <td>${influencer.totalPayout}</td>
-                  <td>${influencer.averagePayout}</td>
+                  <td>${influencer.averagePayout}/scan</td>
                 </tr>
               );
             })}
           </tbody>
         </table>
-        <h4>Finance</h4>
-          <p><strong>Total Scans: </strong>{this.state.totalScans}</p>
-          <p><strong>Total Payout: </strong>${this.state.totalPayout}</p>
-          <p><strong>Average Payout: </strong>${this.state.averagePayout}</p>
+
+        <h3 className="dashboard-subheader">Finance</h3>
+          <table className="table">
+            <thead>
+              <tr className="info">
+                <th>Total Scans</th>
+                <th>Total Payout</th>
+                <th>Average Payout</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{this.state.totalScans}</td>
+                <td>${this.state.totalPayout}</td>
+                <td>${this.state.averagePayout}/scan</td>
+              </tr>                     
+            </tbody>
+          </table>
       </div>
     );
   };

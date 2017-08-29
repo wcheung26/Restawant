@@ -34,7 +34,7 @@ class RestaurantCreate extends React.Component {
         this.setState({
           showSuccessMessage: false
         })
-      }, 15000);
+      }, 30000);
     }
   }
 
@@ -148,84 +148,82 @@ class RestaurantCreate extends React.Component {
 
   render () {
     return (
-      <div className="panel panel-default">
-        <div className="panel-heading text-center">Create Promotion</div>
-        <div className="panel-body">
-          <form>
-            <div className="input-group">
-              <span className="input-group-addon" id="certificate-icon"><i className="fa fa-certificate" aria-hidden="true"></i></span>
-              <input
-                type="text" 
-                value={this.state.formPromoName}
-                className="form-control"
-                id="formPromoName" 
-                placeholder="Promotion Name" 
-                onChange={this.handleChange}
-                required 
-              />  
-            </div>
-            { this.state.showPromoNameError ? 
-              <p className="form-error">* Please provide a name for your promotion.</p>
-             : null }
-            <div className="input-group">
-              <span className="input-group-addon" id="gift-icon"><i className="fa fa-gift" aria-hidden="true"></i></span>
-              <input
-                type="text" 
-                value={this.state.formPromo}
-                className="form-control"
-                id="formPromo" 
-                placeholder="Offer Details" 
-                onChange={this.handleChange}
-                required 
-              />
-            </div>
-            { this.state.showPromoError ? 
-              <p className="form-error">* Please enter the promotion details.</p>
-             : null }
-            <div className="input-group">
-              <span className="input-group-addon" id="calendar-icon"><i className="fa fa-calendar" aria-hidden="true"></i></span>
-              <input
-                type={this.state.type} 
-                value={this.state.formExpiration}
-                className="form-control" 
-                id="formExpiration"
-                placeholder="Expiration Date" 
-                onChange={this.handleChange}
-                onFocus={this.onFocus}
-                onBlur={this.onBlur}
-                required
-              />
-            </div>
-            { this.state.showExpirationError ? 
-              <p className="form-error">* Please enter the expiration date of the promotion.</p>
-             : null }
-            { this.state.showExpirationInvalidError ? 
-              <p className="form-error">* Please enter a valid expiration date for the promotion.</p>
-             : null }
-            <div className="input-group">
-              <span className="input-group-addon" id="usd-icon"><i className="fa fa-usd" aria-hidden="true"></i></span>
-              <input
-                type="text" 
-                value={this.state.formReward}
-                className="form-control" 
-                id="formReward"
-                placeholder="Reward Per Scan" 
-                onChange={this.handleChange}
-                required
-              />
-            </div>
-            { this.state.showRewardError ? 
-              <p className="form-error">* Please enter the reward per scan (in dollars) to the influencer.</p>
-             : null }
-            { this.state.showRewardInvalidError ? 
-              <p className="form-error">* Please enter a number for the reward per scan (in dollars).</p>
-             : null }
-            <button type="submit" className="btn btn-default" onClick={this.handleSubmit}>Submit</button>
-            { this.state.showSuccessMessage ?
-              <span className="success-message"><i className="fa fa-check-square" aria-hidden="true"></i> Promotion successfully created!</span>
-             : null }
-          </form>
-        </div>
+      <div className="">
+        <h2 className="dashboard-header"><i className="fa fa-plus" aria-hidden="true"></i> Create Promotion</h2>
+        <hr />
+        <form className="dashboard-form">
+          <div className="form-group">
+            <input
+              type="text" 
+              value={this.state.formPromoName}
+              className="form-control"
+              id="formPromoName" 
+              placeholder="&#xf0a3;   Promotion Name" 
+              onChange={this.handleChange}
+              autoComplete="off"
+              required 
+            />  
+          </div>
+          { this.state.showPromoNameError ? 
+            <p className="form-error">* Please provide a name for your promotion.</p>
+           : null }
+          <div className="form-group">
+            <input
+              type="text" 
+              value={this.state.formPromo}
+              className="form-control"
+              id="formPromo" 
+              placeholder="&#xf06b;   Offer Details" 
+              onChange={this.handleChange}
+              autoComplete="off"
+              required 
+            />
+          </div>
+          { this.state.showPromoError ? 
+            <p className="form-error">* Please enter the promotion details.</p>
+           : null }
+          <div className="form-group">
+            <input
+              type={this.state.type} 
+              value={this.state.formExpiration}
+              className="form-control" 
+              id="formExpiration"
+              placeholder="&#xf073;   Expiration Date" 
+              onChange={this.handleChange}
+              onFocus={this.onFocus}
+              onBlur={this.onBlur}
+              required
+            />
+          </div>
+          { this.state.showExpirationError ? 
+            <p className="form-error">* Please enter the expiration date of the promotion.</p>
+           : null }
+          { this.state.showExpirationInvalidError ? 
+            <p className="form-error">* Please enter a valid expiration date for the promotion.</p>
+           : null }
+          <div className="form-group">
+            <input
+              type="text" 
+              value={this.state.formReward}
+              className="form-control" 
+              id="formReward"
+              placeholder="&#xf155;   Reward Per Scan" 
+              onChange={this.handleChange}
+              autoComplete="off"
+              required
+            />
+          </div>
+          { this.state.showRewardError ? 
+            <p className="form-error">* Please enter the reward per scan (in dollars) to the influencer.</p>
+           : null }
+          { this.state.showRewardInvalidError ? 
+            <p className="form-error">* Please enter a number for the reward per scan (in dollars).</p>
+           : null }
+          <button type="submit" className="btn btn-default dashboard-submit" onClick={this.handleSubmit}>Create <i className="fa fa-angle-double-right" aria-hidden="true"></i></button>
+          { this.state.showSuccessMessage ?
+            <span className="success-message"><i className="fa fa-check-square" aria-hidden="true"></i> Promotion successfully created!</span>
+           : null }
+        </form>
       </div>
     );
   };

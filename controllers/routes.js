@@ -42,7 +42,8 @@ router.get("/api/restaurant/promotions", function(req, res) {
           "id": promotion.id,
           "name": promotion.name,
           "offer": promotion.offer,
-          "period": moment(promotion.createdAt).format("MMMM D, YYYY") + " to " + moment(promotion.expiration).format("MMMM D, YYYY"),
+          "createdAt": moment(promotion.createdAt).format("MMMM D, YYYY"),
+          "expiration": moment(promotion.expiration).format("MMMM D, YYYY"),
           "reward": promotion.reward
         }
       };

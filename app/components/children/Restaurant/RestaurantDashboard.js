@@ -2,7 +2,6 @@ import React from "react";
 import { Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-// import RestaurantPanel from "./RestaurantPanel";
 import RestaurantCreate from "./RestaurantCreate";
 import RestaurantPromotions from "./RestaurantPromotions";
 import RestaurantInfluencers from "./RestaurantInfluencers";
@@ -12,23 +11,18 @@ class RestaurantDashboard extends React.Component {
   constructor(props) {
     super(props);
   }
-
-  componentDidMount() {
-    document.getElementById("background-overlay").style.background = "#ffffff";
-  }
-
-  componentWillUnmount(){
-    document.getElementById("background-overlay").style.background = null;
-  }
   
   render() {
     return (
-      <div>
+      <div className="dashboard-content-wrapper">
         <div className="sidebar-nav">
-          <Link to="/restaurant/dashboard/create">Create Promotion</Link>
-          <Link to="/restaurant/dashboard/promotions">Existing Promotions</Link>
-          <Link to="/restaurant/dashboard/influencers">Find Influencers</Link>
-          <Link to="/restaurant/dashboard/summary">Summary</Link>
+          <img className="dashboard-logo" src="../../../../assets/images/logo.png" alt="Restawant" />
+          <hr />
+          <Link to="/restaurant/dashboard/create"><i className="fa fa-plus" aria-hidden="true"></i> Create Promotion</Link>
+          <Link to="/restaurant/dashboard/promotions"><i className="fa fa-check" aria-hidden="true"></i>Existing Promotions</Link>
+          <Link to="/restaurant/dashboard/influencers"><i className="fa fa-search" aria-hidden="true"></i> Find Influencers</Link>
+          <Link to="/restaurant/dashboard/summary"><i className="fa fa-info-circle" aria-hidden="true"></i>Summary</Link>
+          <Link to="/logout" className="logout"><i className="fa fa-sign-out" aria-hidden="true"></i>Logout</Link>
         </div>
           
         <div className="dashboard-wrapper">
