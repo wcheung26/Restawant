@@ -170,7 +170,7 @@ class RestaurantSignupForm extends Component {
     const inputProps = {
       value: this.state.fullAddress,
       onChange: this.handleSelect,
-      placeholder: "&#xf124;   Address",
+      placeholder: "Address",
       required: true
     }
 
@@ -189,7 +189,7 @@ class RestaurantSignupForm extends Component {
               value={this.state.name}
               className="form-control"
               name="name"
-              placeholder="&#xf1ad;   Restaurant Name"
+              placeholder="Restaurant Name"
               onChange={this.handleChange}
               autoComplete="off"
               required
@@ -205,7 +205,7 @@ class RestaurantSignupForm extends Component {
               value={this.state.yelpId}
               className="form-control"
               name="yelpId"
-              placeholder="&#xf2c2;   Yelp Business ID"
+              placeholder="Yelp Business ID"
               onChange={this.handleChange}
               autoComplete="off"
               required
@@ -221,7 +221,7 @@ class RestaurantSignupForm extends Component {
               value={this.state.url}
               className="form-control"
               name="url"
-              placeholder="&#xf03e;   Seller's Permit URL"
+              placeholder="Seller's Permit URL"
               onChange={this.handleChange}
               autoComplete="off"
               required
@@ -248,7 +248,7 @@ class RestaurantSignupForm extends Component {
               value={this.state.phone}
               className="form-control"
               name="phone"
-              placeholder="&#xf095;   Phone Number"
+              placeholder="Phone Number"
               onChange={this.handleChange}
               required
             />
@@ -263,7 +263,7 @@ class RestaurantSignupForm extends Component {
               value={this.state.email}
               className="form-control"
               name="email"
-              placeholder="&#xf0e0;   Email"
+              placeholder="Email"
               onChange={this.handleChange}
               autoComplete="off"
               required
@@ -283,7 +283,7 @@ class RestaurantSignupForm extends Component {
               value={this.state.password}
               className="form-control"
               name="password"
-              placeholder="&#xf023;   Password"
+              placeholder="Password"
               onChange={this.handleChange}
               autoComplete="off"
               required

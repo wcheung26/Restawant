@@ -137,7 +137,7 @@ class InfSignup extends Component {
                 type="text"
                 value={this.state.firstName}
                 name="firstName"
-                placeholder="&#xf007;   First Name"
+                placeholder="First Name"
                 onChange={this.handleChange}
                 autoComplete="off"
                 required
@@ -152,7 +152,7 @@ class InfSignup extends Component {
                 type="text"
                 value={this.state.lastName}
                 name="lastName"
-                placeholder="&#xf007;   Last Name"
+                placeholder="Last Name"
                 onChange={this.handleChange}
                 autoComplete="off"
                 required
@@ -167,7 +167,7 @@ class InfSignup extends Component {
                 type="email"
                 value={this.state.email}
                 name="email"
-                placeholder="&#xf0e0;   Email"
+                placeholder="Email"
                 onChange={this.handleChange}
                 autoComplete="off"
                 required
@@ -186,7 +186,7 @@ class InfSignup extends Component {
                 type="password"
                 value={this.state.password}
                 name="password"
-                placeholder="&#xf023;   Password"
+                placeholder="Password"
                 onChange={this.handleChange}
                 autoComplete="off"
                 required
