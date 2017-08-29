@@ -83,7 +83,7 @@ class RestaurantPromotions extends React.Component {
                         {activePromotion.influencers.map((influencer, j) => {
                           return (
                             <tr key={influencer.id}>
-                              <td>{j + 1}</td>>
+                              <td>{j + 1}</td>
                               <td>{influencer.name}</td>
                               <td><a href={"mailto:" + influencer.email + "?Subject=Hello,%20" + influencer.name + "!"} target="_top">{influencer.email}</a></td>
                               <td>{influencer.discountScans}</td>
@@ -165,6 +165,7 @@ class RestaurantPromotions extends React.Component {
                     <table className="table">
                       <thead>
                         <tr className="info">
+                          <th></th>
                           <th>Name</th>
                           <th>Email</th>
                           <th>Scans</th>
@@ -177,6 +178,7 @@ class RestaurantPromotions extends React.Component {
                         {pastPromotion.influencers.map((influencer, j) => {
                           return (
                             <tr key={influencer.id}>
+                              <td>{j + 1}</td>
                               <td>{influencer.name}</td>
                               <td><a href={"mailto:" + influencer.email + "?Subject=Hello,%20" + influencer.name + "!"} target="_top">{influencer.email}</a></td>
                               <td>{influencer.discountScans}</td>
