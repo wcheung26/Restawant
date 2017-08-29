@@ -49,10 +49,10 @@ class RestaurantPromotions extends React.Component {
                     <table className="table">
                       <thead>
                         <tr className="info">
-                          <th>Name</th>
-                          <th>Offer</th>
+                          <th>Promotion Name</th>
+                          <th>Description</th>
                           <th>Start Date</th>
-                          <th>End Date</th>
+                          <th>Expiration</th>
                           <th>Reward</th>
                         </tr>
                       </thead>
@@ -71,7 +71,7 @@ class RestaurantPromotions extends React.Component {
                     <table className="table">
                       <thead>
                         <tr className="info">
-                          <th>Name</th>
+                          <th>Influencer Name</th>
                           <th>Email</th>
                           <th>Scans</th>
                         </tr>

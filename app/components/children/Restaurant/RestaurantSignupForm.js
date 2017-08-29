@@ -293,7 +293,7 @@ class RestaurantSignupForm extends Component {
               : null
             }
           </div>
-          <button type="submit" className="btn btn-default forms-submit" onClick={this.handleSubmit}>Sign Up <i className="fa fa-angle-double-right" aria-hidden="true"></i></button>
+          <button type="submit" className="btn btn-default dashboard-submit" onClick={this.handleSubmit}>Sign Up <i className="fa fa-angle-double-right" aria-hidden="true"></i></button>
         </form>
         { this.state.error ? (
             <ErrorMessage error={this.state.error} />

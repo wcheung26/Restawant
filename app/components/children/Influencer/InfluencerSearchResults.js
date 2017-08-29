@@ -67,16 +67,24 @@ class SearchResults extends Component {
       // Render results if restaurants found
       return (
         <div>
+          <h3 className="dashboard-subheader">Search Results</h3>
           <table className="table">
+            <thead>
+              <tr className="info">
+                <td>ID</td>
+                <td>Restaurant Name</td>
+                <td>Address</td>
+                <td>Promotions</td>
+              </tr>
+            </thead>
             <tbody>
               {this.props.results.map((restaurant, i) => {
                 return (
                   <tr key={restaurant.id}>
                     <th>{i + 1}</th>
-                    <td><a href="#">{restaurant.name}</a></td>
+                    <td><a href={"https://www.yelp.com/biz/" + restaurant.yelpId}>{restaurant.name}</a></td>
                     <td>{restaurant.address}, {restaurant.city}</td>
-                    <td><a href={"https://www.yelp.com/biz/" + restaurant.yelpId}>View on Yelp</a></td>
-                    <td><button onClick={ () => this.openModal(restaurant.id) } className="btn btn-default">See Promotions</button></td>
+                    <td><button onClick={ () => this.openModal(restaurant.id) } className="btn btn-default view-promotions">See Promotions</button></td>
                   </tr>
                 )
               })}

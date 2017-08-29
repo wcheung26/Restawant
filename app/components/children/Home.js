@@ -23,7 +23,7 @@ class Home extends Component {
       <div className="col-lg-12 col-md-12 col-sm-12 text-center">
 
         <div className="jumbotron">
-          <h1 className="display-3">Restawant</h1>
+          <img className="home-logo" src="../../../assets/images/logo.png" alt="Restawant" />
           <p className="lead">Most convenient way for anyone to earn extra cash and help businesses grow.</p>
         </div>
 
