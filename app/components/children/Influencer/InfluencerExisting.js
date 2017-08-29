@@ -1,5 +1,6 @@
 import React from "react";
 import moment from "moment";
+import { Modal, Button } from 'react-bootstrap';
 
 import helpers from "../../utils/helpers";
 
@@ -8,8 +9,13 @@ class InfluencerExisting extends React.Component {
     super(props);
     this.state = {
       activePromotions: [],
-      pastPromotions: []
+      pastPromotions: [],
+      showModal: false,
+      qrUrl: ''
     }
+
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
   componentDidMount() {
@@ -35,6 +41,17 @@ class InfluencerExisting extends React.Component {
         console.log("State updated");
       }
     }.bind(this));
+  };
+
+  openModal(url) {
+      this.setState({ 
+        qrUrl: url,
+        showModal: true
+      });
+  };
+
+  closeModal() {
+    this.setState({ showModal: false });
   };
 
   render() {
@@ -67,7 +84,7 @@ class InfluencerExisting extends React.Component {
               return (
                 <tr key={promotion.promotionId}>
                   <th>{i + 1}</th>
-                  <td><a href={promotion.url}>{promotion.promotion.name}</a></td>
+                  <td><a href="#" onClick={ () => this.openModal(promotion.url)}>{promotion.promotion.name}</a></td>
                   <td>{promotion.promotion.offer}</td>
                   <td>{moment(promotion.promotion.expiration).format("MMMM D, YYYY")}</td>
                   <td>${promotion.promotion.reward}/scan</td>
@@ -77,7 +94,7 @@ class InfluencerExisting extends React.Component {
               );
             })}
           </tbody>
-        </table> 
+        </table>
       );
     }
 
@@ -110,7 +127,7 @@ class InfluencerExisting extends React.Component {
               return (
                 <tr key={promotion.promotionId}>
                   <th>{i + 1}</th>
-                  <td><a href={promotion.url}>{promotion.promotion.name}</a></td>
+                  <td><a href="#" onClick={ () => this.openModal(promotion.url)}>{promotion.promotion.name}</a></td>
                   <td>{promotion.promotion.offer}</td>
                   <td>{moment(promotion.promotion.expiration).format("MMMM D, YYYY")}</td>
                   <td>${promotion.promotion.reward}/scan</td>
@@ -132,6 +149,18 @@ class InfluencerExisting extends React.Component {
         {active}
         <h3 className="dashboard-subheader">Past Promotions</h3>
         {past}
+        <Modal show={this.state.showModal} onHide={this.closeModal} bsSize="small">
+          <Modal.Header closeButton>
+            <Modal.Title>QR Code</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div>
+              <p>Save and share this code on your social media and with your friends</p>
+              <img src={this.state.qrUrl} alt="Your QR Code" />
+              <br />
+            </div>
+          </Modal.Body>
+        </Modal>
       </div>
     );
   };

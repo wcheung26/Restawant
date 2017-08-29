@@ -27,10 +27,13 @@ class RestaurantInfluencers extends React.Component {
           <table className="table">
             <thead>
               <tr className="info">
-                <th>There are no influencers currently signed up.</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Total Scans</th>
               </tr>
             </thead>
           </table>
+          <p className="text-center">There are currently no influencers signed up.</p>
         </div>
       );
     }

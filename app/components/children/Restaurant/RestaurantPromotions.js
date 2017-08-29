@@ -25,10 +25,18 @@ class RestaurantPromotions extends React.Component {
   }
 
   render() {
-    return (
-      <div className=""> 
-        <h2 className="dashboard-header"><i className="fa fa-check" aria-hidden="true"></i> Active Promotions</h2>
-        <hr />
+    var active;
+		if (this.state.activePromotions.length === 0) {
+			active = (
+				<div className="panel-group">
+          <div className="panel panel-default">
+            <h4 className="panel-title">No active promotions.</h4>
+          </div>
+        </div>
+			);
+		}
+		else {
+			active = ( 
         <div className="panel-group" id="activePromotionAccordion">
           {this.state.activePromotions.map((activePromotion, i) => {
             return (
@@ -69,6 +77,9 @@ class RestaurantPromotions extends React.Component {
                         </tr>
                       </thead>
                       <tbody>
+                        {activePromotion.influencers.length === 0 ?
+                          <tr><td>No current influencers</td></tr> : null
+                        }
                         {activePromotion.influencers.map((influencer, j) => {
                           return (
                             <tr key={influencer.id}>
@@ -105,9 +116,21 @@ class RestaurantPromotions extends React.Component {
             );
           })}
         </div>
+			);
+		}
 
-        <h2 className="dashboard-header"><i className="fa fa-times" aria-hidden="true"></i> Past Promotions</h2>
-        <hr />
+		var past;
+		if (this.state.pastPromotions.length === 0) {
+			past = (
+				<div className="panel-group">
+          <div className="panel panel-default">
+            <h4 className="panel-title">No past promotions.</h4>
+          </div>
+        </div>
+			);
+		}
+		else {
+			past = (
         <div className="panel-group" id="pastPromotionAccordion">
           {this.state.pastPromotions.map((pastPromotion, i) => {
             return (
@@ -148,6 +171,9 @@ class RestaurantPromotions extends React.Component {
                         </tr>
                       </thead>
                       <tbody>
+                        {pastPromotion.influencers.length === 0 ?
+                          <tr><td>No existing influencers</td></tr> : null
+                        }
                         {pastPromotion.influencers.map((influencer, j) => {
                           return (
                             <tr key={influencer.id}>
@@ -184,6 +210,18 @@ class RestaurantPromotions extends React.Component {
             );
           })}
         </div>
+			);
+    }
+    
+    return (
+      <div className=""> 
+        <h2 className="dashboard-header"><i className="fa fa-check" aria-hidden="true"></i> Active Promotions</h2>
+        <hr />
+        {active}
+
+        <h2 className="dashboard-header"><i className="fa fa-times" aria-hidden="true"></i> Past Promotions</h2>
+        <hr />
+        {past}
       </div>
     );
   }

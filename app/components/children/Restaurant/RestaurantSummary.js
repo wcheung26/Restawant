@@ -30,11 +30,27 @@ class RestaurantSummary extends React.Component {
   }
 
   render() {
-    return (
-      <div className="">
-        <h2 className="dashboard-header"><i className="fa fa-info-circle" aria-hidden="true"></i> Summary</h2>
-        <hr />
-        <h3 className="dashboard-subheader">Top Influencers</h3>
+    var display;
+    if (this.state.influencers.length === 0) {
+      display = (
+        <div>
+          <table className="table">
+            <thead>
+              <tr className="info">
+                <th>Name</th>
+                <th>Email</th>
+                <th>Total Scans</th>
+                <th>Total Payout</th>
+                <th>Average Payout</th>
+              </tr>
+            </thead>
+          </table>
+          <p className="text-center">There are no affiliated influencers.</p>
+        </div>
+      );
+    }
+    else {
+      display = (
         <table className="table">
           <thead>
             <tr className="info">
@@ -59,6 +75,15 @@ class RestaurantSummary extends React.Component {
             })}
           </tbody>
         </table>
+      );
+    }
+
+    return (
+      <div className="">
+        <h2 className="dashboard-header"><i className="fa fa-info-circle" aria-hidden="true"></i> Summary</h2>
+        <hr />
+        <h3 className="dashboard-subheader">Top Influencers</h3>
+        {display}
 
         <h3 className="dashboard-subheader">Finance</h3>
           <table className="table">
