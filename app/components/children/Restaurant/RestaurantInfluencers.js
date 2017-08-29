@@ -31,20 +31,22 @@ class RestaurantInfluencers extends React.Component {
         </div>
       );
     }
-    return (
-      <div className="panel panel-default">
-        <div className="panel-heading text-center">All Influencers</div>
-        <div className="panel-body">
-          <ul className="list-group">
-            {this.state.influencers.map((influencer, i) => {
-              return (
-                <li className="list-group-item" key={influencer.id}>Name: {influencer.name}, Email: {influencer.email}, Total Scans: {influencer.totalScans}</li>
-              );
-            })}
-          </ul>
+    else {
+      return (
+        <div className="panel panel-default">
+          <div className="panel-heading text-center">All Influencers</div>
+          <div className="panel-body">
+            <ul className="list-group">
+              {this.state.influencers.map((influencer, i) => {
+                return (
+                  <li className="list-group-item" key={influencer.id}>Name: {influencer.name}, Email: {influencer.email}, Total Scans: {influencer.totalScans}</li>
+                );
+              })}
+            </ul>
+          </div>
         </div>
-      </div>
-    );
+      );
+    }
   }
 };
 
