@@ -26,6 +26,7 @@ class InfluencerSummary extends React.Component {
           <table className="table">
             <thead>
               <tr className="info">
+                <th></th>
                 <th>Restaurant Name</th>
                 <th>Promotions Participated</th>
                 <th>Total Scans</th>
@@ -47,6 +48,7 @@ class InfluencerSummary extends React.Component {
           <table className="table">
             <thead>
               <tr className="info">
+                <th></th>
                 <th>Restaurant Name</th>
                 <th>Promotions Participated</th>
                 <th>Total Scans</th>
@@ -57,6 +59,7 @@ class InfluencerSummary extends React.Component {
               {this.state.summary.map((restaurant, i) => {
                 return (
                   <tr key={restaurant.restaurantId}>
+                    <td>{i + 1}</td>
                     <td>{restaurant.restaurantName}</td>
                     <td>{restaurant.promotionsParticipated}</td>
                     <td>{restaurant.totalScans}</td>

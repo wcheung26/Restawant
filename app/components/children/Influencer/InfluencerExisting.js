@@ -72,7 +72,7 @@ class InfluencerExisting extends React.Component {
         <table className="table">
           <tbody>
             <tr className="info">
-              <th>#</th>
+              <th></th>
               <th>Promotion Name</th>
               <th>Description</th>
               <th>Expiration</th>
@@ -83,7 +83,7 @@ class InfluencerExisting extends React.Component {
             {this.state.activePromotions.map((promotion, i) => {
               return (
                 <tr key={promotion.promotionId}>
-                  <th>{i + 1}</th>
+                  <td>{i + 1}</td>
                   <td><a href="#" onClick={ () => this.openModal(promotion.url)}>{promotion.promotion.name}</a></td>
                   <td>{promotion.promotion.offer}</td>
                   <td>{moment(promotion.promotion.expiration).format("MMMM D, YYYY")}</td>
@@ -115,7 +115,7 @@ class InfluencerExisting extends React.Component {
         <table className="table">
           <tbody>
             <tr className="info">
-              <th>#</th>
+              <th></th>
               <th>Promotion Name</th>
               <th>Description</th>
               <th>Expiration</th>
@@ -155,9 +155,8 @@ class InfluencerExisting extends React.Component {
           </Modal.Header>
           <Modal.Body>
             <div>
-              <p>Save and share this code on your social media and with your friends</p>
-              <img src={this.state.qrUrl} alt="Your QR Code" />
-              <br />
+              <p className="text-center">Save and share this code on your social media and with your friends</p>
+              <img className="qr-codes" src={this.state.qrUrl} alt="QR Code" />
             </div>
           </Modal.Body>
         </Modal>

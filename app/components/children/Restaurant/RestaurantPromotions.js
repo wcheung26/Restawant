@@ -26,17 +26,16 @@ class RestaurantPromotions extends React.Component {
 
   render() {
     var active;
-		if (this.state.activePromotions.length === 0) {
-			active = (
-				<div className="panel-group">
-          <div className="panel panel-default">
-            <h4 className="panel-title">No active promotions.</h4>
-          </div>
+    if (this.state.activePromotions.length === 0) {
+      active = (
+        <div>
+          <p className="text-center">No active promotions</p>
+          <br />
         </div>
-			);
-		}
-		else {
-			active = ( 
+      );
+    }
+    else {
+      active = ( 
         <div className="panel-group" id="activePromotionAccordion">
           {this.state.activePromotions.map((activePromotion, i) => {
             return (
@@ -71,6 +70,7 @@ class RestaurantPromotions extends React.Component {
                     <table className="table">
                       <thead>
                         <tr className="info">
+                          <th></th>
                           <th>Influencer Name</th>
                           <th>Email</th>
                           <th>Scans</th>
@@ -83,6 +83,7 @@ class RestaurantPromotions extends React.Component {
                         {activePromotion.influencers.map((influencer, j) => {
                           return (
                             <tr key={influencer.id}>
+                              <td>{j + 1}</td>>
                               <td>{influencer.name}</td>
                               <td><a href={"mailto:" + influencer.email + "?Subject=Hello,%20" + influencer.name + "!"} target="_top">{influencer.email}</a></td>
                               <td>{influencer.discountScans}</td>
@@ -116,21 +117,20 @@ class RestaurantPromotions extends React.Component {
             );
           })}
         </div>
-			);
-		}
+      );
+    }
 
-		var past;
-		if (this.state.pastPromotions.length === 0) {
-			past = (
-				<div className="panel-group">
-          <div className="panel panel-default">
-            <h4 className="panel-title">No past promotions.</h4>
-          </div>
+    var past;
+    if (this.state.pastPromotions.length === 0) {
+      past = (
+        <div>
+          <p className="text-center">No active promotions</p>
+          <br />
         </div>
-			);
-		}
-		else {
-			past = (
+      );
+    }
+    else {
+      past = (
         <div className="panel-group" id="pastPromotionAccordion">
           {this.state.pastPromotions.map((pastPromotion, i) => {
             return (
@@ -210,7 +210,7 @@ class RestaurantPromotions extends React.Component {
             );
           })}
         </div>
-			);
+      );
     }
     
     return (

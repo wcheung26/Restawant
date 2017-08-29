@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 import ErrorMessage from "../ErrorMessage";
 
@@ -15,6 +16,18 @@ class AdminLogin extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    document.getElementById("background").style.backgroundColor = "#2f3238";
+    document.getElementById("background").style.position = "fixed";
+    document.getElementById("background").style.height = "100vh";
+  }
+
+  componentWillUnmount() {
+    document.getElementById("background").style.backgroundColor = null;
+    document.getElementById("background").style.position = null;
+    document.getElementById("background").style.height = null;
   }
 
   handleChange(event) {
@@ -72,17 +85,17 @@ class AdminLogin extends Component {
       <div>
         <div className="col-md-3"></div>
         <div className="col-md-6">
-          <h3>Admin Login</h3>
-          <form>
+          <h3 className="forms-header">Admin Login</h3>
+          <form className="forms">
             <div className="form-group">
-              <label htmlFor="email">Email Address</label>
               <input
                 type="email"
                 value={this.state.email}
                 className="form-control"
                 name="email"
-                placeholder="Email"
+                placeholder="&#xf0e0;   Email"
                 onChange={this.handleChange}
+                autoComplete="off"
                 required
               />
               { this.state.showEmailError ? 
@@ -91,14 +104,14 @@ class AdminLogin extends Component {
               }
             </div>
             <div className="form-group">
-              <label htmlFor="password">Password</label>
               <input
                 type="password"
                 value={this.state.password}
                 className="form-control"
                 name="password"
-                placeholder="Password"
+                placeholder="&#xf023;   Password"
                 onChange={this.handleChange}
+                autoComplete="off"
                 required
               />
               { this.state.showPasswordError ? 
@@ -106,7 +119,7 @@ class AdminLogin extends Component {
                 : null
               }
             </div>
-            <button type="submit" className="btn btn-default" onClick={this.handleSubmit}>Submit</button>
+            <button type="submit" className="btn btn-default forms-submit" onClick={this.handleSubmit}>Submit <i className="fa fa-angle-double-right" aria-hidden="true"></i></button>
           </form>
           { this.state.error ? (
               <ErrorMessage error={this.state.error} />
@@ -114,6 +127,9 @@ class AdminLogin extends Component {
               null
             )
           }
+          <div className="extra-action">
+            <p><Link to="/admin/signup">Admin Signup</Link></p>
+          </div> 
         </div>
         <div className="col-md-3"></div>
       </div>

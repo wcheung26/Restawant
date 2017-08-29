@@ -24,6 +24,7 @@ body {
 }
 
 .close {
+  color: #ffffff;
   opacity: 0.5;
 }
 
@@ -467,12 +468,37 @@ figure.effect-ming:hover img {
   text-decoration: none;
 }
 
-.view-promotions {
-  
+.view-promotions,
+.promote,
+.back-to-results {
+  background-color: #eee;
+  border-radius: 0px;
 }
 
+.back-to-results {
+  margin-top: 10px;
+}
 
+.view-promotions:hover,
+.promote:hover,
+.back-to-results:hover {
+  background-color: #2f3238;
+  color: #ffffff;
+}
 
+.qr-codes {
+  display: block;
+  margin: auto;
+}
+
+.modal-body h3 {
+  margin-top: 0px;
+}
+
+.table>tbody>tr>td,
+.table>tbody>tr>th {
+  vertical-align: middle;
+}
 
 /*.ribbon {
   margin-top: 20px;
